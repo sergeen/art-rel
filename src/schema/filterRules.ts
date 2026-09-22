@@ -186,3 +186,60 @@ export function isLinkVisible(
 
   return visibleNodeIds.has(sourceId) && visibleNodeIds.has(targetId);
 }
+
+/**
+ * Serializa los filtros de categoría del estado en memoria (Sets)
+ * a un objeto plano serializable en JSON (Arrays).
+ */
+export function serializeCategoryFilters(
+  filters: Record<string, Set<string>>
+): Record<string, string[]> {
+  const result: Record<string, string[]> = {};
+  for (const [key, values] of Object.entries(filters)) {
+    if (values && values.size > 0) {
+      result[key] = Array.from(values);
+    }
+  }
+  return result;
+}
+
+/**
+ * Deserializa y normaliza un objeto JSON o preset en el formato
+ * de filtros en memoria (Record<string, Set<string>>).
+ * Soporta tanto objetos directos `{ [categoria]: string[] }`
+ * como objetos estructurados `{ criteria: { ... } }`.
+ */
+export function deserializeCategoryFilters(
+  raw: unknown
+): Record<string, Set<string>> {
+  if (!raw || typeof raw !== 'object') {
+    return {};
+  }
+
+  // Si viene encapsulado en un objeto con propiedad 'criteria'
+  const source = (
+    'criteria' in (raw as Record<string, unknown>) &&
+    typeof (raw as Record<string, unknown>).criteria === 'object' &&
+    (raw as Record<string, unknown>).criteria !== null
+      ? (raw as Record<string, unknown>).criteria
+      : raw
+  ) as Record<string, unknown>;
+
+  const result: Record<string, Set<string>> = {};
+
+  for (const [key, val] of Object.entries(source)) {
+    if (Array.isArray(val)) {
+      const set = new Set<string>();
+      for (const item of val) {
+        if (typeof item === 'string' && item.trim().length > 0) {
+          set.add(item.toLowerCase().trim());
+        }
+      }
+      if (set.size > 0) {
+        result[key] = set;
+      }
+    }
+  }
+
+  return result;
+}

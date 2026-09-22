@@ -5,16 +5,24 @@ import {
   type FilterState,
   type PhysicsConfig,
   type VisualConfig,
+  type SavedCriteriaPreset,
   ACTOR_TYPE_META,
   DEFAULT_PHYSICS_CONFIG,
   DEFAULT_VISUAL_CONFIG,
   createDefaultFilterState,
+  loadStoredPhysicsConfig,
+  saveStoredPhysicsConfig,
+  loadStoredVisualConfig,
+  saveStoredVisualConfig,
+  loadStoredPresets,
+  saveStoredPresets,
 } from './schema';
 import { GraphEngine } from './renderer';
 import {
   DockBar,
   CategoryItem,
   Tabs,
+  CriteriaModal,
   READING_CATEGORIES,
 } from './components';
 import './App.css';
@@ -29,11 +37,15 @@ export default function App() {
   const [filters, setFilters] = useState<FilterState>(() => createDefaultFilterState());
   const [selectedActor, setSelectedActor] = useState<ActorSemantic | null>(null);
 
-  // Calibración de fuerzas físicas del grafo
-  const [physics, setPhysics] = useState<PhysicsConfig>(DEFAULT_PHYSICS_CONFIG);
+  // Calibración de fuerzas físicas del grafo (persistente en localStorage)
+  const [physics, setPhysics] = useState<PhysicsConfig>(() => loadStoredPhysicsConfig());
 
-  // Configuración visual (modo texto para artistas, tamaño tipográfico y atenuación)
-  const [visual, setVisual] = useState<VisualConfig>(DEFAULT_VISUAL_CONFIG);
+  // Configuración visual (persistente en localStorage)
+  const [visual, setVisual] = useState<VisualConfig>(() => loadStoredVisualConfig());
+
+  // Presets de criterios guardados localmente y estado del modal
+  const [savedPresets, setSavedPresets] = useState<SavedCriteriaPreset[]>(() => loadStoredPresets());
+  const [isCriteriaModalOpen, setIsCriteriaModalOpen] = useState(false);
 
   // Filtros sociológicos: valores seleccionados por categoría (pills activas)
   // Por defecto todo está deseleccionado
@@ -165,6 +177,7 @@ export default function App() {
     setPhysics((prev) => {
       const next = { ...prev, [key]: value };
       engineRef.current?.setPhysics({ [key]: value });
+      saveStoredPhysicsConfig(next);
       return next;
     });
   };
@@ -172,12 +185,14 @@ export default function App() {
   const handleResetPhysics = () => {
     setPhysics(DEFAULT_PHYSICS_CONFIG);
     engineRef.current?.setPhysics(DEFAULT_PHYSICS_CONFIG);
+    saveStoredPhysicsConfig(DEFAULT_PHYSICS_CONFIG);
   };
 
   const handleVisualChange = <K extends keyof VisualConfig>(key: K, value: VisualConfig[K]) => {
     setVisual((prev) => {
       const next = { ...prev, [key]: value };
       engineRef.current?.setVisualConfig({ [key]: value });
+      saveStoredVisualConfig(next);
       return next;
     });
   };
@@ -185,6 +200,33 @@ export default function App() {
   const handleResetVisual = () => {
     setVisual(DEFAULT_VISUAL_CONFIG);
     engineRef.current?.setVisualConfig(DEFAULT_VISUAL_CONFIG);
+    saveStoredVisualConfig(DEFAULT_VISUAL_CONFIG);
+  };
+
+  const handleSavePreset = (preset: SavedCriteriaPreset) => {
+    setSavedPresets((prev) => {
+      const next = [preset, ...prev.filter((p) => p.id !== preset.id)];
+      saveStoredPresets(next);
+      return next;
+    });
+  };
+
+  const handleDeletePreset = (id: string) => {
+    setSavedPresets((prev) => {
+      const next = prev.filter((p) => p.id !== id);
+      saveStoredPresets(next);
+      return next;
+    });
+  };
+
+  const handleApplyCriteria = (criteria: Record<string, Set<string>>) => {
+    setCategoryValueFilters(criteria);
+    // Expandir las categorías que tienen valores para que el usuario las visualice de inmediato
+    setExpandedCategories((prev) => {
+      const next = new Set(prev);
+      Object.keys(criteria).forEach((catId) => next.add(catId));
+      return next;
+    });
   };
 
   const resetCamera = () => {
@@ -475,6 +517,29 @@ export default function App() {
         <div className="sidebar-section">
           <div className="section-header">
             <span className="section-title">Criterios de Lectura</span>
+            <button
+              type="button"
+              className="criteria-manage-btn"
+              onClick={() => setIsCriteriaModalOpen(true)}
+              title="Guardar, exportar e importar criterios de lectura"
+              aria-label="Gestionar criterios de lectura"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
+              {savedPresets.length > 0 && (
+                <span className="criteria-manage-badge">{savedPresets.length}</span>
+              )}
+            </button>
           </div>
 
           <div className="categories-list">
@@ -666,6 +731,17 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Modal de Gestión de Criterios de Lectura */}
+      <CriteriaModal
+        isOpen={isCriteriaModalOpen}
+        onClose={() => setIsCriteriaModalOpen(false)}
+        currentCriteria={categoryValueFilters}
+        presets={savedPresets}
+        onApplyCriteria={handleApplyCriteria}
+        onSavePreset={handleSavePreset}
+        onDeletePreset={handleDeletePreset}
+      />
     </div>
   );
 }

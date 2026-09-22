@@ -139,5 +139,9 @@ export const DEFAULT_VISUAL_CONFIG: VisualConfig = {
   dimmedOpacity: 0.15,
 };
 
-
-
+export interface SavedCriteriaPreset {
+  id: string;
+  name: string;
+  createdAt: string;
+  criteria: Record<string, string[]>;
+}
