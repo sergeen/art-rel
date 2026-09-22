@@ -1,0 +1,168 @@
+/* =========================================================
+   COMPONENTE REUTILIZABLE: TABS
+   ========================================================= */
+
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Barra de navegación superior de las pestañas */
+.tabs-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 2px 8px 2px;
+  margin-bottom: 8px;
+}
+
+.tabs-nav-prefix,
+.tabs-nav-suffix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tabs-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Botón pestaña individual */
+.tab-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.tab-trigger:hover:not(:disabled) {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.tab-trigger.is-active {
+  color: #f8fafc;
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+}
+
+.tab-trigger.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tab-trigger-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+}
+
+.tab-trigger.is-active .tab-trigger-icon {
+  opacity: 1;
+  color: #818cf8;
+}
+
+.tab-trigger-badge {
+  font-size: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 9999px;
+  color: #cbd5e1;
+}
+
+/* Panel de contenido de la pestaña */
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Cabecera contextual interna de la pestaña (descripción a la izquierda, acciones a la derecha) */
+.tab-pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 2px 2px 6px 2px;
+}
+
+.tab-pane-description {
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+}
+
+.tab-pane-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tab-panel-body {
+  width: 100%;
+}
+
+/* Botones de acción reutilizables dentro de pestañas */
+.tab-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab-action-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Adaptación para pantallas estrechas / mobile */
+@media (max-width: 640px) {
+  .tab-pane-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .tab-pane-actions {
+    align-self: flex-end;
+  }
+}

@@ -12,6 +12,7 @@ import { GraphEngine } from './renderer';
 import {
   DockBar,
   CategoryItem,
+  Tabs,
   READING_CATEGORIES,
 } from './components';
 import './App.css';
@@ -171,106 +172,131 @@ export default function App() {
       {/* Capa 3: Lienzo del Grafo 3D */}
       <div ref={containerRef} className="graph-canvas" />
 
-      {/* Panel Superior Desplegable: Calibración Física del Grafo */}
+      {/* Panel Superior Desplegable: Barra de Herramientas y Configuración con Tabs */}
       <DockBar
         position="top"
         defaultCollapsed={true}
-        title="Física y Espaciado de la Red"
-        subtitle="Calibración de distancias mínimas, dispersión y gravedad central"
-        headerActions={
-          <button
-            type="button"
-            className="physics-reset-btn"
-            onClick={handleResetPhysics}
-            title="Restablecer valores predeterminados"
-          >
-            Restablecer
-          </button>
-        }
-        ariaLabel="Panel de calibración física del grafo"
+        ariaLabel="Panel de herramientas y configuración"
         className="physics-top-dock"
       >
-        <div className="physics-controls-grid">
-          {/* Slider 1: Distancia Mínima Anticolisión */}
-          <div className="physics-control-item">
-            <div className="physics-control-header">
-              <span className="physics-control-label">Distancia mínima (Colisión)</span>
-              <span className="physics-control-value">{physics.minDistance} px</span>
-            </div>
-            <input
-              type="range"
-              min="5"
-              max="60"
-              step="1"
-              value={physics.minDistance}
-              onChange={(e) => handlePhysicsChange('minDistance', Number(e.target.value))}
-              className="physics-slider"
-            />
-            <span className="physics-control-hint">
-              Espacio libre garantizado entre nodos para evitar solapamientos.
-            </span>
-          </div>
+        <Tabs
+          tabs={[
+            {
+              id: 'fisica',
+              label: 'Física de la red',
+              icon: (
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)" />
+                  <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)" />
+                </svg>
+              ),
+              description: 'Calibración de distancias mínimas, dispersión y gravedad central',
+              actions: (
+                <button
+                  type="button"
+                  className="tab-action-btn"
+                  onClick={handleResetPhysics}
+                  title="Restablecer valores predeterminados"
+                >
+                  Restablecer
+                </button>
+              ),
+              children: (
+                <div className="physics-controls-grid">
+                  {/* Slider 1: Distancia Mínima Anticolisión */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Distancia mínima (Colisión)</span>
+                      <span className="physics-control-value">{physics.minDistance} px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="5"
+                      max="60"
+                      step="1"
+                      value={physics.minDistance}
+                      onChange={(e) => handlePhysicsChange('minDistance', Number(e.target.value))}
+                      className="physics-slider"
+                    />
+                    <span className="physics-control-hint">
+                      Espacio libre garantizado entre nodos para evitar solapamientos.
+                    </span>
+                  </div>
 
-          {/* Slider 2: Cohesión Central (Gravedad) */}
-          <div className="physics-control-item">
-            <div className="physics-control-header">
-              <span className="physics-control-label">Cohesión central (Gravedad)</span>
-              <span className="physics-control-value">{physics.gravity.toFixed(3)}</span>
-            </div>
-            <input
-              type="range"
-              min="0.005"
-              max="0.100"
-              step="0.005"
-              value={physics.gravity}
-              onChange={(e) => handlePhysicsChange('gravity', Number(e.target.value))}
-              className="physics-slider"
-            />
-            <span className="physics-control-hint">
-              Mantiene a los nodos agrupados sin alejarse indefinidamente.
-            </span>
-          </div>
+                  {/* Slider 2: Cohesión Central (Gravedad) */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Cohesión central (Gravedad)</span>
+                      <span className="physics-control-value">{physics.gravity.toFixed(3)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.005"
+                      max="0.100"
+                      step="0.005"
+                      value={physics.gravity}
+                      onChange={(e) => handlePhysicsChange('gravity', Number(e.target.value))}
+                      className="physics-slider"
+                    />
+                    <span className="physics-control-hint">
+                      Mantiene a los nodos agrupados sin alejarse indefinidamente.
+                    </span>
+                  </div>
 
-          {/* Slider 3: Repulsión (Dispersión) */}
-          <div className="physics-control-item">
-            <div className="physics-control-header">
-              <span className="physics-control-label">Repulsión mutua</span>
-              <span className="physics-control-value">{physics.repulsion}</span>
-            </div>
-            <input
-              type="range"
-              min="10"
-              max="250"
-              step="5"
-              value={physics.repulsion}
-              onChange={(e) => handlePhysicsChange('repulsion', Number(e.target.value))}
-              className="physics-slider"
-            />
-            <span className="physics-control-hint">
-              Fuerza de separación entre nodos para abrir la constelación.
-            </span>
-          </div>
+                  {/* Slider 3: Repulsión (Dispersión) */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Repulsión mutua</span>
+                      <span className="physics-control-value">{physics.repulsion}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="250"
+                      step="5"
+                      value={physics.repulsion}
+                      onChange={(e) => handlePhysicsChange('repulsion', Number(e.target.value))}
+                      className="physics-slider"
+                    />
+                    <span className="physics-control-hint">
+                      Fuerza de separación entre nodos para abrir la constelación.
+                    </span>
+                  </div>
 
-          {/* Slider 4: Distancia de Vínculos con Criterios */}
-          <div className="physics-control-item">
-            <div className="physics-control-header">
-              <span className="physics-control-label">Distancia de criterios</span>
-              <span className="physics-control-value">{physics.linkDistance} px</span>
-            </div>
-            <input
-              type="range"
-              min="20"
-              max="140"
-              step="5"
-              value={physics.linkDistance}
-              onChange={(e) => handlePhysicsChange('linkDistance', Number(e.target.value))}
-              className="physics-slider"
-            />
-            <span className="physics-control-hint">
-              Distancia de atracción hacia los nodos de criterio verdes.
-            </span>
-          </div>
-        </div>
+                  {/* Slider 4: Distancia de Vínculos con Criterios */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Distancia de criterios</span>
+                      <span className="physics-control-value">{physics.linkDistance} px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="20"
+                      max="140"
+                      step="5"
+                      value={physics.linkDistance}
+                      onChange={(e) => handlePhysicsChange('linkDistance', Number(e.target.value))}
+                      className="physics-slider"
+                    />
+                    <span className="physics-control-hint">
+                      Distancia de atracción hacia los nodos de criterio verdes.
+                    </span>
+                  </div>
+                </div>
+              ),
+            },
+          ]}
+        />
       </DockBar>
 
       {/* Barra Lateral Reutilizable (en posición izquierda) */}
