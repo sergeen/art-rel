@@ -563,6 +563,19 @@ export default function App() {
               </>
             ) : (
               <>
+                {selectedActor.link_vapor && (
+                  <div className="info-card-link-vapor">
+                    <strong>Link VAPOR:</strong>{' '}
+                    <a
+                      href={selectedActor.link_vapor}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-vapor-url"
+                    >
+                      {selectedActor.link_vapor}
+                    </a>
+                  </div>
+                )}
                 {selectedActor.biografia && (
                   <div className="info-card-bio">
                     {selectedActor.biografia}

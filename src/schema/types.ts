@@ -22,6 +22,7 @@ export interface ActorSemantic {
   foco_adquisicion?: string;
   capacidad_inversion?: string;
 
+  link_vapor?: string;
   biografia?: string;
   anio_nacimiento?: number;
 
