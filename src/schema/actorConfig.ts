@@ -77,12 +77,13 @@ export function getActorLabel(actor: ActorSemantic): string {
 
   const detailLines: string[] = [];
   if (actor.disciplina) detailLines.push(`<div><em>${actor.disciplina}</em></div>`);
-  if (actor.practicas && actor.practicas.length > 0) detailLines.push(`<div><strong style="color:#a5b4fc">Prácticas:</strong> ${actor.practicas.join(', ')}</div>`);
-  if (actor.conceptos && actor.conceptos.length > 0) detailLines.push(`<div><strong style="color:#cbd5e1">Conceptos:</strong> ${actor.conceptos.join(', ')}</div>`);
+  if (actor.materiales && actor.materiales.length > 0) detailLines.push(`<div><strong style="color:#fda4af">Trabaja con:</strong> ${actor.materiales.join(', ')}</div>`);
+  if (actor.practicas && actor.practicas.length > 0) detailLines.push(`<div><strong style="color:#a5b4fc">Produce:</strong> ${actor.practicas.join(', ')}</div>`);
+  if (actor.conceptos && actor.conceptos.length > 0) detailLines.push(`<div><strong style="color:#cbd5e1">Indaga en:</strong> ${actor.conceptos.join(', ')}</div>`);
+  if (actor.galerias && actor.galerias.length > 0) detailLines.push(`<div><strong style="color:#38bdf8">Galerías:</strong> ${actor.galerias.join(', ')}</div>`);
   if (actor.instituciones && actor.instituciones.length > 0) detailLines.push(`<div><strong style="color:#fcd34d">Instituciones:</strong> ${actor.instituciones.join(', ')}</div>`);
-  if (actor.rol_campo) detailLines.push(`<div>Rol: ${actor.rol_campo}</div>`);
-  if (actor.campo_especialidad) detailLines.push(`<div>Área: ${actor.campo_especialidad}</div>`);
-  if (actor.foco_adquisicion) detailLines.push(`<div>Foco: ${actor.foco_adquisicion}</div>`);
+  if (actor.curadores && actor.curadores.length > 0) detailLines.push(`<div><strong style="color:#c084fc">Curadores:</strong> ${actor.curadores.join(', ')}</div>`);
+  if (actor.coleccionistas && actor.coleccionistas.length > 0) detailLines.push(`<div><strong style="color:#34d399">Fondos / Colecciones:</strong> ${actor.coleccionistas.join(', ')}</div>`);
   if (actor.ciudad || actor.pais) detailLines.push(`<div style="color:#64748b;font-size:11px;margin-top:2px;">${[actor.ciudad, actor.pais].filter(Boolean).join(' · ')}</div>`);
 
   return `

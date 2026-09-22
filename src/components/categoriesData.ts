@@ -6,53 +6,68 @@ export interface ReadingCategory {
 
 export const READING_CATEGORIES: ReadingCategory[] = [
   {
-    id: 'personas',
-    name: 'Personas',
-    description: 'Artistas, curadores, gestores, docentes, técnicos.',
+    id: 'materiales',
+    name: 'Trabaja con',
+    description: 'Materiales y medios utilizados en la producción de obra.',
   },
   {
     id: 'practicas',
-    name: 'Prácticas',
-    description: 'Pintura, dibujo, fotografía, performance, instalación, sonido, audiovisual, etc.',
-  },
-  {
-    id: 'materiales',
-    name: 'Materiales / medios',
-    description: 'Óleo, textil, metal, software, video, archivo, cuerpo, luz.',
+    name: 'Produce',
+    description: 'Disciplinas y lenguajes artísticos desarrollados.',
   },
   {
     id: 'conceptos',
-    name: 'Conceptos',
-    description: 'Territorio, cuerpo, memoria, identidad, naturaleza, género, archivo, tecnología.',
+    name: 'Indaga en',
+    description: 'Ejes temáticos, núcleos de investigación y preguntas teóricas.',
+  },
+  {
+    id: 'galerias',
+    name: 'Expone en galerías',
+    description: 'Galerías comerciales y espacios de mercado vinculados.',
   },
   {
     id: 'instituciones',
-    name: 'Instituciones',
-    description: 'Universidades, museos, galerías, fundaciones, espacios culturales.',
+    name: 'Vinculado a instituciones',
+    description: 'Museos, centros culturales y universidades asociadas.',
+  },
+  {
+    id: 'curadores',
+    name: 'Articulado con curadores y críticos',
+    description: 'Curadores, teóricos y críticos con los que ha trabajado.',
+  },
+  {
+    id: 'coleccionistas',
+    name: 'Apoyado por fondos y colecciones',
+    description: 'Fondos públicos, mecenazgo, becas y adquisiciones patrimoniales.',
   },
   {
     id: 'residencias',
-    name: 'Residencias / becas',
-    description: 'Programas que conectan personas e instituciones.',
+    name: 'Participó en residencias',
+    description: 'Programas de residencia, talleres y becas.',
   },
   {
     id: 'exhibiciones',
-    name: 'Exhibiciones / proyectos',
-    description: 'Muestras, festivales, salones, encuentros.',
+    name: 'Exhibió en',
+    description: 'Muestras, salones, bienales y encuentros.',
   },
   {
     id: 'geografias',
-    name: 'Geografías',
-    description: 'Córdoba, Buenos Aires, Rosario, Mendoza, internacional, etc.',
+    name: 'Radicado en',
+    description: 'Territorios, ciudades y regiones de actividad.',
   },
   {
     id: 'formacion',
-    name: 'Formación',
-    description: 'Dónde estudiaron, docentes, clínicas y programas.',
+    name: 'Se formó en',
+    description: 'Instituciones educativas, clínicas y talleres de formación.',
   },
   {
     id: 'circulacion',
-    name: 'Circulación',
-    description: 'Exposiciones, publicaciones, premios, residencias y colaboraciones.',
+    name: 'Circula en',
+    description: 'Circuitos y espacios de circulación de obra.',
+  },
+  {
+    id: 'personas',
+    name: 'Se desempeña como',
+    description: 'Roles desempeñados en el campo artístico.',
   },
 ];

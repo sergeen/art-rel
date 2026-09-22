@@ -11,21 +11,6 @@
   height: 100%;
 }
 
-/* Insignia de filtros activos en header de DockBar */
-.active-filter-badge {
-  display: inline-flex;
-  align-items: center;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 2px 7px;
-  border-radius: 9999px;
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-  border: 1px solid rgba(129, 140, 248, 0.35);
-}
-
 /* Buscador */
 .search-box {
   margin-bottom: 12px;
@@ -45,7 +30,7 @@
 }
 
 .search-input:focus {
-  border-color: #818cf8;
+  border-color: #f43f5e;
 }
 
 .search-input::placeholder {
@@ -73,60 +58,14 @@
   font-weight: 600;
 }
 
-.section-count {
-  font-size: 10px;
-  color: #64748b;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1px 6px;
-  border-radius: 9999px;
-}
-
 .categories-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   border-radius: 8px;
   background: rgba(15, 23, 42, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 4px;
-}
-
-/* Tags de filtro de tipo de actor */
-.filter-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.filter-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 9999px;
-  background: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
-  user-select: none;
-}
-
-.filter-tag:hover {
-  background: rgba(51, 65, 85, 0.7);
-}
-
-.filter-tag.inactive {
-  opacity: 0.4;
-  border-style: dashed;
-}
-
-.filter-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  padding: 5px;
 }
 
 /* Pie de la barra lateral con controles */

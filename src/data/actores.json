@@ -36,7 +36,10 @@
     ],
     "circulacion": [],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-ariana-beilis",
@@ -78,7 +81,10 @@
       "Salones nacionales"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-ayelen-mohaded",
@@ -134,7 +140,10 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-belen-ghiso",
@@ -155,7 +164,10 @@
     "formacion": [],
     "circulacion": [],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-chebo-roitter-pavez",
@@ -204,7 +216,10 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-constanza-chiappini",
@@ -258,7 +273,15 @@
       "Argentina"
     ],
     "trayectoria": "intermedia",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [],
+    "curadores": [
+      "Siu Lizaso"
+    ],
+    "coleccionistas": [
+      "FNA",
+      "Fondo Nacional de las Artes (FNA)"
+    ]
   },
   {
     "id": "art-ezequiel-lovrovich",
@@ -312,7 +335,15 @@
       "Noruega"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Guillermo Mena",
+      "Julia Rossetti / Látigx"
+    ],
+    "coleccionistas": [
+      "UNC (Universidad Nacional de Córdoba)"
+    ]
   },
   {
     "id": "art-facundo-diaz",
@@ -364,7 +395,10 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-franco-fasoli-jaz",
@@ -417,7 +451,13 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": [
+      "Fundación Konex",
+      "Guillermo Mena"
+    ]
   },
   {
     "id": "art-guillermo-mena",
@@ -477,7 +517,14 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Ezequiel Lovrovich"
+    ],
+    "coleccionistas": [
+      "Franco Fasoli / JAZ"
+    ]
   },
   {
     "id": "art-juan-jesus-conde",
@@ -517,7 +564,10 @@
       "regional"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-juan-tarraf",
@@ -569,7 +619,14 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [
+      "Galería Crudo"
+    ],
+    "curadores": [
+      "Mateo Valbuena González"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-julia-rossetti-latigx",
@@ -632,7 +689,12 @@
       "Asia"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Ezequiel Lovrovich"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-leandro-fernandez",
@@ -678,7 +740,10 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-luna-sudaca",
@@ -731,7 +796,12 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Soledad Manrique Goldsack"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-maria-arrastoa",
@@ -776,7 +846,10 @@
       "España"
     ],
     "trayectoria": "intermedia",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-martin-sensi",
@@ -828,7 +901,10 @@
       "Argentina"
     ],
     "trayectoria": "intermedia",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-mateo-valbuena-gonzalez",
@@ -870,7 +946,12 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Juan Tarraf"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-mauricio-chiappini",
@@ -904,7 +985,10 @@
       "Córdoba"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-milena-leczycki",
@@ -953,7 +1037,10 @@
       "Argentina"
     ],
     "trayectoria": "intermedia",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [],
+    "coleccionistas": []
   },
   {
     "id": "art-mora-martinez-broder",
@@ -993,7 +1080,14 @@
       "Córdoba"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Samantha Ferro"
+    ],
+    "coleccionistas": [
+      "UNC (Universidad Nacional de Córdoba)"
+    ]
   },
   {
     "id": "art-samantha-ferro",
@@ -1051,7 +1145,12 @@
       "internacional"
     ],
     "trayectoria": "consagrada",
-    "capital_simbolico": "medio"
+    "capital_simbolico": "medio",
+    "galerias": [],
+    "curadores": [
+      "Mora Martínez Broder"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-siu-lizaso",
@@ -1098,7 +1197,15 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [
+      "Mercado de Arte"
+    ],
+    "curadores": [
+      "Mercado de Arte Contemporáneo",
+      "Constanza Chiappini"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "art-soledad-manrique-goldsack",
@@ -1144,7 +1251,15 @@
       "Argentina"
     ],
     "trayectoria": "emergente",
-    "capital_simbolico": "alto"
+    "capital_simbolico": "alto",
+    "galerias": [
+      "arteBA"
+    ],
+    "curadores": [
+      "Museo de Arte Moderno (Museo Moderno)",
+      "Luna Sudaca"
+    ],
+    "coleccionistas": []
   },
   {
     "id": "inst-unc",

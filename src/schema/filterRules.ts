@@ -31,9 +31,11 @@ export function createDefaultFilterState(): FilterState {
 
 /**
  * Determina si un actor debe ser visible según las reglas del filtro activo.
+ * Solo se visualizan nodos de tipo 'artista'.
  */
 export function isActorVisible(actor: ActorSemantic, filters: FilterState): boolean {
-  if (!filters.activeActorTypes.has(actor.tipo)) {
+  // Limitar exclusivamente a nodos de tipo artista
+  if (actor.tipo !== 'artista') {
     return false;
   }
 
@@ -80,6 +82,9 @@ export function isActorVisible(actor: ActorSemantic, filters: FilterState): bool
       actor.materiales || [],
       actor.conceptos || [],
       actor.instituciones || [],
+      actor.galerias || [],
+      actor.curadores || [],
+      actor.coleccionistas || [],
       actor.residencias || [],
       actor.exhibiciones || [],
       actor.geografias || [],

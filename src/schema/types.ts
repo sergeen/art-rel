@@ -33,6 +33,9 @@ export interface ActorSemantic {
   geografias?: string[];
   formacion?: string[];
   circulacion?: string[];
+  galerias?: string[];
+  curadores?: string[];
+  coleccionistas?: string[];
 
   [key: string]: unknown;
 }
@@ -77,7 +80,7 @@ export interface LinkVisualProperties {
 }
 
 export interface FilterState {
-  activeActorTypes: Set<ActorTipo>;
+  activeActorTypes?: Set<ActorTipo>;
   activeLinkTypes: Set<RelacionTipo>;
   minAnio?: number;
   searchQuery?: string;

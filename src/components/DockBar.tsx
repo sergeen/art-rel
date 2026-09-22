@@ -101,28 +101,11 @@ export const DockBar: React.FC<DockBarProps> = ({
               {subtitle && <div className="dock-bar-subtitle">{subtitle}</div>}
             </div>
 
-            <div className="dock-bar-header-actions">
-              {headerActions}
-              <button
-                type="button"
-                className="dock-bar-close-btn"
-                onClick={handleToggle}
-                title={getToggleLabel()}
-                aria-label={getToggleLabel()}
-              >
-                <svg
-                  className="dock-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {getToggleIcon()}
-                </svg>
-              </button>
-            </div>
+            {headerActions && (
+              <div className="dock-bar-header-actions">
+                {headerActions}
+              </div>
+            )}
           </div>
         )}
 

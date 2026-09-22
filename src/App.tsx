@@ -3,7 +3,6 @@ import rawActores from './data/actores.json';
 import rawRelaciones from './data/relaciones.json';
 import {
   type ActorSemantic,
-  type ActorTipo,
   type FilterState,
   type RelacionSemantic,
   ACTOR_TYPE_META,
@@ -14,13 +13,12 @@ import {
   DockBar,
   CategoryItem,
   READING_CATEGORIES,
-  type CategoryValueCount,
-  type CategoryArtistRow,
 } from './components';
 import './App.css';
 
 const ACTORES = rawActores as unknown as ActorSemantic[];
 const RELACIONES = rawRelaciones as unknown as RelacionSemantic[];
+const ARTISTAS = ACTORES.filter((a) => a.tipo === 'artista');
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,49 +27,38 @@ export default function App() {
   const [filters, setFilters] = useState<FilterState>(() => createDefaultFilterState());
   const [selectedActor, setSelectedActor] = useState<ActorSemantic | null>(null);
 
-  // Filtros sociológicos: valores seleccionados por categoría
+  // Filtros sociológicos: valores seleccionados por categoría (pills activas)
+  // Por defecto todo está deseleccionado
   const [categoryValueFilters, setCategoryValueFilters] = useState<Record<string, Set<string>>>({});
-  // Filtros de categoría obligatoria (debe tener datos en esa categoría)
-  const [activeCategoriesOnly, setActiveCategoriesOnly] = useState<Set<string>>(new Set());
-  // Categorías expandidas en el acordeón
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['practicas']));
 
-  // Precomputar datos y frecuencias de cada una de las 10 categorías a partir de ACTORES
+  // Categorías expandidas en el acordeón (por defecto todas colapsadas)
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+
+  // Precomputar elementos únicos de cada categoría a partir de ARTISTAS
   const categoryDataMap = useMemo(() => {
-    const map = new Map<
-      string,
-      { valuesWithCount: CategoryValueCount[]; artistRows: CategoryArtistRow[] }
-    >();
+    const map = new Map<string, string[]>();
 
     for (const cat of READING_CATEGORIES) {
       const frequency = new Map<string, number>();
-      const artistRows: CategoryArtistRow[] = [];
 
-      for (const actor of ACTORES) {
+      for (const actor of ARTISTAS) {
         const rawVals = (actor as Record<string, unknown>)[cat.id];
         if (Array.isArray(rawVals) && rawVals.length > 0) {
-          const cleanVals: string[] = [];
           for (const v of rawVals) {
             if (typeof v === 'string' && v.trim().length > 0) {
               const trimmed = v.trim();
-              cleanVals.push(trimmed);
               frequency.set(trimmed, (frequency.get(trimmed) || 0) + 1);
             }
-          }
-          if (cleanVals.length > 0) {
-            artistRows.push({
-              artistName: actor.nombre,
-              values: cleanVals,
-            });
           }
         }
       }
 
-      const valuesWithCount: CategoryValueCount[] = Array.from(frequency.entries())
-        .map(([value, count]) => ({ value, count }))
-        .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+      // Ordenar términos por frecuencia (mayor uso primero) y luego alfabéticamente
+      const sortedValues = Array.from(frequency.entries())
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([value]) => value);
 
-      map.set(cat.id, { valuesWithCount, artistRows });
+      map.set(cat.id, sortedValues);
     }
 
     return map;
@@ -109,9 +96,8 @@ export default function App() {
     setFilters((prev) => ({
       ...prev,
       categoryFilters: categoryValueFilters,
-      activeCategoriesOnly: activeCategoriesOnly,
     }));
-  }, [categoryValueFilters, activeCategoriesOnly]);
+  }, [categoryValueFilters]);
 
   // Actualizar motor cuando cambie el estado de filtros
   useEffect(() => {
@@ -120,35 +106,7 @@ export default function App() {
     }
   }, [filters]);
 
-  // Alternar filtro de tipo de actor
-  const toggleActorType = (tipo: ActorTipo) => {
-    setFilters((prev) => {
-      const nextTypes = new Set(prev.activeActorTypes);
-      if (nextTypes.has(tipo)) {
-        if (nextTypes.size > 1) {
-          nextTypes.delete(tipo);
-        }
-      } else {
-        nextTypes.add(tipo);
-      }
-      return { ...prev, activeActorTypes: nextTypes };
-    });
-  };
-
-  // Alternar filtro global de categoría requerida
-  const toggleCategoryOnly = (categoryId: string) => {
-    setActiveCategoriesOnly((prev) => {
-      const next = new Set(prev);
-      if (next.has(categoryId)) {
-        next.delete(categoryId);
-      } else {
-        next.add(categoryId);
-      }
-      return next;
-    });
-  };
-
-  // Alternar selección de un término específico dentro de una categoría
+  // Alternar selección de una pill específica dentro de una categoría
   const toggleCategoryValue = (categoryId: string, value: string) => {
     const norm = value.toLowerCase().trim();
     setCategoryValueFilters((prev) => {
@@ -165,15 +123,6 @@ export default function App() {
       } else {
         next[categoryId] = currentSet;
       }
-      return next;
-    });
-  };
-
-  // Limpiar selección de términos para una categoría
-  const clearCategoryValues = (categoryId: string) => {
-    setCategoryValueFilters((prev) => {
-      const next = { ...prev };
-      delete next[categoryId];
       return next;
     });
   };
@@ -201,11 +150,6 @@ export default function App() {
     }
   };
 
-  // Cantidad total de filtros activos de categorías y valores
-  const totalActiveCategoryFilters =
-    activeCategoriesOnly.size +
-    Object.values(categoryValueFilters).reduce((acc, s) => acc + s.size, 0);
-
   return (
     <div className="app-container">
       {/* Capa 3: Lienzo del Grafo 3D */}
@@ -217,13 +161,6 @@ export default function App() {
         title="Art Rel"
         subtitle="Criterios de lectura de la red"
         ariaLabel="Criterios de lectura de la red"
-        headerActions={
-          totalActiveCategoryFilters > 0 && (
-            <span className="active-filter-badge" title="Filtros activos aplicados">
-              {totalActiveCategoryFilters} filtro{totalActiveCategoryFilters > 1 ? 's' : ''}
-            </span>
-          )
-        }
       >
         {/* Caja de Búsqueda */}
         <div className="search-box">
@@ -236,16 +173,15 @@ export default function App() {
           />
         </div>
 
-        {/* Sección de Categorías de Lectura con datos tabulares */}
+        {/* Sección de Categorías de Lectura con Pills */}
         <div className="sidebar-section">
           <div className="section-header">
             <span className="section-title">Criterios de Lectura</span>
-            <span className="section-count">{READING_CATEGORIES.length}</span>
           </div>
 
           <div className="categories-list">
             {READING_CATEGORIES.map((cat) => {
-              const data = categoryDataMap.get(cat.id);
+              const values = categoryDataMap.get(cat.id) || [];
               const selectedVals = categoryValueFilters[cat.id] || new Set();
 
               return (
@@ -253,42 +189,12 @@ export default function App() {
                   key={cat.id}
                   id={cat.id}
                   name={cat.name}
-                  description={cat.description}
-                  isFilterActive={activeCategoriesOnly.has(cat.id)}
                   isExpanded={expandedCategories.has(cat.id)}
-                  valuesWithCount={data?.valuesWithCount}
-                  artistRows={data?.artistRows}
+                  values={values}
                   selectedValues={selectedVals}
-                  onToggleFilter={() => toggleCategoryOnly(cat.id)}
                   onToggleExpand={() => toggleCategoryExpand(cat.id)}
                   onToggleValue={(val) => toggleCategoryValue(cat.id, val)}
-                  onClearValues={() => clearCategoryValues(cat.id)}
                 />
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Filtro Ontológico de Tipos de Actores */}
-        <div className="sidebar-section">
-          <div className="section-header">
-            <span className="section-title">Tipos de Actor</span>
-          </div>
-          <div className="filter-tags">
-            {(Object.keys(ACTOR_TYPE_META) as ActorTipo[]).map((tipo) => {
-              const meta = ACTOR_TYPE_META[tipo];
-              const isActive = filters.activeActorTypes.has(tipo);
-              return (
-                <button
-                  key={tipo}
-                  type="button"
-                  className={`filter-tag ${isActive ? 'active' : 'inactive'}`}
-                  onClick={() => toggleActorType(tipo)}
-                  title={meta.description}
-                >
-                  <span className="filter-dot" style={{ backgroundColor: meta.color }} />
-                  <span>{meta.label}</span>
-                </button>
               );
             })}
           </div>
@@ -309,7 +215,7 @@ export default function App() {
       {selectedActor && (
         <div className="info-card-floating">
           <div className="info-card-header-bar">
-            <span className="info-card-badge">Actor Seleccionado</span>
+            <span className="info-card-badge">Artista Seleccionado</span>
             <button
               type="button"
               className="info-card-close"
@@ -326,61 +232,78 @@ export default function App() {
             {selectedActor.nombre}
           </div>
           <div className="info-card-body">
-            <div>
-              <strong>Tipo:</strong> {ACTOR_TYPE_META[selectedActor.tipo]?.label || selectedActor.tipo}
-            </div>
-            {selectedActor.personas && selectedActor.personas.length > 0 && (
+            {selectedActor.disciplina && (
               <div>
-                <strong>Roles / Perfil:</strong> {selectedActor.personas.join(', ')}
-              </div>
-            )}
-            {selectedActor.practicas && selectedActor.practicas.length > 0 && (
-              <div>
-                <strong>Prácticas:</strong> {selectedActor.practicas.join(', ')}
+                <strong>Disciplina:</strong> {selectedActor.disciplina}
               </div>
             )}
             {selectedActor.materiales && selectedActor.materiales.length > 0 && (
               <div>
-                <strong>Materiales / Medios:</strong> {selectedActor.materiales.join(', ')}
+                <strong>Trabaja con:</strong> {selectedActor.materiales.join(', ')}
+              </div>
+            )}
+            {selectedActor.practicas && selectedActor.practicas.length > 0 && (
+              <div>
+                <strong>Produce:</strong> {selectedActor.practicas.join(', ')}
               </div>
             )}
             {selectedActor.conceptos && selectedActor.conceptos.length > 0 && (
               <div>
-                <strong>Conceptos:</strong> {selectedActor.conceptos.join(', ')}
+                <strong>Indaga en:</strong> {selectedActor.conceptos.join(', ')}
+              </div>
+            )}
+            {selectedActor.galerias && selectedActor.galerias.length > 0 && (
+              <div>
+                <strong>Expone en galerías:</strong> {selectedActor.galerias.join(', ')}
               </div>
             )}
             {selectedActor.instituciones && selectedActor.instituciones.length > 0 && (
               <div>
-                <strong>Instituciones:</strong> {selectedActor.instituciones.join(', ')}
+                <strong>Vinculado a instituciones:</strong> {selectedActor.instituciones.join(', ')}
+              </div>
+            )}
+            {selectedActor.curadores && selectedActor.curadores.length > 0 && (
+              <div>
+                <strong>Articulado con curadores y críticos:</strong> {selectedActor.curadores.join(', ')}
+              </div>
+            )}
+            {selectedActor.coleccionistas && selectedActor.coleccionistas.length > 0 && (
+              <div>
+                <strong>Apoyado por fondos y colecciones:</strong> {selectedActor.coleccionistas.join(', ')}
               </div>
             )}
             {selectedActor.residencias && selectedActor.residencias.length > 0 && (
               <div>
-                <strong>Residencias / Becas:</strong> {selectedActor.residencias.join(', ')}
+                <strong>Participó en residencias:</strong> {selectedActor.residencias.join(', ')}
               </div>
             )}
             {selectedActor.exhibiciones && selectedActor.exhibiciones.length > 0 && (
               <div>
-                <strong>Exhibiciones / Proyectos:</strong> {selectedActor.exhibiciones.join(', ')}
+                <strong>Exhibió en:</strong> {selectedActor.exhibiciones.join(', ')}
               </div>
             )}
             {selectedActor.geografias && selectedActor.geografias.length > 0 && (
               <div>
-                <strong>Geografías:</strong> {selectedActor.geografias.join(', ')}
+                <strong>Radicado en:</strong> {selectedActor.geografias.join(', ')}
               </div>
             )}
             {selectedActor.formacion && selectedActor.formacion.length > 0 && (
               <div>
-                <strong>Formación:</strong> {selectedActor.formacion.join(', ')}
+                <strong>Se formó en:</strong> {selectedActor.formacion.join(', ')}
               </div>
             )}
             {selectedActor.circulacion && selectedActor.circulacion.length > 0 && (
               <div>
-                <strong>Circulación:</strong> {selectedActor.circulacion.join(', ')}
+                <strong>Circula en:</strong> {selectedActor.circulacion.join(', ')}
+              </div>
+            )}
+            {selectedActor.personas && selectedActor.personas.length > 0 && (
+              <div>
+                <strong>Se desempeña como:</strong> {selectedActor.personas.join(', ')}
               </div>
             )}
             {(selectedActor.ciudad || selectedActor.pais) && (
-              <div style={{ marginTop: '4px', color: '#94a3b8', fontSize: '11px' }}>
+              <div style={{ marginTop: '6px', color: '#94a3b8', fontSize: '11px' }}>
                 📍 {[selectedActor.ciudad, selectedActor.pais].filter(Boolean).join(', ')}
               </div>
             )}
