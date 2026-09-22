@@ -8,6 +8,8 @@ Estudio sociológico de las relaciones en el mundo del arte mediante visualizaci
 - **Capa 2 (`src/schema/`)**: Reglas declarativas que mapean atributos semánticos a visuales (`actorConfig.ts`, `linkConfig.ts`, `filterRules.ts`).
 - **Capa 3 (`src/renderer/`)**: Motor agnóstico (`graphEngine.ts`) que ejecuta `3d-force-graph` siguiendo estrictamente el schema.
 
+Para más detalle sobre las directrices y reglas estrictas de cada capa, consulta [`AGENTS.md`](./AGENTS.md).
+
 ## Puesta a punto
 
 ```bash
