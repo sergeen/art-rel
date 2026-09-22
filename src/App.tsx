@@ -4,8 +4,10 @@ import {
   type ActorSemantic,
   type FilterState,
   type PhysicsConfig,
+  type VisualConfig,
   ACTOR_TYPE_META,
   DEFAULT_PHYSICS_CONFIG,
+  DEFAULT_VISUAL_CONFIG,
   createDefaultFilterState,
 } from './schema';
 import { GraphEngine } from './renderer';
@@ -29,6 +31,9 @@ export default function App() {
 
   // Calibración de fuerzas físicas del grafo
   const [physics, setPhysics] = useState<PhysicsConfig>(DEFAULT_PHYSICS_CONFIG);
+
+  // Configuración visual (modo texto para artistas, tamaño tipográfico y atenuación)
+  const [visual, setVisual] = useState<VisualConfig>(DEFAULT_VISUAL_CONFIG);
 
   // Filtros sociológicos: valores seleccionados por categoría (pills activas)
   // Por defecto todo está deseleccionado
@@ -74,6 +79,7 @@ export default function App() {
     const engine = new GraphEngine(containerRef.current, {
       backgroundColor: '#040508',
       physics,
+      visual,
       callbacks: {
         onNodeClick: (actor) => setSelectedActor(actor),
         onBackgroundClick: () => setSelectedActor(null),
@@ -94,6 +100,13 @@ export default function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Sincronizar selección de actor con el motor WebGL para atenuación
+  useEffect(() => {
+    if (engineRef.current) {
+      engineRef.current.setSelectedActor(selectedActor);
+    }
+  }, [selectedActor]);
 
   // Sincronizar filtros sociológicos con el estado de filtros del schema
   useEffect(() => {
@@ -159,6 +172,19 @@ export default function App() {
   const handleResetPhysics = () => {
     setPhysics(DEFAULT_PHYSICS_CONFIG);
     engineRef.current?.setPhysics(DEFAULT_PHYSICS_CONFIG);
+  };
+
+  const handleVisualChange = <K extends keyof VisualConfig>(key: K, value: VisualConfig[K]) => {
+    setVisual((prev) => {
+      const next = { ...prev, [key]: value };
+      engineRef.current?.setVisualConfig({ [key]: value });
+      return next;
+    });
+  };
+
+  const handleResetVisual = () => {
+    setVisual(DEFAULT_VISUAL_CONFIG);
+    engineRef.current?.setVisualConfig(DEFAULT_VISUAL_CONFIG);
   };
 
   const resetCamera = () => {
@@ -290,6 +316,134 @@ export default function App() {
                     />
                     <span className="physics-control-hint">
                       Distancia de atracción hacia los nodos de criterio verdes.
+                    </span>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              id: 'visualizacion',
+              label: 'Visualización',
+              icon: (
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              ),
+              description: 'Modo texto para artistas y criterios, escala tipográfica y atenuación de elementos no seleccionados',
+              actions: (
+                <button
+                  type="button"
+                  className="tab-action-btn"
+                  onClick={handleResetVisual}
+                  title="Restablecer valores visuales predeterminados"
+                >
+                  Restablecer
+                </button>
+              ),
+              children: (
+                <div className="physics-controls-grid">
+                  {/* Control 1: Mostrar nombres de artistas y criterios en modo texto */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Nodos en modo texto</span>
+                      <span
+                        className="physics-control-value"
+                        style={{
+                          color: visual.showArtistNames ? '#4ade80' : '#94a3b8',
+                          background: visual.showArtistNames
+                            ? 'rgba(34, 197, 94, 0.15)'
+                            : 'rgba(255, 255, 255, 0.05)',
+                        }}
+                      >
+                        {visual.showArtistNames ? 'Texto 3D' : 'Círculos'}
+                      </span>
+                    </div>
+                    <label className="toggle-checkbox-row">
+                      <input
+                        type="checkbox"
+                        checked={visual.showArtistNames}
+                        onChange={(e) => handleVisualChange('showArtistNames', e.target.checked)}
+                        className="custom-checkbox"
+                      />
+                      <span className="toggle-checkbox-text">
+                        Mostrar nombres y criterios en vez de círculos
+                      </span>
+                    </label>
+                    <span className="physics-control-hint">
+                      Artistas en rojo y criterios en verde en tipografía 3D; al pasar el cursor se aclaran ligeramente.
+                    </span>
+                  </div>
+
+                  {/* Control 2: Tamaño de texto */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Tamaño de texto en 3D</span>
+                      <span className="physics-control-value">{visual.artistFontSize} px</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <input
+                        type="range"
+                        min="9"
+                        max="26"
+                        step="1"
+                        value={visual.artistFontSize}
+                        onChange={(e) => handleVisualChange('artistFontSize', Number(e.target.value))}
+                        className="physics-slider"
+                        disabled={!visual.showArtistNames}
+                        style={{ flex: 1 }}
+                      />
+                      <input
+                        type="number"
+                        min="9"
+                        max="26"
+                        value={visual.artistFontSize}
+                        onChange={(e) =>
+                          handleVisualChange(
+                            'artistFontSize',
+                            Math.max(9, Math.min(26, Number(e.target.value) || 12))
+                          )
+                        }
+                        className="number-input-compact"
+                        disabled={!visual.showArtistNames}
+                        title="Tamaño en px"
+                      />
+                    </div>
+                    <span className="physics-control-hint">
+                      {visual.showArtistNames
+                        ? 'Escala tipográfica en el grafo 3D (criterios destacados en verde negrita).'
+                        : 'Disponible al activar el modo texto.'}
+                    </span>
+                  </div>
+
+                  {/* Control 3: Nivel de Opacidad de Atenuación */}
+                  <div className="physics-control-item">
+                    <div className="physics-control-header">
+                      <span className="physics-control-label">Opacidad de no seleccionados</span>
+                      <span className="physics-control-value">
+                        {Math.round(visual.dimmedOpacity * 100)}%
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.03"
+                      max="0.60"
+                      step="0.01"
+                      value={visual.dimmedOpacity}
+                      onChange={(e) => handleVisualChange('dimmedOpacity', Number(e.target.value))}
+                      className="physics-slider"
+                    />
+                    <span className="physics-control-hint">
+                      Nivel de transparencia aplicado a los nodos y vínculos no relacionados al hacer click.
                     </span>
                   </div>
                 </div>

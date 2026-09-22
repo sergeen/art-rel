@@ -112,6 +112,28 @@ export function getLinkColor(relacion: RelacionSemantic): string {
   return meta ? meta.color : 'rgba(255, 255, 255, 0.2)';
 }
 
+export function getLinkColorWithOpacity(relacion: RelacionSemantic, opacity: number): string {
+  const baseColor = getLinkColor(relacion);
+  if (baseColor.startsWith('rgba(')) {
+    return baseColor.replace(/[\d.]+\)$/, `${opacity})`);
+  }
+  if (baseColor.startsWith('rgb(')) {
+    return baseColor.replace('rgb(', 'rgba(').replace(')', `, ${opacity})`);
+  }
+  if (baseColor.startsWith('#')) {
+    let hex = baseColor.slice(1);
+    if (hex.length === 3) {
+      hex = hex.split('').map((c) => c + c).join('');
+    }
+    const num = parseInt(hex, 16);
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+  return `rgba(255, 255, 255, ${opacity})`;
+}
+
 export function getLinkWidth(relacion: RelacionSemantic): number {
   if (relacion.tipo === 'criterio_vinculo') {
     return 1.2;

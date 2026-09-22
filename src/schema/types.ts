@@ -126,4 +126,17 @@ export const DEFAULT_PHYSICS_CONFIG: PhysicsConfig = {
   linkDistance: 45,
 };
 
+export interface VisualConfig {
+  showArtistNames: boolean; // Mostrar nombres de artistas en vez de círculos rojos
+  artistFontSize: number;   // Tamaño del texto del artista (px)
+  dimmedOpacity: number;    // Nivel de opacidad para nodos y enlaces no seleccionados (0 a 1)
+}
+
+export const DEFAULT_VISUAL_CONFIG: VisualConfig = {
+  showArtistNames: false,
+  artistFontSize: 13,
+  dimmedOpacity: 0.15,
+};
+
+
 

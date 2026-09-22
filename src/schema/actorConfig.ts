@@ -47,6 +47,30 @@ export const ACTOR_TYPE_META: Record<
 };
 
 /**
+ * Convierte un color hex o rgb en formato rgba con la opacidad indicada.
+ */
+export function hexToRgba(colorStr: string, opacity: number): string {
+  if (colorStr.startsWith('rgba(')) {
+    return colorStr.replace(/[\d.]+\)$/, `${opacity})`);
+  }
+  if (colorStr.startsWith('rgb(')) {
+    return colorStr.replace('rgb(', 'rgba(').replace(')', `, ${opacity})`);
+  }
+  if (colorStr.startsWith('#')) {
+    let hex = colorStr.slice(1);
+    if (hex.length === 3) {
+      hex = hex.split('').map((c) => c + c).join('');
+    }
+    const num = parseInt(hex, 16);
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+  return colorStr;
+}
+
+/**
  * Regla de color para un actor: basada en su tipo sociológico.
  * Cualquier criterio se muestra en verde (#22c55e).
  */
@@ -56,6 +80,20 @@ export function getActorColor(actor: ActorSemantic): string {
   }
   const meta = ACTOR_TYPE_META[actor.tipo];
   return meta ? meta.color : '#94a3b8';
+}
+
+/**
+ * Color sutilmente modificado al colocar el cursor encima (hover).
+ * Para artistas se aclara hacia un tono coral rosado más luminoso.
+ */
+export function getActorHoverColor(actor: ActorSemantic): string {
+  if (actor.tipo === 'artista') {
+    return '#fda4af'; // Coral rosado sutilmente más claro y luminoso
+  }
+  if (actor.tipo === 'criterio') {
+    return '#86efac'; // Verde sutilmente más claro
+  }
+  return '#f1f5f9';
 }
 
 /**

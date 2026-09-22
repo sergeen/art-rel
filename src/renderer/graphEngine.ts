@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import ForceGraph3D, { type ForceGraph3DInstance } from '3d-force-graph';
 import { forceCollide, forceRadial } from 'd3-force-3d';
 import {
@@ -5,17 +6,22 @@ import {
   type FilterState,
   type PhysicsConfig,
   type RelacionSemantic,
+  type VisualConfig,
   DEFAULT_PHYSICS_CONFIG,
+  DEFAULT_VISUAL_CONFIG,
   buildGraphData,
   createDefaultFilterState,
   getActorColor,
+  getActorHoverColor,
   getActorLabel,
   getActorVal,
   getLinkColor,
+  getLinkColorWithOpacity,
   getLinkLabel,
   getLinkParticleSpeed,
   getLinkParticles,
   getLinkWidth,
+  hexToRgba,
 } from '../schema';
 
 export interface GraphEngineCallbacks {
@@ -29,6 +35,14 @@ export interface GraphEngineOptions {
   backgroundColor?: string;
   callbacks?: GraphEngineCallbacks;
   physics?: Partial<PhysicsConfig>;
+  visual?: Partial<VisualConfig>;
+}
+
+interface SpriteCacheEntry {
+  sprite: THREE.Sprite;
+  canvas: HTMLCanvasElement;
+  texture: THREE.CanvasTexture;
+  actor: ActorSemantic;
 }
 
 /**
@@ -44,7 +58,17 @@ export class GraphEngine {
   private activeLinksMap = new Map<string, RelacionSemantic>();
   private currentFilters: FilterState | null = null;
   private currentPhysics: PhysicsConfig;
+  private visualConfig: VisualConfig;
   private callbacks: GraphEngineCallbacks;
+
+  // Estado de selección y hover para atenuación / resaltado
+  private selectedActor: ActorSemantic | null = null;
+  private hoveredActor: ActorSemantic | null = null;
+  private highlightedNodeIds = new Set<string>();
+  private highlightedLinkKeys = new Set<string>();
+
+  // Caché de sprites Three.js para nombres de artistas y criterios
+  private textSprites = new Map<string, SpriteCacheEntry>();
 
   constructor(container: HTMLElement, options: GraphEngineOptions = {}) {
     this.container = container;
@@ -53,31 +77,54 @@ export class GraphEngine {
       ...DEFAULT_PHYSICS_CONFIG,
       ...options.physics,
     };
+    this.visualConfig = {
+      ...DEFAULT_VISUAL_CONFIG,
+      ...options.visual,
+    };
 
     // Inicializar instancia de 3d-force-graph
     this.graph = new ForceGraph3D(this.container)
       .backgroundColor(options.backgroundColor || '#040508')
       .nodeId('id')
-      // Delegar todas las propiedades estéticas y de escala al schema
-      .nodeColor((node: object) => getActorColor(node as ActorSemantic))
+      // Custom 3D object: Renderizado de texto para artistas y criterios
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .nodeThreeObject(this.createNodeThreeObjectAccessor() as any)
+      // Regla de color y opacidad por selección
+      .nodeColor((node: object) => this.getNodeRenderColor(node as ActorSemantic))
       .nodeVal((node: object) => getActorVal(node as ActorSemantic))
-      .nodeLabel((node: object) => getActorLabel(node as ActorSemantic))
+      .nodeLabel((node: object) => {
+        const actor = node as ActorSemantic;
+        // Cuando el modo texto está activo para artistas y criterios, se oculta el popup informativo
+        if (
+          this.visualConfig.showArtistNames &&
+          (actor.tipo === 'artista' || actor.tipo === 'criterio')
+        ) {
+          return '';
+        }
+        return getActorLabel(actor);
+      })
       .nodeResolution(24)
-      .linkColor((link: object) => getLinkColor(link as RelacionSemantic))
-      .linkWidth((link: object) => getLinkWidth(link as RelacionSemantic))
+      // Vínculos con soporte de atenuación según selección
+      .linkColor((link: object) => this.getLinkRenderColor(link as RelacionSemantic))
+      .linkWidth((link: object) => this.getLinkRenderWidth(link as RelacionSemantic))
       .linkLabel((link: object) => getLinkLabel(link as RelacionSemantic))
-      .linkDirectionalParticles((link: object) => getLinkParticles(link as RelacionSemantic))
+      .linkDirectionalParticles((link: object) => this.getLinkRenderParticles(link as RelacionSemantic))
       .linkDirectionalParticleSpeed((link: object) => getLinkParticleSpeed(link as RelacionSemantic))
       .linkDirectionalParticleWidth(1.6)
       // Eventos de interacción
       .onNodeClick((node: object) => {
+        const actor = node as ActorSemantic;
+        this.setSelectedActor(actor);
         if (this.callbacks.onNodeClick) {
-          this.callbacks.onNodeClick(node as ActorSemantic);
+          this.callbacks.onNodeClick(actor);
         }
       })
       .onNodeHover((node: object | null) => {
+        const actor = node ? (node as ActorSemantic) : null;
+        this.hoveredActor = actor;
+        this.updateHoverStates();
         if (this.callbacks.onNodeHover) {
-          this.callbacks.onNodeHover(node ? (node as ActorSemantic) : null);
+          this.callbacks.onNodeHover(actor);
         }
       })
       .onLinkClick((link: object) => {
@@ -86,6 +133,7 @@ export class GraphEngine {
         }
       })
       .onBackgroundClick(() => {
+        this.setSelectedActor(null);
         if (this.callbacks.onBackgroundClick) {
           this.callbacks.onBackgroundClick();
         }
@@ -93,6 +141,360 @@ export class GraphEngine {
 
     // Configurar fuerzas físicas iniciales
     this.applyPhysicsForces();
+  }
+
+  /**
+   * Helper para obtener el ID de un extremo de enlace de forma homogénea.
+   */
+  private getLinkId(nodeOrId: unknown): string {
+    if (!nodeOrId) return '';
+    if (typeof nodeOrId === 'object' && 'id' in (nodeOrId as Record<string, unknown>)) {
+      return String((nodeOrId as { id: unknown }).id);
+    }
+    return String(nodeOrId);
+  }
+
+  /**
+   * Recalcula los conjuntos de nodos y enlaces conectados al elemento seleccionado.
+   */
+  private recomputeHighlightedSets(): void {
+    this.highlightedNodeIds.clear();
+    this.highlightedLinkKeys.clear();
+
+    const selectedId = this.selectedActor?.id || null;
+    if (!selectedId) return;
+
+    this.highlightedNodeIds.add(selectedId);
+    const links = (this.graph.graphData().links || []) as Array<{
+      source: unknown;
+      target: unknown;
+      tipo: string;
+    }>;
+
+    for (const link of links) {
+      const sId = this.getLinkId(link.source);
+      const tId = this.getLinkId(link.target);
+      const key = `${sId}__${tId}__${link.tipo}`;
+
+      if (sId === selectedId) {
+        this.highlightedNodeIds.add(tId);
+        this.highlightedLinkKeys.add(key);
+      } else if (tId === selectedId) {
+        this.highlightedNodeIds.add(sId);
+        this.highlightedLinkKeys.add(key);
+      }
+    }
+  }
+
+  /**
+   * Crea un accessor nuevo para nodeThreeObject para forzar refresco en ThreeForceGraph.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private createNodeThreeObjectAccessor(): (nodeObj: object) => any {
+    return (nodeObj: object) => {
+      const node = nodeObj as ActorSemantic;
+      if (
+        this.visualConfig.showArtistNames &&
+        (node.tipo === 'artista' || node.tipo === 'criterio')
+      ) {
+        return this.getOrCreateTextSprite(node);
+      }
+      return undefined;
+    };
+  }
+
+  /**
+   * Obtiene o crea un sprite 3D optimizado con el nombre del nodo.
+   */
+  private getOrCreateTextSprite(node: ActorSemantic): THREE.Sprite {
+    let entry = this.textSprites.get(node.id);
+    if (!entry) {
+      entry = this.createTextSprite(node);
+      this.textSprites.set(node.id, entry);
+    } else {
+      entry.actor = node;
+    }
+    this.syncSingleSpriteVisuals(node.id, entry);
+    return entry.sprite;
+  }
+
+  /**
+   * Crea el sprite Three.js con textura en Canvas de alta resolución.
+   */
+  private createTextSprite(actor: ActorSemantic): SpriteCacheEntry {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+
+    // Factor de nitidez Retina / Hi-DPI
+    const dpr = 3;
+    const isCriterio = actor.tipo === 'criterio';
+    const baseFontSize = Math.max(this.visualConfig.artistFontSize, 10);
+    const scaledSize = isCriterio ? Math.round(baseFontSize * 1.15) : baseFontSize;
+    const fontPx = scaledSize * dpr;
+    const fontWeight = isCriterio ? '700' : '600';
+
+    ctx.font = `${fontWeight} ${fontPx}px system-ui, -apple-system, sans-serif`;
+    const metrics = ctx.measureText(actor.nombre);
+    const textWidth = Math.ceil(metrics.width);
+    const textHeight = Math.ceil(fontPx * 1.35);
+
+    canvas.width = textWidth + 24 * dpr;
+    canvas.height = textHeight + 12 * dpr;
+
+    // Reasignar tras redimensionar el lienzo
+    ctx.font = `${fontWeight} ${fontPx}px system-ui, -apple-system, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Sombra sutil para legibilidad sobre el fondo negro espacial
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.shadowBlur = 5 * dpr;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(actor.nombre, canvas.width / 2, canvas.height / 2);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+    texture.generateMipmaps = false;
+
+    const material = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 1.0,
+      depthWrite: false,
+    });
+
+    // Color según tipo: artistas en rojo, criterios en verde
+    material.color.setStyle(getActorColor(actor));
+
+    const sprite = new THREE.Sprite(material);
+    const aspect = canvas.width / canvas.height;
+    const worldHeight = scaledSize * 0.72;
+    const worldWidth = worldHeight * aspect;
+    sprite.scale.set(worldWidth, worldHeight, 1);
+
+    return { sprite, canvas, texture, actor };
+  }
+
+  /**
+   * Sincroniza opacidad y color de un sprite específico.
+   */
+  private syncSingleSpriteVisuals(nodeId: string, entry: SpriteCacheEntry): void {
+    const selectedId = this.selectedActor?.id || null;
+    const isHovered = this.hoveredActor?.id === nodeId;
+
+    // Opacidad según selección
+    let opacity = 1.0;
+    if (selectedId !== null) {
+      const isConnected = this.highlightedNodeIds.has(nodeId);
+      opacity = isConnected ? 1.0 : this.visualConfig.dimmedOpacity;
+    }
+    entry.sprite.material.opacity = opacity;
+
+    // Color según tipo y estado de hover
+    if (isHovered) {
+      entry.sprite.material.color.setStyle(getActorHoverColor(entry.actor));
+    } else {
+      entry.sprite.material.color.setStyle(getActorColor(entry.actor));
+    }
+
+    entry.sprite.material.needsUpdate = true;
+  }
+
+  /**
+   * Actualiza la escala geométrica de todos los sprites de texto.
+   */
+  private updateSpriteScales(): void {
+    for (const entry of this.textSprites.values()) {
+      const aspect = entry.canvas.width / entry.canvas.height;
+      const isCriterio = entry.actor.tipo === 'criterio';
+      const baseFontSize = Math.max(this.visualConfig.artistFontSize, 10);
+      const scaledSize = isCriterio ? Math.round(baseFontSize * 1.15) : baseFontSize;
+      const worldHeight = scaledSize * 0.72;
+      const worldWidth = worldHeight * aspect;
+      entry.sprite.scale.set(worldWidth, worldHeight, 1);
+    }
+  }
+
+  /**
+   * Actualización liviana y en tiempo real del estado de hover (sin recrear escena).
+   */
+  private updateHoverStates(): void {
+    const hoveredId = this.hoveredActor?.id || null;
+
+    // Actualizar sprites de texto
+    for (const [nodeId, entry] of this.textSprites.entries()) {
+      const isHovered = hoveredId === nodeId;
+      if (isHovered) {
+        entry.sprite.material.color.setStyle(getActorHoverColor(entry.actor));
+      } else {
+        entry.sprite.material.color.setStyle(getActorColor(entry.actor));
+      }
+      entry.sprite.material.needsUpdate = true;
+    }
+
+    // Actualizar color de nodos estándar si no están en modo texto
+    if (!this.visualConfig.showArtistNames) {
+      this.graph.nodeColor(this.graph.nodeColor());
+    }
+  }
+
+  /**
+   * Actualiza todos los estilos visuales (opacidad, colores y grosores) en la escena WebGL.
+   */
+  private updateVisualStyles(): void {
+    // 1. Sincronizar todos los sprites existentes
+    for (const [nodeId, entry] of this.textSprites.entries()) {
+      this.syncSingleSpriteVisuals(nodeId, entry);
+    }
+
+    // 2. Disparar reevaluación de los accessors de 3d-force-graph
+    this.graph
+      .nodeColor(this.graph.nodeColor())
+      .linkColor(this.graph.linkColor())
+      .linkWidth(this.graph.linkWidth())
+      .linkDirectionalParticles(this.graph.linkDirectionalParticles());
+  }
+
+  /**
+   * Obtiene el color de renderizado para un nodo esfera según el estado de selección.
+   */
+  private getNodeRenderColor(actor: ActorSemantic): string {
+    const selectedId = this.selectedActor?.id || null;
+    const isHovered = this.hoveredActor?.id === actor.id;
+
+    let baseColor = getActorColor(actor);
+    if (isHovered) {
+      baseColor = getActorHoverColor(actor);
+    }
+
+    if (selectedId === null) {
+      return baseColor;
+    }
+
+    const isConnected = this.highlightedNodeIds.has(actor.id);
+    if (isConnected) {
+      return baseColor;
+    }
+
+    return hexToRgba(baseColor, this.visualConfig.dimmedOpacity);
+  }
+
+  /**
+   * Obtiene el color de renderizado de un enlace según el estado de selección.
+   */
+  private getLinkRenderColor(link: RelacionSemantic): string {
+    const selectedId = this.selectedActor?.id || null;
+    const baseColor = getLinkColor(link);
+
+    if (selectedId === null) {
+      return baseColor;
+    }
+
+    const sId = this.getLinkId(link.source);
+    const tId = this.getLinkId(link.target);
+    const key = `${sId}__${tId}__${link.tipo}`;
+
+    if (this.highlightedLinkKeys.has(key)) {
+      return baseColor;
+    }
+
+    const dimmedAlpha = Math.max(this.visualConfig.dimmedOpacity * 0.35, 0.02);
+    return getLinkColorWithOpacity(link, dimmedAlpha);
+  }
+
+  /**
+   * Obtiene el grosor de renderizado de un enlace según el estado de selección.
+   */
+  private getLinkRenderWidth(link: RelacionSemantic): number {
+    const selectedId = this.selectedActor?.id || null;
+    const baseWidth = getLinkWidth(link);
+
+    if (selectedId === null) {
+      return baseWidth;
+    }
+
+    const sId = this.getLinkId(link.source);
+    const tId = this.getLinkId(link.target);
+    const key = `${sId}__${tId}__${link.tipo}`;
+
+    if (this.highlightedLinkKeys.has(key)) {
+      return Math.max(baseWidth * 1.5, 2.0);
+    }
+
+    return 0.4;
+  }
+
+  /**
+   * Obtiene las partículas activas de un enlace según el estado de selección.
+   */
+  private getLinkRenderParticles(link: RelacionSemantic): number {
+    const selectedId = this.selectedActor?.id || null;
+    const baseParticles = getLinkParticles(link);
+
+    if (selectedId === null) {
+      return baseParticles;
+    }
+
+    const sId = this.getLinkId(link.source);
+    const tId = this.getLinkId(link.target);
+    const key = `${sId}__${tId}__${link.tipo}`;
+
+    if (this.highlightedLinkKeys.has(key)) {
+      return Math.max(baseParticles, 2);
+    }
+
+    return 0;
+  }
+
+  /**
+   * Establece el actor o criterio actualmente seleccionado.
+   * Si es null, todos los nodos recuperan su opacidad normal.
+   */
+  public setSelectedActor(actor: ActorSemantic | null): void {
+    this.selectedActor = actor;
+    this.recomputeHighlightedSets();
+    this.updateVisualStyles();
+  }
+
+  /**
+   * Obtiene el actor seleccionado actual.
+   */
+  public getSelectedActor(): ActorSemantic | null {
+    return this.selectedActor;
+  }
+
+  /**
+   * Actualiza la configuración visual (modo texto, tamaño de tipografía, atenuación).
+   */
+  public setVisualConfig(config: Partial<VisualConfig>): void {
+    const prevShowNames = this.visualConfig.showArtistNames;
+    const prevFontSize = this.visualConfig.artistFontSize;
+
+    this.visualConfig = {
+      ...this.visualConfig,
+      ...config,
+    };
+
+    // Si se alternó el modo de texto, reconstruir los objetos 3D de los nodos
+    if (config.showArtistNames !== undefined && config.showArtistNames !== prevShowNames) {
+      this.textSprites.clear();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.graph.nodeThreeObject(this.createNodeThreeObjectAccessor() as any);
+    }
+
+    // Si cambió el tamaño tipográfico, reescalar sprites existentes
+    if (config.artistFontSize !== undefined && config.artistFontSize !== prevFontSize) {
+      this.updateSpriteScales();
+    }
+
+    this.updateVisualStyles();
+  }
+
+  /**
+   * Obtiene la configuración visual actual.
+   */
+  public getVisualConfig(): VisualConfig {
+    return { ...this.visualConfig };
   }
 
   /**
@@ -158,10 +560,10 @@ export class GraphEngine {
    * Carga o actualiza los datos del modelo (Capa 1: Data)
    */
   public setData(actores: ActorSemantic[], _relaciones?: RelacionSemantic[]): void {
-    // Clonación superficial para evitar mutaciones directas de los JSONs originales
     this.rawActors = [...actores];
     this.activeNodesMap.clear();
     this.activeLinksMap.clear();
+    this.textSprites.clear();
     this.render();
   }
 
@@ -183,8 +585,6 @@ export class GraphEngine {
     const { nodes, links } = buildGraphData(this.rawActors, filters);
 
     // 1. Reconciliación diferencial de nodos:
-    // Preserva la identidad de los objetos existentes para no destruir sus mallas Three.js
-    // ni reiniciar sus coordenadas (x, y, z) en la simulación física.
     const reconciledNodes: ActorSemantic[] = nodes.map((node) => {
       const existing = this.activeNodesMap.get(node.id);
       if (existing) {
@@ -234,11 +634,12 @@ export class GraphEngine {
       return node;
     });
 
-    // Limpiar nodos deseleccionados de la memoria activa
+    // Limpiar nodos deseleccionados de la memoria activa y caché de sprites
     const activeNodeIds = new Set(reconciledNodes.map((n) => n.id));
     for (const id of this.activeNodesMap.keys()) {
       if (!activeNodeIds.has(id)) {
         this.activeNodesMap.delete(id);
+        this.textSprites.delete(id);
       }
     }
 
@@ -285,6 +686,10 @@ export class GraphEngine {
       nodes: reconciledNodes,
       links: reconciledLinks,
     });
+
+    // Recalcular selección si existe un actor seleccionado actualmente
+    this.recomputeHighlightedSets();
+    this.updateVisualStyles();
   }
 
   /**
@@ -308,6 +713,7 @@ export class GraphEngine {
    * Libera recursos WebGL y listeners de la escena
    */
   public destroy(): void {
+    this.textSprites.clear();
     this.graph._destructor();
   }
 }
