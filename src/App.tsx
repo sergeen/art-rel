@@ -6,9 +6,12 @@ import {
   type PhysicsConfig,
   type VisualConfig,
   type SavedCriteriaPreset,
+  type SearchConfig,
   ACTOR_TYPE_META,
   DEFAULT_PHYSICS_CONFIG,
   DEFAULT_VISUAL_CONFIG,
+  getSearchStrategy,
+  filterCriteriaBySearch,
   createDefaultFilterState,
   loadStoredPhysicsConfig,
   saveStoredPhysicsConfig,
@@ -16,6 +19,8 @@ import {
   saveStoredVisualConfig,
   loadStoredPresets,
   saveStoredPresets,
+  loadStoredSearchConfig,
+  saveStoredSearchConfig,
 } from './schema';
 import { GraphEngine } from './renderer';
 import {
@@ -23,6 +28,7 @@ import {
   CategoryItem,
   Tabs,
   CriteriaModal,
+  SearchMechanismModal,
   READING_CATEGORIES,
 } from './components';
 import './App.css';
@@ -54,6 +60,16 @@ export default function App() {
   // Categorías expandidas en el acordeón (por defecto todas colapsadas)
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
+  // Configuración del mecanismo de búsqueda de criterios (persistente en localStorage)
+  const [searchConfig, setSearchConfig] = useState<SearchConfig>(() => loadStoredSearchConfig());
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  // Consulta de texto en la barra de criterios (expone criterios sin filtrar directamente el grafo)
+  const [criteriaSearchQuery, setCriteriaSearchQuery] = useState('');
+
+  // Categorías colapsadas manualmente por el usuario mientras hay una búsqueda activa
+  const [searchCollapsedCategories, setSearchCollapsedCategories] = useState<Set<string>>(new Set());
+
   // Precomputar elementos únicos de cada categoría a partir de ARTISTAS
   const categoryDataMap = useMemo(() => {
     const map = new Map<string, string[]>();
@@ -83,6 +99,21 @@ export default function App() {
 
     return map;
   }, []);
+
+  // Filtrado reactivo de criterios según la consulta y el mecanismo de búsqueda configurado
+  const searchResult = useMemo(() => {
+    return filterCriteriaBySearch(
+      categoryDataMap,
+      READING_CATEGORIES,
+      criteriaSearchQuery,
+      searchConfig
+    );
+  }, [categoryDataMap, criteriaSearchQuery, searchConfig]);
+
+  // Estrategia de búsqueda activa actualmente
+  const currentStrategy = useMemo(() => {
+    return getSearchStrategy(searchConfig.mechanismId);
+  }, [searchConfig.mechanismId]);
 
   // Inicializar motor en la Capa 3 montando datos de Capa 1 y reglas de Capa 2
   useEffect(() => {
@@ -156,21 +187,34 @@ export default function App() {
     });
   };
 
-  // Alternar expansión del acordeón de una categoría
+  // Alternar expansión del acordeón de una categoría (respetando si hay una búsqueda activa)
   const toggleCategoryExpand = (categoryId: string) => {
-    setExpandedCategories((prev) => {
-      const next = new Set(prev);
-      if (next.has(categoryId)) {
-        next.delete(categoryId);
-      } else {
-        next.add(categoryId);
-      }
-      return next;
-    });
+    if (searchResult.hasQuery) {
+      setSearchCollapsedCategories((prev) => {
+        const next = new Set(prev);
+        if (next.has(categoryId)) {
+          next.delete(categoryId);
+        } else {
+          next.add(categoryId);
+        }
+        return next;
+      });
+    } else {
+      setExpandedCategories((prev) => {
+        const next = new Set(prev);
+        if (next.has(categoryId)) {
+          next.delete(categoryId);
+        } else {
+          next.add(categoryId);
+        }
+        return next;
+      });
+    }
   };
 
-  const handleSearchChange = (query: string) => {
-    setFilters((prev) => ({ ...prev, searchQuery: query }));
+  const handleSearchConfigChange = (newConfig: SearchConfig) => {
+    setSearchConfig(newConfig);
+    saveStoredSearchConfig(newConfig);
   };
 
   const handlePhysicsChange = <K extends keyof PhysicsConfig>(key: K, value: number) => {
@@ -502,15 +546,89 @@ export default function App() {
         subtitle="Criterios de lectura de la red"
         ariaLabel="Criterios de lectura de la red"
       >
-        {/* Caja de Búsqueda */}
+        {/* Caja de Búsqueda de Criterios con Selector de Mecanismos */}
         <div className="search-box">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Buscar por artista, práctica, concepto o ciudad..."
-            value={filters.searchQuery || ''}
-            onChange={(e) => handleSearchChange(e.target.value)}
-          />
+          <div className="search-input-wrapper">
+            <span className="search-input-prefix">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Buscar criterios (ej. papel, cuerpo)..."
+              value={criteriaSearchQuery}
+              onChange={(e) => {
+                setCriteriaSearchQuery(e.target.value);
+                setSearchCollapsedCategories(new Set());
+              }}
+            />
+            <div className="search-input-actions">
+              {criteriaSearchQuery && (
+                <button
+                  type="button"
+                  className="search-clear-btn"
+                  onClick={() => setCriteriaSearchQuery('')}
+                  title="Limpiar búsqueda"
+                  aria-label="Limpiar búsqueda"
+                >
+                  ✕
+                </button>
+              )}
+              <button
+                type="button"
+                className={`search-settings-btn ${searchConfig.mechanismId !== 'contains' ? 'is-customized' : ''}`}
+                onClick={() => setIsSearchModalOpen(true)}
+                title={`Mecanismo: ${currentStrategy.name}. Clic para cambiar o calibrar.`}
+                aria-label="Configurar mecanismo de búsqueda de criterios"
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
+                </svg>
+                {searchConfig.mechanismId === 'levenshtein' && (
+                  <span
+                    className="search-settings-indicator"
+                    title={`Levenshtein (${searchConfig.levenshtein.maxDistance})`}
+                  >
+                    L
+                  </span>
+                )}
+                {searchConfig.mechanismId === 'exact' && (
+                  <span className="search-settings-indicator" title="Exacto">
+                    E
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Sección de Categorías de Lectura con Pills */}
@@ -542,25 +660,90 @@ export default function App() {
             </button>
           </div>
 
-          <div className="categories-list">
-            {READING_CATEGORIES.map((cat) => {
-              const values = categoryDataMap.get(cat.id) || [];
-              const selectedVals = categoryValueFilters[cat.id] || new Set();
+          {/* Resumen de resultados durante búsqueda activa */}
+          {searchResult.hasQuery && searchResult.totalMatches > 0 && (
+            <div className="criteria-search-status">
+              <span>
+                {searchResult.totalMatches}{' '}
+                {searchResult.totalMatches === 1 ? 'criterio coincidente' : 'criterios coincidentes'} en{' '}
+                {searchResult.categories.length}{' '}
+                {searchResult.categories.length === 1 ? 'categoría' : 'categorías'}
+              </span>
+              <button
+                type="button"
+                className="criteria-search-status-clear"
+                onClick={() => setCriteriaSearchQuery('')}
+              >
+                Ver todos
+              </button>
+            </div>
+          )}
 
-              return (
-                <CategoryItem
-                  key={cat.id}
-                  id={cat.id}
-                  name={cat.name}
-                  isExpanded={expandedCategories.has(cat.id)}
-                  values={values}
-                  selectedValues={selectedVals}
-                  onToggleExpand={() => toggleCategoryExpand(cat.id)}
-                  onToggleValue={(val) => toggleCategoryValue(cat.id, val)}
-                />
-              );
-            })}
-          </div>
+          {/* Empty State si no hay ningún criterio coincidente */}
+          {searchResult.hasQuery && searchResult.categories.length === 0 ? (
+            <div className="criteria-search-empty-state">
+              <div className="empty-state-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+              <div className="empty-state-title">Sin criterios coincidentes</div>
+              <div className="empty-state-desc">
+                No se encontraron criterios para <strong>"{searchResult.query}"</strong> con{' '}
+                <em>{currentStrategy.name}</em>.
+              </div>
+              <div className="empty-state-actions">
+                <button
+                  type="button"
+                  className="btn-empty-action btn-change-mechanism"
+                  onClick={() => setIsSearchModalOpen(true)}
+                >
+                  Ajustar mecanismo
+                </button>
+                <button
+                  type="button"
+                  className="btn-empty-action btn-clear-search"
+                  onClick={() => setCriteriaSearchQuery('')}
+                >
+                  Limpiar búsqueda
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="categories-list">
+              {searchResult.categories.map((cat) => {
+                const values = cat.matchingValues;
+                const selectedVals = categoryValueFilters[cat.categoryId] || new Set();
+                const isExpanded = searchResult.hasQuery
+                  ? !searchCollapsedCategories.has(cat.categoryId)
+                  : expandedCategories.has(cat.categoryId);
+
+                return (
+                  <CategoryItem
+                    key={cat.categoryId}
+                    id={cat.categoryId}
+                    name={cat.categoryName}
+                    isExpanded={isExpanded}
+                    values={values}
+                    selectedValues={selectedVals}
+                    onToggleExpand={() => toggleCategoryExpand(cat.categoryId)}
+                    onToggleValue={(val) => toggleCategoryValue(cat.categoryId, val)}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Acciones y Controles de Navegación */}
@@ -741,6 +924,14 @@ export default function App() {
         onApplyCriteria={handleApplyCriteria}
         onSavePreset={handleSavePreset}
         onDeletePreset={handleDeletePreset}
+      />
+
+      {/* Modal para configurar Mecanismo de Búsqueda de Criterios */}
+      <SearchMechanismModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+        config={searchConfig}
+        onChangeConfig={handleSearchConfigChange}
       />
     </div>
   );

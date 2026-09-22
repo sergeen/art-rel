@@ -5,10 +5,12 @@ import {
   DEFAULT_PHYSICS_CONFIG,
   DEFAULT_VISUAL_CONFIG,
 } from './types';
+import { type SearchConfig, DEFAULT_SEARCH_CONFIG } from './search';
 
 export const STORAGE_KEY_PHYSICS = 'art_rel_physics_config';
 export const STORAGE_KEY_VISUAL = 'art_rel_visual_config';
 export const STORAGE_KEY_PRESETS = 'art_rel_saved_criteria_presets';
+export const STORAGE_KEY_SEARCH = 'art_rel_search_config';
 
 /**
  * Carga la configuración física desde localStorage con validación y fallback a defaults.
@@ -98,5 +100,39 @@ export function saveStoredPresets(presets: SavedCriteriaPreset[]): void {
     localStorage.setItem(STORAGE_KEY_PRESETS, JSON.stringify(presets));
   } catch (e) {
     console.warn('Error al guardar presets en localStorage:', e);
+  }
+}
+
+/**
+ * Carga la configuración del mecanismo de búsqueda desde localStorage.
+ */
+export function loadStoredSearchConfig(): SearchConfig {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_SEARCH);
+    if (!raw) return DEFAULT_SEARCH_CONFIG;
+    const parsed = JSON.parse(raw);
+    return {
+      mechanismId: typeof parsed.mechanismId === 'string' ? parsed.mechanismId : DEFAULT_SEARCH_CONFIG.mechanismId,
+      levenshtein: {
+        maxDistance:
+          typeof parsed.levenshtein?.maxDistance === 'number'
+            ? Math.max(1, Math.min(4, parsed.levenshtein.maxDistance))
+            : DEFAULT_SEARCH_CONFIG.levenshtein.maxDistance,
+      },
+    };
+  } catch (e) {
+    console.warn('Error al cargar configuración de búsqueda desde localStorage:', e);
+    return DEFAULT_SEARCH_CONFIG;
+  }
+}
+
+/**
+ * Guarda la configuración del mecanismo de búsqueda en localStorage.
+ */
+export function saveStoredSearchConfig(config: SearchConfig): void {
+  try {
+    localStorage.setItem(STORAGE_KEY_SEARCH, JSON.stringify(config));
+  } catch (e) {
+    console.warn('Error al guardar configuración de búsqueda en localStorage:', e);
   }
 }
