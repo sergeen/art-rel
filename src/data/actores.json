@@ -1,126 +1,1240 @@
 [
   {
-    "id": "art-1",
-    "nombre": "Ana Mendieta",
+    "id": "art-ailen-alcaraz",
+    "nombre": "Ailén Alcaraz",
     "tipo": "artista",
-    "disciplina": "Performance / Arte Conceptual / Body Art",
-    "pais": "Cuba / EE.UU.",
-    "trayectoria": "historica",
-    "capital_simbolico": "alto",
-    "circuito_principal": "institucional"
-  },
-  {
-    "id": "art-2",
-    "nombre": "León Ferrari",
-    "tipo": "artista",
-    "disciplina": "Collage / Escultura / Crítica Institucional",
+    "ciudad": "Mendoza",
     "pais": "Argentina",
-    "trayectoria": "historica",
-    "capital_simbolico": "alto",
-    "circuito_principal": "bienal"
-  },
-  {
-    "id": "art-3",
-    "nombre": "Marta Minujín",
-    "tipo": "artista",
-    "disciplina": "Pop Art / Happenings / Instalación",
-    "pais": "Argentina",
-    "trayectoria": "consagrada",
-    "capital_simbolico": "alto",
-    "circuito_principal": "mixto"
-  },
-  {
-    "id": "art-4",
-    "nombre": "Gabriel Orozco",
-    "tipo": "artista",
-    "disciplina": "Escultura / Fotografía Contemporánea",
-    "pais": "México",
-    "trayectoria": "consagrada",
-    "capital_simbolico": "alto",
-    "circuito_principal": "mercado_global"
-  },
-  {
-    "id": "art-5",
-    "nombre": "Camila O'Gorman (Emergente)",
-    "tipo": "artista",
-    "disciplina": "Bio-arte / Nuevos Medios",
-    "pais": "Argentina",
+    "disciplina": "gráfica / comunicación",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "gráfica",
+      "comunicación"
+    ],
+    "materiales": [
+      "cartelería"
+    ],
+    "conceptos": [
+      "diversidad"
+    ],
+    "instituciones": [
+      "UNCuyo",
+      "FAD"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "proyectos de cartelería"
+    ],
+    "geografias": [
+      "Mendoza"
+    ],
+    "formacion": [
+      "UNCuyo",
+      "FAD"
+    ],
+    "circulacion": [],
     "trayectoria": "emergente",
-    "capital_simbolico": "medio",
-    "circuito_principal": "independiente"
+    "capital_simbolico": "medio"
   },
   {
-    "id": "gal-1",
-    "nombre": "Galería Sur Global",
-    "tipo": "galeria",
-    "modelo": "comercial_primario",
-    "alcance": "regional",
+    "id": "art-ariana-beilis",
+    "nombre": "Ariana Beilis",
+    "tipo": "artista",
+    "ciudad": "Rosario",
+    "pais": "Argentina",
+    "disciplina": "pintura / dibujo / objeto",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura",
+      "dibujo",
+      "objeto",
+      "instalación"
+    ],
+    "materiales": [],
+    "conceptos": [
+      "vacío",
+      "intimidad",
+      "memoria",
+      "cotidianeidad"
+    ],
+    "instituciones": [
+      "Castagnino+macro"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "Salón Nacional de Rosario",
+      "Desde Adentro"
+    ],
+    "geografias": [
+      "Rosario",
+      "Santa Fe"
+    ],
+    "formacion": [],
+    "circulacion": [
+      "Salones nacionales"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-ayelen-mohaded",
+    "nombre": "Ayelen Mohaded",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "pintura / performance / joyería",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura",
+      "performance",
+      "joyería",
+      "diseño textil"
+    ],
+    "materiales": [
+      "textil",
+      "joyería"
+    ],
+    "conceptos": [
+      "cuerpo",
+      "materialidad",
+      "fragilidad",
+      "sombra",
+      "efímero"
+    ],
+    "instituciones": [
+      "UNC",
+      "Universidad de Palermo",
+      "Museo de las Mujeres",
+      "Museo Bonfiglioli"
+    ],
+    "residencias": [
+      "Studio Kura"
+    ],
+    "exhibiciones": [
+      "exposiciones",
+      "proyectos de performance"
+    ],
+    "geografias": [
+      "Córdoba",
+      "Japón",
+      "Londres"
+    ],
+    "formacion": [
+      "UP",
+      "UNC"
+    ],
+    "circulacion": [
+      "Argentina",
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "alto"
+  },
+  {
+    "id": "art-belen-ghiso",
+    "nombre": "Belén Ghiso",
+    "tipo": "artista",
+    "pais": "Argentina",
+    "disciplina": "Artes Visuales",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [],
+    "materiales": [],
+    "conceptos": [],
+    "instituciones": [],
+    "residencias": [],
+    "exhibiciones": [],
+    "geografias": [],
+    "formacion": [],
+    "circulacion": [],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-chebo-roitter-pavez",
+    "nombre": "Chebo Roitter Pavez",
+    "tipo": "artista",
+    "pais": "Argentina",
+    "disciplina": "diseño / edición / animación",
+    "personas": [
+      "artista",
+      "diseñador",
+      "editor",
+      "investigador",
+      "docente"
+    ],
+    "practicas": [
+      "diseño",
+      "edición",
+      "animación",
+      "investigación"
+    ],
+    "materiales": [
+      "imagen",
+      "texto",
+      "archivo",
+      "documentos"
+    ],
+    "conceptos": [
+      "historia",
+      "ficción",
+      "memoria",
+      "humor",
+      "narrativas"
+    ],
+    "instituciones": [],
+    "residencias": [],
+    "exhibiciones": [
+      "proyectos editoriales",
+      "investigación"
+    ],
+    "geografias": [],
+    "formacion": [
+      "diseño",
+      "artes"
+    ],
+    "circulacion": [
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-constanza-chiappini",
+    "nombre": "Constanza Chiappini",
+    "tipo": "artista",
+    "ciudad": "Trelew",
+    "pais": "Argentina",
+    "disciplina": "pintura / gestión",
+    "personas": [
+      "artista",
+      "gestora"
+    ],
+    "practicas": [
+      "pintura",
+      "gestión"
+    ],
+    "materiales": [
+      "pintura",
+      "imagen"
+    ],
+    "conceptos": [
+      "memoria",
+      "archivo",
+      "afectos",
+      "identidad",
+      "historia",
+      "cultura popular"
+    ],
+    "instituciones": [
+      "UNC",
+      "FNA",
+      "Casa Nacional del Bicentenario"
+    ],
+    "residencias": [
+      "Beca Creación FNA"
+    ],
+    "exhibiciones": [
+      "BIENALSUR",
+      "exposiciones",
+      "Pinball"
+    ],
+    "geografias": [
+      "Trelew",
+      "Córdoba",
+      "Buenos Aires"
+    ],
+    "formacion": [
+      "UNC"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "intermedia",
+    "capital_simbolico": "alto"
+  },
+  {
+    "id": "art-ezequiel-lovrovich",
+    "nombre": "Ezequiel Lovrovich",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "fotografía / instalación / investigación",
+    "personas": [
+      "artista",
+      "investigador"
+    ],
+    "practicas": [
+      "fotografía",
+      "instalación",
+      "investigación"
+    ],
+    "materiales": [
+      "cianotipia",
+      "química",
+      "luz solar",
+      "agua",
+      "textil"
+    ],
+    "conceptos": [
+      "naturaleza",
+      "cuerpo",
+      "huella",
+      "sombra",
+      "semiótica"
+    ],
+    "instituciones": [
+      "UNC"
+    ],
+    "residencias": [
+      "Beca de investigación"
+    ],
+    "exhibiciones": [
+      "proyectos de investigación artística"
+    ],
+    "geografias": [
+      "Córdoba",
+      "internacional"
+    ],
+    "formacion": [
+      "UNC"
+    ],
+    "circulacion": [
+      "Argentina",
+      "España",
+      "Noruega"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-facundo-diaz",
+    "nombre": "Facundo Díaz",
+    "tipo": "artista",
+    "ciudad": "Mendoza",
+    "pais": "Argentina",
+    "disciplina": "dibujo / pintura / poesía",
+    "personas": [
+      "artista",
+      "gestor"
+    ],
+    "practicas": [
+      "dibujo",
+      "pintura",
+      "poesía",
+      "fotografía",
+      "video",
+      "performance",
+      "objeto"
+    ],
+    "materiales": [
+      "pintura",
+      "dibujo",
+      "fotografía"
+    ],
+    "conceptos": [
+      "paisaje",
+      "naturaleza",
+      "geografía",
+      "fuego",
+      "sueños",
+      "criptozoología",
+      "nomadismo"
+    ],
+    "instituciones": [],
+    "residencias": [],
+    "exhibiciones": [
+      "proyectos interdisciplinarios"
+    ],
+    "geografias": [
+      "Mendoza",
+      "distintos territorios"
+    ],
+    "formacion": [
+      "artes visuales"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-franco-fasoli-jaz",
+    "nombre": "Franco Fasoli / JAZ",
+    "tipo": "artista",
     "ciudad": "Buenos Aires",
-    "antiguedad_anios": 18
+    "pais": "Argentina",
+    "disciplina": "pintura / mural / escultura",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura",
+      "mural",
+      "escultura",
+      "collage"
+    ],
+    "materiales": [
+      "cerámica",
+      "bronce",
+      "papel"
+    ],
+    "conceptos": [
+      "identidad",
+      "conflicto",
+      "subculturas",
+      "ritual",
+      "historia",
+      "América Latina"
+    ],
+    "instituciones": [
+      "Teatro Colón",
+      "Fundación Konex",
+      "Museo Moderno"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "murales",
+      "exposiciones internacionales"
+    ],
+    "geografias": [
+      "Buenos Aires",
+      "Barcelona",
+      "internacional"
+    ],
+    "formacion": [
+      "ISA Teatro Colón"
+    ],
+    "circulacion": [
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "alto"
   },
   {
-    "id": "gal-2",
-    "nombre": "White Cube International",
-    "tipo": "galeria",
-    "modelo": "mega_galeria",
-    "alcance": "global",
-    "ciudad": "Londres / Nueva York",
-    "antiguedad_anios": 32
+    "id": "art-guillermo-mena",
+    "nombre": "Guillermo Mena",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "dibujo / instalación / performance",
+    "personas": [
+      "artista",
+      "diseñador",
+      "docente"
+    ],
+    "practicas": [
+      "dibujo",
+      "instalación",
+      "performance",
+      "animación",
+      "fotografía",
+      "video",
+      "collage"
+    ],
+    "materiales": [
+      "carbón",
+      "papel",
+      "muro"
+    ],
+    "conceptos": [
+      "huella",
+      "desaparición",
+      "memoria",
+      "movimiento",
+      "paisaje"
+    ],
+    "instituciones": [],
+    "residencias": [
+      "Canadá",
+      "Islandia",
+      "Italia",
+      "España",
+      "Uruguay"
+    ],
+    "exhibiciones": [
+      "proyectos site-specific",
+      "animación"
+    ],
+    "geografias": [
+      "Córdoba",
+      "Buenos Aires",
+      "internacional"
+    ],
+    "formacion": [
+      "artes visuales",
+      "diseño gráfico"
+    ],
+    "circulacion": [
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "medio"
   },
   {
-    "id": "inst-1",
-    "nombre": "Museo de Arte Moderno (MAM)",
+    "id": "art-juan-jesus-conde",
+    "nombre": "Juan Jesús Conde",
+    "tipo": "artista",
+    "ciudad": "Paraná",
+    "pais": "Argentina",
+    "disciplina": "escultura / escritura",
+    "personas": [
+      "artista",
+      "docente"
+    ],
+    "practicas": [
+      "escultura",
+      "escritura"
+    ],
+    "materiales": [
+      "metal"
+    ],
+    "conceptos": [
+      "territorio",
+      "paisaje"
+    ],
+    "instituciones": [
+      "Museo Puerto de la Memoria"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "talleres de escultura"
+    ],
+    "geografias": [
+      "Paraná",
+      "Entre Ríos"
+    ],
+    "formacion": [],
+    "circulacion": [
+      "regional"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-juan-tarraf",
+    "nombre": "Juan Tarraf",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "pintura",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura"
+    ],
+    "materiales": [
+      "óleo",
+      "lienzo"
+    ],
+    "conceptos": [
+      "abstracción",
+      "materia",
+      "intuición",
+      "espiritualidad",
+      "zen"
+    ],
+    "instituciones": [
+      "UNA",
+      "UNLP",
+      "UTDT",
+      "Galería Crudo"
+    ],
+    "residencias": [
+      "LAR"
+    ],
+    "exhibiciones": [
+      "Neoinformalismo Zen",
+      "Artistas x Artistas"
+    ],
+    "geografias": [
+      "Buenos Aires",
+      "La Plata"
+    ],
+    "formacion": [
+      "UNA",
+      "IVA",
+      "clínicas"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "alto"
+  },
+  {
+    "id": "art-julia-rossetti-latigx",
+    "nombre": "Julia Rossetti / Látigx",
+    "tipo": "artista",
+    "ciudad": "Corrientes",
+    "pais": "Argentina",
+    "disciplina": "arte sonoro / música experimental / performance",
+    "personas": [
+      "artista",
+      "música",
+      "diseñadora"
+    ],
+    "practicas": [
+      "arte sonoro",
+      "música experimental",
+      "performance",
+      "instalación",
+      "radio",
+      "audiovisual",
+      "dibujo"
+    ],
+    "materiales": [
+      "MIDI",
+      "software",
+      "bordado"
+    ],
+    "conceptos": [
+      "paisaje",
+      "frontera",
+      "sincretismo",
+      "memoria",
+      "folklore",
+      "territorio",
+      "ritual"
+    ],
+    "instituciones": [
+      "UNC",
+      "InSonora"
+    ],
+    "residencias": [
+      "varias residencias"
+    ],
+    "exhibiciones": [
+      "Y Porã",
+      "proyectos sonoros"
+    ],
+    "geografias": [
+      "Corrientes",
+      "América Latina",
+      "internacional"
+    ],
+    "formacion": [
+      "artes visuales",
+      "diseño gráfico"
+    ],
+    "circulacion": [
+      "América Latina",
+      "Europa",
+      "Asia"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-leandro-fernandez",
+    "nombre": "Leandro Fernández",
+    "tipo": "artista",
+    "ciudad": "San Luis",
+    "pais": "Argentina",
+    "disciplina": "escultura / fotografía / pintura",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "escultura",
+      "fotografía",
+      "pintura",
+      "video",
+      "objeto"
+    ],
+    "materiales": [
+      "objeto",
+      "fotografía"
+    ],
+    "conceptos": [
+      "naturaleza",
+      "ciclos",
+      "transformación",
+      "territorio"
+    ],
+    "instituciones": [],
+    "residencias": [],
+    "exhibiciones": [
+      "exposiciones",
+      "videoarte"
+    ],
+    "geografias": [
+      "San Luis",
+      "Córdoba"
+    ],
+    "formacion": [
+      "artes visuales"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-luna-sudaca",
+    "nombre": "Luna Sudaca",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "pintura / dibujo",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura",
+      "dibujo"
+    ],
+    "materiales": [
+      "telas sintéticas",
+      "pintura"
+    ],
+    "conceptos": [
+      "noche",
+      "sexualidad",
+      "intimidad",
+      "periferia",
+      "fantasía",
+      "clandestinidad"
+    ],
+    "instituciones": [
+      "MUNAR"
+    ],
+    "residencias": [
+      "programas de formación",
+      "residencia"
+    ],
+    "exhibiciones": [
+      "exposiciones",
+      "MUNAR"
+    ],
+    "geografias": [
+      "Buenos Aires",
+      "Liniers",
+      "conurbano"
+    ],
+    "formacion": [
+      "IVA Labardén",
+      "Manuel Belgrano"
+    ],
+    "circulacion": [
+      "Argentina",
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-maria-arrastoa",
+    "nombre": "María Arrastoa",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "montaje / postproducción / VFX",
+    "personas": [
+      "profesional audiovisual"
+    ],
+    "practicas": [
+      "montaje",
+      "postproducción",
+      "VFX",
+      "motion graphics"
+    ],
+    "materiales": [
+      "imagen digital",
+      "video"
+    ],
+    "conceptos": [],
+    "instituciones": [
+      "AMMAC",
+      "industria audiovisual"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "cine",
+      "TV",
+      "documentales"
+    ],
+    "geografias": [
+      "Buenos Aires",
+      "Barcelona"
+    ],
+    "formacion": [
+      "formación audiovisual"
+    ],
+    "circulacion": [
+      "Argentina",
+      "España"
+    ],
+    "trayectoria": "intermedia",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-martin-sensi",
+    "nombre": "Martín Sensi",
+    "tipo": "artista",
+    "ciudad": "La Plata",
+    "pais": "Argentina",
+    "disciplina": "grabado / gráfica / instalación",
+    "personas": [
+      "artista",
+      "docente",
+      "organizador"
+    ],
+    "practicas": [
+      "grabado",
+      "gráfica",
+      "instalación"
+    ],
+    "materiales": [
+      "tinta",
+      "impresión",
+      "objetos"
+    ],
+    "conceptos": [
+      "fragmento",
+      "ruina",
+      "ficción",
+      "extrañamiento"
+    ],
+    "instituciones": [
+      "UNLP",
+      "Centro de Arte UNLP"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "Tranza",
+      "Ctrl P",
+      "Presión",
+      "Tinta Fresca"
+    ],
+    "geografias": [
+      "Coronel Pringles",
+      "La Plata"
+    ],
+    "formacion": [
+      "UNLP"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "intermedia",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-mateo-valbuena-gonzalez",
+    "nombre": "Mateo Valbuena González",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "pintura",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "pintura"
+    ],
+    "materiales": [
+      "óleo",
+      "lienzo"
+    ],
+    "conceptos": [
+      "naturaleza",
+      "abstracción",
+      "intuición",
+      "materia"
+    ],
+    "instituciones": [
+      "UTDT",
+      "Centro de Arte UNLP"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "Neoinformalismo Zen"
+    ],
+    "geografias": [
+      "Buenos Aires",
+      "La Plata"
+    ],
+    "formacion": [],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-mauricio-chiappini",
+    "nombre": "Mauricio Chiappini",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "fotografía / retrato",
+    "personas": [
+      "fotógrafo"
+    ],
+    "practicas": [
+      "fotografía",
+      "retrato"
+    ],
+    "materiales": [
+      "fotografía",
+      "iluminación"
+    ],
+    "conceptos": [],
+    "instituciones": [],
+    "residencias": [],
+    "exhibiciones": [],
+    "geografias": [
+      "Córdoba"
+    ],
+    "formacion": [
+      "fotografía"
+    ],
+    "circulacion": [
+      "Córdoba"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-milena-leczycki",
+    "nombre": "Milena Leczycki",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "dibujo / ilustración / publicaciones",
+    "personas": [
+      "artista",
+      "ilustradora"
+    ],
+    "practicas": [
+      "dibujo",
+      "ilustración",
+      "publicaciones"
+    ],
+    "materiales": [
+      "papel",
+      "impresión",
+      "calcos"
+    ],
+    "conceptos": [
+      "infancia",
+      "intimidad",
+      "nostalgia",
+      "cuerpo",
+      "fantasía"
+    ],
+    "instituciones": [
+      "Casa Nacional del Bicentenario"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "Milesbozos",
+      "Cómo atrapar una estrella fugaz",
+      "Premio Prilidiano Pueyrredón"
+    ],
+    "geografias": [
+      "Buenos Aires"
+    ],
+    "formacion": [
+      "artes visuales"
+    ],
+    "circulacion": [
+      "Argentina"
+    ],
+    "trayectoria": "intermedia",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-mora-martinez-broder",
+    "nombre": "Mora Martínez Broder",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "artes visuales",
+    "personas": [
+      "artista",
+      "investigadora"
+    ],
+    "practicas": [
+      "artes visuales"
+    ],
+    "materiales": [],
+    "conceptos": [
+      "género",
+      "diversidad"
+    ],
+    "instituciones": [
+      "UNC"
+    ],
+    "residencias": [
+      "investigación"
+    ],
+    "exhibiciones": [
+      "proyectos de investigación"
+    ],
+    "geografias": [
+      "Córdoba"
+    ],
+    "formacion": [
+      "UNC"
+    ],
+    "circulacion": [
+      "Córdoba"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-samantha-ferro",
+    "nombre": "Samantha Ferro",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "escultura / instalación / fotografía",
+    "personas": [
+      "artista"
+    ],
+    "practicas": [
+      "escultura",
+      "instalación",
+      "fotografía"
+    ],
+    "materiales": [
+      "textil",
+      "tafeta",
+      "hierro",
+      "imanes"
+    ],
+    "conceptos": [
+      "cuerpo",
+      "identidad",
+      "género",
+      "vulnerabilidad",
+      "sujeción"
+    ],
+    "instituciones": [
+      "UNC",
+      "UTDT"
+    ],
+    "residencias": [
+      "R.A.R.O.",
+      "Marco Arte Foco",
+      "Proyecto Yungas"
+    ],
+    "exhibiciones": [
+      "Artistas x Artistas",
+      "ABELE",
+      "FAUD"
+    ],
+    "geografias": [
+      "Génova",
+      "Córdoba",
+      "Buenos Aires",
+      "internacional"
+    ],
+    "formacion": [
+      "UNC"
+    ],
+    "circulacion": [
+      "Argentina",
+      "internacional"
+    ],
+    "trayectoria": "consagrada",
+    "capital_simbolico": "medio"
+  },
+  {
+    "id": "art-siu-lizaso",
+    "nombre": "Siu Lizaso",
+    "tipo": "artista",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "disciplina": "pintura / gestión / curaduría",
+    "personas": [
+      "artista",
+      "gestora",
+      "curadora"
+    ],
+    "practicas": [
+      "pintura",
+      "gestión",
+      "curaduría"
+    ],
+    "materiales": [],
+    "conceptos": [
+      "producción cultural",
+      "políticas culturales"
+    ],
+    "instituciones": [
+      "UNC",
+      "Universidad Blas Pascal",
+      "Secretaría de Cultura Córdoba",
+      "Mercado de Arte"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "La Sala Que Habito",
+      "Mercado de Arte"
+    ],
+    "geografias": [
+      "Córdoba"
+    ],
+    "formacion": [
+      "UNC",
+      "UBP"
+    ],
+    "circulacion": [
+      "Córdoba",
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "alto"
+  },
+  {
+    "id": "art-soledad-manrique-goldsack",
+    "nombre": "Soledad Manrique Goldsack",
+    "tipo": "artista",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "disciplina": "fotografía / montaje / iluminación",
+    "personas": [
+      "fotógrafa",
+      "iluminadora",
+      "montajista",
+      "técnica"
+    ],
+    "practicas": [
+      "fotografía",
+      "montaje",
+      "iluminación",
+      "producción"
+    ],
+    "materiales": [
+      "luz",
+      "fotografía",
+      "espacio expositivo"
+    ],
+    "conceptos": [],
+    "instituciones": [
+      "Museo Moderno",
+      "Instituto Di Tella",
+      "arteBA"
+    ],
+    "residencias": [],
+    "exhibiciones": [
+      "exposiciones",
+      "montajes"
+    ],
+    "geografias": [
+      "Buenos Aires"
+    ],
+    "formacion": [],
+    "circulacion": [
+      "Buenos Aires",
+      "Argentina"
+    ],
+    "trayectoria": "emergente",
+    "capital_simbolico": "alto"
+  },
+  {
+    "id": "inst-unc",
+    "nombre": "UNC (Universidad Nacional de Córdoba)",
     "tipo": "institucion",
-    "subtipo": "museo_publico",
-    "rol_campo": "consagracion_historica",
-    "ciudad": "Buenos Aires"
-  },
-  {
-    "id": "inst-2",
-    "nombre": "Bienal Internacional de Venecia",
-    "tipo": "institucion",
-    "subtipo": "bienal",
-    "rol_campo": "legitimacion_global",
-    "ciudad": "Venecia"
-  },
-  {
-    "id": "inst-3",
-    "nombre": "Espacio Autogestionado Radar",
-    "tipo": "institucion",
-    "subtipo": "espacio_independiente",
-    "rol_campo": "experimentacion_emergencia",
+    "subtipo": "universidad_publica",
     "ciudad": "Córdoba"
   },
   {
-    "id": "cur-1",
-    "nombre": "Gerardo Mosquera",
-    "tipo": "curador",
-    "perfil": "teorico_independiente",
-    "campo_especialidad": "Arte Latinoamericano y Descentralización",
-    "reconocimiento": "internacional"
+    "id": "inst-utdt",
+    "nombre": "Universidad Torcuato Di Tella (UTDT)",
+    "tipo": "institucion",
+    "subtipo": "universidad_privada",
+    "ciudad": "Buenos Aires"
   },
   {
-    "id": "cur-2",
-    "nombre": "Mari Carmen Ramírez",
-    "tipo": "curador",
-    "perfil": "curador_institucional",
-    "campo_especialidad": "Coleccionismo y Archivos de Vanguardia",
-    "reconocimiento": "internacional"
+    "id": "inst-unlp",
+    "nombre": "Universidad Nacional de La Plata (UNLP)",
+    "tipo": "institucion",
+    "subtipo": "universidad_publica",
+    "ciudad": "La Plata"
   },
   {
-    "id": "col-1",
-    "nombre": "Colección Privada Phelps",
-    "tipo": "coleccionista",
-    "tipo_fondo": "fundacion_familiar",
-    "foco_adquisicion": "Abstracción Geométrica y Conceptualismo",
-    "capacidad_inversion": "muy_alta"
+    "id": "inst-cnb",
+    "nombre": "Casa Nacional del Bicentenario",
+    "tipo": "institucion",
+    "subtipo": "espacio_cultural_publico",
+    "ciudad": "Buenos Aires"
   },
   {
-    "id": "col-2",
-    "nombre": "Fideicomiso de Arte Joven Bemberg",
-    "tipo": "coleccionista",
-    "tipo_fondo": "fideicomiso_mecenazgo",
-    "foco_adquisicion": "Producción Emergente y Becas de Taller",
-    "capacidad_inversion": "media"
+    "id": "inst-castagnino",
+    "nombre": "Museo Castagnino+macro",
+    "tipo": "institucion",
+    "subtipo": "museo_publico",
+    "ciudad": "Rosario"
+  },
+  {
+    "id": "inst-moderno",
+    "nombre": "Museo de Arte Moderno (Museo Moderno)",
+    "tipo": "institucion",
+    "subtipo": "museo_publico",
+    "ciudad": "Buenos Aires"
+  },
+  {
+    "id": "inst-fna",
+    "nombre": "Fondo Nacional de las Artes (FNA)",
+    "tipo": "institucion",
+    "subtipo": "fondo_publico",
+    "ciudad": "Buenos Aires"
+  },
+  {
+    "id": "inst-munar",
+    "nombre": "MUNAR",
+    "tipo": "institucion",
+    "subtipo": "espacio_independiente",
+    "ciudad": "Buenos Aires"
+  },
+  {
+    "id": "inst-teatro-colon",
+    "nombre": "Teatro Colón / ISA",
+    "tipo": "institucion",
+    "subtipo": "teatro_oficial",
+    "ciudad": "Buenos Aires"
+  },
+  {
+    "id": "inst-uncuyo",
+    "nombre": "UNCuyo / FAD",
+    "tipo": "institucion",
+    "subtipo": "universidad_publica",
+    "ciudad": "Mendoza"
+  },
+  {
+    "id": "inst-arte-unlp",
+    "nombre": "Centro de Arte UNLP",
+    "tipo": "institucion",
+    "subtipo": "centro_arte",
+    "ciudad": "La Plata"
+  },
+  {
+    "id": "inst-crudo",
+    "nombre": "Galería Crudo",
+    "tipo": "galeria",
+    "modelo": "comercial_contemporanea",
+    "ciudad": "Rosario"
+  },
+  {
+    "id": "inst-mercado-arte",
+    "nombre": "Mercado de Arte Contemporáneo",
+    "tipo": "institucion",
+    "subtipo": "feria_publica",
+    "ciudad": "Córdoba"
   }
 ]

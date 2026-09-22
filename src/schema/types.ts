@@ -21,6 +21,19 @@ export interface ActorSemantic {
   tipo_fondo?: string;
   foco_adquisicion?: string;
   capacidad_inversion?: string;
+
+  // Categorías sociológicas de criterios de lectura
+  personas?: string[];
+  practicas?: string[];
+  materiales?: string[];
+  conceptos?: string[];
+  instituciones?: string[];
+  residencias?: string[];
+  exhibiciones?: string[];
+  geografias?: string[];
+  formacion?: string[];
+  circulacion?: string[];
+
   [key: string]: unknown;
 }
 
@@ -68,4 +81,10 @@ export interface FilterState {
   activeLinkTypes: Set<RelacionTipo>;
   minAnio?: number;
   searchQuery?: string;
+  // Filtros sociológicos por categoría
+  categoryFilters?: {
+    [categoryId: string]: Set<string>;
+  };
+  activeCategoriesOnly?: Set<string>;
 }
+

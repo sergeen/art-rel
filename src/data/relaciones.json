@@ -1,138 +1,268 @@
 [
   {
-    "source": "art-1",
-    "target": "gal-1",
-    "tipo": "representacion_comercial",
-    "formalidad": "contrato_exclusividad",
-    "anio_inicio": 1978,
-    "descripcion": "Representación de obra histórica y catálogo"
-  },
-  {
-    "source": "art-2",
-    "target": "gal-1",
-    "tipo": "representacion_comercial",
-    "formalidad": "representacion_regular",
-    "anio_inicio": 1995,
-    "descripcion": "Gestión de obra seriada y escultura"
-  },
-  {
-    "source": "art-3",
-    "target": "gal-2",
-    "tipo": "representacion_comercial",
-    "formalidad": "representacion_internacional",
-    "anio_inicio": 2010,
-    "descripcion": "Presencia en circuitos de ferias globales (Art Basel, Frieze)"
-  },
-  {
-    "source": "art-4",
-    "target": "gal-2",
-    "tipo": "representacion_comercial",
-    "formalidad": "mega_galeria_exclusiva",
-    "anio_inicio": 1998,
-    "descripcion": "Representación global y publicaciones monográficas"
-  },
-  {
-    "source": "art-5",
-    "target": "inst-3",
-    "tipo": "residencia_taller",
-    "formalidad": "beca_autogestionada",
-    "anio_inicio": 2023,
-    "descripcion": "Proyecto de investigación en laboratorio de bioarte"
-  },
-  {
-    "source": "art-1",
-    "target": "inst-1",
-    "tipo": "adquisicion_patrimonial",
-    "formalidad": "compra_patrimonio_publico",
-    "anio_inicio": 1984,
-    "descripcion": "Incorporación a colección permanente estatal"
-  },
-  {
-    "source": "art-2",
-    "target": "inst-2",
-    "tipo": "consagracion_bienal",
-    "formalidad": "premio_oficial",
-    "anio_inicio": 2007,
-    "descripcion": "León de Oro por trayectoria artística"
-  },
-  {
-    "source": "art-3",
-    "target": "inst-1",
-    "tipo": "retrospectiva_individual",
-    "formalidad": "exposicion_mayor",
-    "anio_inicio": 2015,
-    "descripcion": "Gran muestra antológica de happenings e instalaciones"
-  },
-  {
-    "source": "art-4",
-    "target": "inst-1",
-    "tipo": "retrospectiva_individual",
-    "formalidad": "exposicion_itinerante",
-    "anio_inicio": 2005,
-    "descripcion": "Exhibición retrospectiva en museo de primera línea"
-  },
-  {
-    "source": "cur-1",
-    "target": "inst-2",
-    "tipo": "curaduria_general",
-    "formalidad": "designacion_comite",
-    "anio_inicio": 2004,
-    "descripcion": "Curaduría de pabellón y eje conceptual"
-  },
-  {
-    "source": "cur-1",
-    "target": "art-2",
-    "tipo": "critica_y_teoria",
-    "formalidad": "investigacion_academica",
-    "anio_inicio": 2001,
-    "descripcion": "Monografía teórica y legitimación historiográfica"
-  },
-  {
-    "source": "cur-2",
-    "target": "inst-1",
-    "tipo": "direccion_curatorial",
-    "formalidad": "cargo_permanente",
-    "anio_inicio": 1990,
-    "descripcion": "Dirección del departamento de arte latinoamericano"
-  },
-  {
-    "source": "cur-2",
-    "target": "art-1",
-    "tipo": "recuperacion_archivistica",
-    "formalidad": "investigacion_patrimonial",
-    "anio_inicio": 1999,
-    "descripcion": "Puesta en valor de archivos de obra y registro performático"
-  },
-  {
-    "source": "col-1",
-    "target": "gal-1",
-    "tipo": "adquisicion_mercado",
-    "formalidad": "transaccion_primaria",
-    "anio_inicio": 2002,
-    "descripcion": "Compra continuada de piezas para colección corporativa/privada"
-  },
-  {
-    "source": "col-1",
-    "target": "inst-1",
-    "tipo": "donacion_mecenazgo",
-    "formalidad": "comodato_donacion",
-    "anio_inicio": 2012,
-    "descripcion": "Donación de conjunto de piezas clave al fondo público"
-  },
-  {
-    "source": "col-2",
-    "target": "art-5",
-    "tipo": "beca_patrocinio",
-    "formalidad": "premio_estimulo",
-    "anio_inicio": 2024,
-    "descripcion": "Financiamiento de producción y materiales"
-  },
-  {
-    "source": "gal-1",
-    "target": "inst-1",
+    "source": "art-ailen-alcaraz",
+    "target": "inst-uncuyo",
     "tipo": "prestamo_institucional",
-    "formalidad": "acuerdo_temporal",
-    "anio_inicio": 2018,
-    "descripcion": "Préstamo de obras para exhibiciones temporales de museo"
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación y proyectos de diseño"
+  },
+  {
+    "source": "art-ariana-beilis",
+    "target": "inst-castagnino",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Muestra colectiva y selección Salón Nacional"
+  },
+  {
+    "source": "art-ayelen-mohaded",
+    "target": "inst-unc",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación universitaria en artes"
+  },
+  {
+    "source": "art-constanza-chiappini",
+    "target": "inst-unc",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación de grado"
+  },
+  {
+    "source": "art-constanza-chiappini",
+    "target": "inst-fna",
+    "tipo": "beca_patrocinio",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Beca Creación FNA"
+  },
+  {
+    "source": "art-constanza-chiappini",
+    "target": "inst-cnb",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Exposiciones en Casa Nacional del Bicentenario"
+  },
+  {
+    "source": "art-ezequiel-lovrovich",
+    "target": "inst-unc",
+    "tipo": "beca_patrocinio",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Beca de investigación y docencia"
+  },
+  {
+    "source": "art-franco-fasoli-jaz",
+    "target": "inst-teatro-colon",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación escenográfica en ISA Teatro Colón"
+  },
+  {
+    "source": "art-franco-fasoli-jaz",
+    "target": "inst-moderno",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Exhibición y adquisiciones"
+  },
+  {
+    "source": "art-juan-tarraf",
+    "target": "inst-unlp",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación universitaria"
+  },
+  {
+    "source": "art-juan-tarraf",
+    "target": "inst-utdt",
+    "tipo": "residencia_taller",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Clínicas y programas de artistas"
+  },
+  {
+    "source": "art-juan-tarraf",
+    "target": "inst-crudo",
+    "tipo": "representacion_comercial",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Representación en ferias y muestras"
+  },
+  {
+    "source": "art-julia-rossetti-latigx",
+    "target": "inst-unc",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación en artes visuales y diseño"
+  },
+  {
+    "source": "art-luna-sudaca",
+    "target": "inst-munar",
+    "tipo": "residencia_taller",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Residencia y proyecto MUNAR"
+  },
+  {
+    "source": "art-martin-sensi",
+    "target": "inst-unlp",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Docencia y formación en UNLP"
+  },
+  {
+    "source": "art-martin-sensi",
+    "target": "inst-arte-unlp",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Exposición colectiva de gráfica experimental"
+  },
+  {
+    "source": "art-mateo-valbuena-gonzalez",
+    "target": "inst-utdt",
+    "tipo": "residencia_taller",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Programa de artistas UTDT"
+  },
+  {
+    "source": "art-mateo-valbuena-gonzalez",
+    "target": "inst-arte-unlp",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Muestra Neoinformalismo Zen"
+  },
+  {
+    "source": "art-milena-leczycki",
+    "target": "inst-cnb",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Exposición en Casa Nacional del Bicentenario"
+  },
+  {
+    "source": "art-mora-martinez-broder",
+    "target": "inst-unc",
+    "tipo": "beca_patrocinio",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Proyectos de investigación y género"
+  },
+  {
+    "source": "art-samantha-ferro",
+    "target": "inst-unc",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación de grado y clínica"
+  },
+  {
+    "source": "art-samantha-ferro",
+    "target": "inst-utdt",
+    "tipo": "residencia_taller",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Programa de artistas UTDT"
+  },
+  {
+    "source": "art-siu-lizaso",
+    "target": "inst-unc",
+    "tipo": "prestamo_institucional",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Formación académica y gestión"
+  },
+  {
+    "source": "art-siu-lizaso",
+    "target": "inst-mercado-arte",
+    "tipo": "curaduria_general",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Curaduría y gestión en Mercado de Arte"
+  },
+  {
+    "source": "art-soledad-manrique-goldsack",
+    "target": "inst-moderno",
+    "tipo": "direccion_curatorial",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Montaje e iluminación expositiva"
+  },
+  {
+    "source": "art-juan-tarraf",
+    "target": "art-mateo-valbuena-gonzalez",
+    "tipo": "curaduria_general",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Co-exhibición Neoinformalismo Zen"
+  },
+  {
+    "source": "art-juan-tarraf",
+    "target": "art-samantha-ferro",
+    "tipo": "residencia_taller",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Participación en Artistas x Artistas"
+  },
+  {
+    "source": "art-constanza-chiappini",
+    "target": "art-siu-lizaso",
+    "tipo": "critica_y_teoria",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Red de gestión cultural y curaduría en Córdoba"
+  },
+  {
+    "source": "art-constanza-chiappini",
+    "target": "art-ayelen-mohaded",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Circuito de artes visuales UNC / Córdoba"
+  },
+  {
+    "source": "art-ailen-alcaraz",
+    "target": "art-facundo-diaz",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Red de producción y gráfica en Mendoza"
+  },
+  {
+    "source": "art-ezequiel-lovrovich",
+    "target": "art-guillermo-mena",
+    "tipo": "critica_y_teoria",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Afinidad en procesos sobre huella, luz y territorio"
+  },
+  {
+    "source": "art-guillermo-mena",
+    "target": "art-franco-fasoli-jaz",
+    "tipo": "donacion_mecenazgo",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Circulación en residencias y proyectos internacionales"
+  },
+  {
+    "source": "art-martin-sensi",
+    "target": "art-mateo-valbuena-gonzalez",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Circuito artístico UNLP / La Plata"
+  },
+  {
+    "source": "art-leandro-fernandez",
+    "target": "art-facundo-diaz",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Investigación territorial y paisaje de Cuyo"
+  },
+  {
+    "source": "art-julia-rossetti-latigx",
+    "target": "art-ezequiel-lovrovich",
+    "tipo": "critica_y_teoria",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Exploración de territorio, sonido e instalación"
+  },
+  {
+    "source": "art-soledad-manrique-goldsack",
+    "target": "art-luna-sudaca",
+    "tipo": "direccion_curatorial",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Montaje y producción en circuito Buenos Aires"
+  },
+  {
+    "source": "art-mora-martinez-broder",
+    "target": "art-samantha-ferro",
+    "tipo": "critica_y_teoria",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Diálogo conceptual sobre cuerpo, identidad y género"
+  },
+  {
+    "source": "art-mauricio-chiappini",
+    "target": "art-constanza-chiappini",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "vinculo_institucional",
+    "descripcion": "Registro fotográfico y archivo en Córdoba"
   }
 ]

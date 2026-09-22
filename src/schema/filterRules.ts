@@ -37,14 +37,60 @@ export function isActorVisible(actor: ActorSemantic, filters: FilterState): bool
     return false;
   }
 
+  // Filtrado de categorías requeridas (debe tener al menos un valor en esa categoría)
+  if (filters.activeCategoriesOnly && filters.activeCategoriesOnly.size > 0) {
+    for (const catId of filters.activeCategoriesOnly) {
+      const fieldValues = (actor as Record<string, unknown>)[catId];
+      if (!Array.isArray(fieldValues) || fieldValues.length === 0) {
+        return false;
+      }
+    }
+  }
+
+  // Filtrado por valores específicos seleccionados dentro de cada categoría
+  if (filters.categoryFilters) {
+    for (const [catId, selectedValues] of Object.entries(filters.categoryFilters)) {
+      if (selectedValues && selectedValues.size > 0) {
+        const fieldValues = (actor as Record<string, unknown>)[catId];
+        if (!Array.isArray(fieldValues) || fieldValues.length === 0) {
+          return false;
+        }
+        const hasMatch = fieldValues.some((val) =>
+          typeof val === 'string' && selectedValues.has(val.toLowerCase().trim())
+        );
+        if (!hasMatch) {
+          return false;
+        }
+      }
+    }
+  }
+
+  // Búsqueda de texto libre
   if (filters.searchQuery && filters.searchQuery.trim().length > 0) {
-    const query = filters.searchQuery.toLowerCase();
+    const query = filters.searchQuery.toLowerCase().trim();
     const matchName = actor.nombre.toLowerCase().includes(query);
     const matchDisciplina = actor.disciplina?.toLowerCase().includes(query) ?? false;
     const matchPais = actor.pais?.toLowerCase().includes(query) ?? false;
     const matchCiudad = actor.ciudad?.toLowerCase().includes(query) ?? false;
 
-    if (!matchName && !matchDisciplina && !matchPais && !matchCiudad) {
+    // Buscar también en los términos de las categorías
+    const categoryArrays: string[][] = [
+      actor.personas || [],
+      actor.practicas || [],
+      actor.materiales || [],
+      actor.conceptos || [],
+      actor.instituciones || [],
+      actor.residencias || [],
+      actor.exhibiciones || [],
+      actor.geografias || [],
+      actor.formacion || [],
+      actor.circulacion || [],
+    ];
+    const matchCategories = categoryArrays.some((arr) =>
+      arr.some((item) => item.toLowerCase().includes(query))
+    );
+
+    if (!matchName && !matchDisciplina && !matchPais && !matchCiudad && !matchCategories) {
       return false;
     }
   }

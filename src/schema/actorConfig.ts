@@ -77,10 +77,13 @@ export function getActorLabel(actor: ActorSemantic): string {
 
   const detailLines: string[] = [];
   if (actor.disciplina) detailLines.push(`<div><em>${actor.disciplina}</em></div>`);
+  if (actor.practicas && actor.practicas.length > 0) detailLines.push(`<div><strong style="color:#a5b4fc">Prácticas:</strong> ${actor.practicas.join(', ')}</div>`);
+  if (actor.conceptos && actor.conceptos.length > 0) detailLines.push(`<div><strong style="color:#cbd5e1">Conceptos:</strong> ${actor.conceptos.join(', ')}</div>`);
+  if (actor.instituciones && actor.instituciones.length > 0) detailLines.push(`<div><strong style="color:#fcd34d">Instituciones:</strong> ${actor.instituciones.join(', ')}</div>`);
   if (actor.rol_campo) detailLines.push(`<div>Rol: ${actor.rol_campo}</div>`);
   if (actor.campo_especialidad) detailLines.push(`<div>Área: ${actor.campo_especialidad}</div>`);
   if (actor.foco_adquisicion) detailLines.push(`<div>Foco: ${actor.foco_adquisicion}</div>`);
-  if (actor.ciudad || actor.pais) detailLines.push(`<div style="color:#64748b;font-size:11px;">${[actor.ciudad, actor.pais].filter(Boolean).join(' · ')}</div>`);
+  if (actor.ciudad || actor.pais) detailLines.push(`<div style="color:#64748b;font-size:11px;margin-top:2px;">${[actor.ciudad, actor.pais].filter(Boolean).join(' · ')}</div>`);
 
   return `
     <div style="background: rgba(15, 23, 42, 0.95); padding: 10px 14px; border-radius: 8px; font-family: system-ui, sans-serif; font-size: 12px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.6); max-width: 260px;">

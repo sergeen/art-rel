@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import rawActores from './data/actores.json';
 import rawRelaciones from './data/relaciones.json';
 import {
@@ -10,7 +10,13 @@ import {
   createDefaultFilterState,
 } from './schema';
 import { GraphEngine } from './renderer';
-import { DockBar, CategoryItem, READING_CATEGORIES } from './components';
+import {
+  DockBar,
+  CategoryItem,
+  READING_CATEGORIES,
+  type CategoryValueCount,
+  type CategoryArtistRow,
+} from './components';
 import './App.css';
 
 const ACTORES = rawActores as unknown as ActorSemantic[];
@@ -23,9 +29,53 @@ export default function App() {
   const [filters, setFilters] = useState<FilterState>(() => createDefaultFilterState());
   const [selectedActor, setSelectedActor] = useState<ActorSemantic | null>(null);
 
-  // Estados para las 10 categorías de criterios de lectura
-  const [activeCategoryFilters, setActiveCategoryFilters] = useState<Set<string>>(new Set());
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  // Filtros sociológicos: valores seleccionados por categoría
+  const [categoryValueFilters, setCategoryValueFilters] = useState<Record<string, Set<string>>>({});
+  // Filtros de categoría obligatoria (debe tener datos en esa categoría)
+  const [activeCategoriesOnly, setActiveCategoriesOnly] = useState<Set<string>>(new Set());
+  // Categorías expandidas en el acordeón
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['practicas']));
+
+  // Precomputar datos y frecuencias de cada una de las 10 categorías a partir de ACTORES
+  const categoryDataMap = useMemo(() => {
+    const map = new Map<
+      string,
+      { valuesWithCount: CategoryValueCount[]; artistRows: CategoryArtistRow[] }
+    >();
+
+    for (const cat of READING_CATEGORIES) {
+      const frequency = new Map<string, number>();
+      const artistRows: CategoryArtistRow[] = [];
+
+      for (const actor of ACTORES) {
+        const rawVals = (actor as Record<string, unknown>)[cat.id];
+        if (Array.isArray(rawVals) && rawVals.length > 0) {
+          const cleanVals: string[] = [];
+          for (const v of rawVals) {
+            if (typeof v === 'string' && v.trim().length > 0) {
+              const trimmed = v.trim();
+              cleanVals.push(trimmed);
+              frequency.set(trimmed, (frequency.get(trimmed) || 0) + 1);
+            }
+          }
+          if (cleanVals.length > 0) {
+            artistRows.push({
+              artistName: actor.nombre,
+              values: cleanVals,
+            });
+          }
+        }
+      }
+
+      const valuesWithCount: CategoryValueCount[] = Array.from(frequency.entries())
+        .map(([value, count]) => ({ value, count }))
+        .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+
+      map.set(cat.id, { valuesWithCount, artistRows });
+    }
+
+    return map;
+  }, []);
 
   // Inicializar motor en la Capa 3 montando datos de Capa 1 y reglas de Capa 2
   useEffect(() => {
@@ -54,7 +104,16 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Actualizar filtros en el motor cuando cambie el estado de filtros
+  // Sincronizar filtros sociológicos con el estado de filtros del schema
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      categoryFilters: categoryValueFilters,
+      activeCategoriesOnly: activeCategoriesOnly,
+    }));
+  }, [categoryValueFilters, activeCategoriesOnly]);
+
+  // Actualizar motor cuando cambie el estado de filtros
   useEffect(() => {
     if (engineRef.current) {
       engineRef.current.setFilter(filters);
@@ -76,9 +135,9 @@ export default function App() {
     });
   };
 
-  // Alternar activación de filtro de criterio de categoría
-  const toggleCategoryFilter = (categoryId: string) => {
-    setActiveCategoryFilters((prev) => {
+  // Alternar filtro global de categoría requerida
+  const toggleCategoryOnly = (categoryId: string) => {
+    setActiveCategoriesOnly((prev) => {
       const next = new Set(prev);
       if (next.has(categoryId)) {
         next.delete(categoryId);
@@ -89,7 +148,37 @@ export default function App() {
     });
   };
 
-  // Alternar expansión de descripción de categoría
+  // Alternar selección de un término específico dentro de una categoría
+  const toggleCategoryValue = (categoryId: string, value: string) => {
+    const norm = value.toLowerCase().trim();
+    setCategoryValueFilters((prev) => {
+      const currentSet = prev[categoryId] ? new Set(prev[categoryId]) : new Set<string>();
+      if (currentSet.has(norm)) {
+        currentSet.delete(norm);
+      } else {
+        currentSet.add(norm);
+      }
+
+      const next = { ...prev };
+      if (currentSet.size === 0) {
+        delete next[categoryId];
+      } else {
+        next[categoryId] = currentSet;
+      }
+      return next;
+    });
+  };
+
+  // Limpiar selección de términos para una categoría
+  const clearCategoryValues = (categoryId: string) => {
+    setCategoryValueFilters((prev) => {
+      const next = { ...prev };
+      delete next[categoryId];
+      return next;
+    });
+  };
+
+  // Alternar expansión del acordeón de una categoría
   const toggleCategoryExpand = (categoryId: string) => {
     setExpandedCategories((prev) => {
       const next = new Set(prev);
@@ -112,6 +201,11 @@ export default function App() {
     }
   };
 
+  // Cantidad total de filtros activos de categorías y valores
+  const totalActiveCategoryFilters =
+    activeCategoriesOnly.size +
+    Object.values(categoryValueFilters).reduce((acc, s) => acc + s.size, 0);
+
   return (
     <div className="app-container">
       {/* Capa 3: Lienzo del Grafo 3D */}
@@ -124,9 +218,9 @@ export default function App() {
         subtitle="Criterios de lectura de la red"
         ariaLabel="Criterios de lectura de la red"
         headerActions={
-          activeCategoryFilters.size > 0 && (
-            <span className="active-filter-badge" title="Criterios activos">
-              {activeCategoryFilters.size} activos
+          totalActiveCategoryFilters > 0 && (
+            <span className="active-filter-badge" title="Filtros activos aplicados">
+              {totalActiveCategoryFilters} filtro{totalActiveCategoryFilters > 1 ? 's' : ''}
             </span>
           )
         }
@@ -136,13 +230,13 @@ export default function App() {
           <input
             type="text"
             className="search-input"
-            placeholder="Buscar por nombre, disciplina o ciudad..."
+            placeholder="Buscar por artista, práctica, concepto o ciudad..."
             value={filters.searchQuery || ''}
             onChange={(e) => handleSearchChange(e.target.value)}
           />
         </div>
 
-        {/* Sección de Categorías de Lectura */}
+        {/* Sección de Categorías de Lectura con datos tabulares */}
         <div className="sidebar-section">
           <div className="section-header">
             <span className="section-title">Criterios de Lectura</span>
@@ -150,18 +244,28 @@ export default function App() {
           </div>
 
           <div className="categories-list">
-            {READING_CATEGORIES.map((cat) => (
-              <CategoryItem
-                key={cat.id}
-                id={cat.id}
-                name={cat.name}
-                description={cat.description}
-                isFilterActive={activeCategoryFilters.has(cat.id)}
-                isExpanded={expandedCategories.has(cat.id)}
-                onToggleFilter={() => toggleCategoryFilter(cat.id)}
-                onToggleExpand={() => toggleCategoryExpand(cat.id)}
-              />
-            ))}
+            {READING_CATEGORIES.map((cat) => {
+              const data = categoryDataMap.get(cat.id);
+              const selectedVals = categoryValueFilters[cat.id] || new Set();
+
+              return (
+                <CategoryItem
+                  key={cat.id}
+                  id={cat.id}
+                  name={cat.name}
+                  description={cat.description}
+                  isFilterActive={activeCategoriesOnly.has(cat.id)}
+                  isExpanded={expandedCategories.has(cat.id)}
+                  valuesWithCount={data?.valuesWithCount}
+                  artistRows={data?.artistRows}
+                  selectedValues={selectedVals}
+                  onToggleFilter={() => toggleCategoryOnly(cat.id)}
+                  onToggleExpand={() => toggleCategoryExpand(cat.id)}
+                  onToggleValue={(val) => toggleCategoryValue(cat.id, val)}
+                  onClearValues={() => clearCategoryValues(cat.id)}
+                />
+              );
+            })}
           </div>
         </div>
 
@@ -222,14 +326,62 @@ export default function App() {
             {selectedActor.nombre}
           </div>
           <div className="info-card-body">
-            <div><strong>Tipo:</strong> {ACTOR_TYPE_META[selectedActor.tipo]?.label}</div>
-            {selectedActor.disciplina && <div><strong>Disciplina:</strong> {selectedActor.disciplina}</div>}
-            {selectedActor.rol_campo && <div><strong>Rol:</strong> {selectedActor.rol_campo}</div>}
-            {selectedActor.campo_especialidad && <div><strong>Especialidad:</strong> {selectedActor.campo_especialidad}</div>}
-            {selectedActor.foco_adquisicion && <div><strong>Foco:</strong> {selectedActor.foco_adquisicion}</div>}
-            {(selectedActor.ciudad || selectedActor.pais) && (
+            <div>
+              <strong>Tipo:</strong> {ACTOR_TYPE_META[selectedActor.tipo]?.label || selectedActor.tipo}
+            </div>
+            {selectedActor.personas && selectedActor.personas.length > 0 && (
               <div>
-                <strong>Ubicación:</strong> {[selectedActor.ciudad, selectedActor.pais].filter(Boolean).join(', ')}
+                <strong>Roles / Perfil:</strong> {selectedActor.personas.join(', ')}
+              </div>
+            )}
+            {selectedActor.practicas && selectedActor.practicas.length > 0 && (
+              <div>
+                <strong>Prácticas:</strong> {selectedActor.practicas.join(', ')}
+              </div>
+            )}
+            {selectedActor.materiales && selectedActor.materiales.length > 0 && (
+              <div>
+                <strong>Materiales / Medios:</strong> {selectedActor.materiales.join(', ')}
+              </div>
+            )}
+            {selectedActor.conceptos && selectedActor.conceptos.length > 0 && (
+              <div>
+                <strong>Conceptos:</strong> {selectedActor.conceptos.join(', ')}
+              </div>
+            )}
+            {selectedActor.instituciones && selectedActor.instituciones.length > 0 && (
+              <div>
+                <strong>Instituciones:</strong> {selectedActor.instituciones.join(', ')}
+              </div>
+            )}
+            {selectedActor.residencias && selectedActor.residencias.length > 0 && (
+              <div>
+                <strong>Residencias / Becas:</strong> {selectedActor.residencias.join(', ')}
+              </div>
+            )}
+            {selectedActor.exhibiciones && selectedActor.exhibiciones.length > 0 && (
+              <div>
+                <strong>Exhibiciones / Proyectos:</strong> {selectedActor.exhibiciones.join(', ')}
+              </div>
+            )}
+            {selectedActor.geografias && selectedActor.geografias.length > 0 && (
+              <div>
+                <strong>Geografías:</strong> {selectedActor.geografias.join(', ')}
+              </div>
+            )}
+            {selectedActor.formacion && selectedActor.formacion.length > 0 && (
+              <div>
+                <strong>Formación:</strong> {selectedActor.formacion.join(', ')}
+              </div>
+            )}
+            {selectedActor.circulacion && selectedActor.circulacion.length > 0 && (
+              <div>
+                <strong>Circulación:</strong> {selectedActor.circulacion.join(', ')}
+              </div>
+            )}
+            {(selectedActor.ciudad || selectedActor.pais) && (
+              <div style={{ marginTop: '4px', color: '#94a3b8', fontSize: '11px' }}>
+                📍 {[selectedActor.ciudad, selectedActor.pais].filter(Boolean).join(', ')}
               </div>
             )}
           </div>
