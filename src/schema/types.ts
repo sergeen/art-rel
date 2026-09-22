@@ -22,6 +22,9 @@ export interface ActorSemantic {
   foco_adquisicion?: string;
   capacidad_inversion?: string;
 
+  biografia?: string;
+  anio_nacimiento?: number;
+
   // Categorías sociológicas de criterios de lectura
   personas?: string[];
   practicas?: string[];

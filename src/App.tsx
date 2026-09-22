@@ -232,6 +232,16 @@ export default function App() {
             {selectedActor.nombre}
           </div>
           <div className="info-card-body">
+            {selectedActor.biografia && (
+              <div className="info-card-bio">
+                {selectedActor.biografia}
+              </div>
+            )}
+            {selectedActor.anio_nacimiento && (
+              <div>
+                <strong>Nacimiento:</strong> {selectedActor.anio_nacimiento}
+              </div>
+            )}
             {selectedActor.disciplina && (
               <div>
                 <strong>Disciplina:</strong> {selectedActor.disciplina}

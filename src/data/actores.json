@@ -11,17 +11,22 @@
     ],
     "practicas": [
       "gráfica",
-      "comunicación"
+      "comunicación",
+      "cartelería",
+      "prácticas interdisciplinarias"
     ],
     "materiales": [
       "cartelería"
     ],
     "conceptos": [
-      "diversidad"
+      "diversidad",
+      "medios",
+      "comunicación"
     ],
     "instituciones": [
       "UNCuyo",
-      "FAD"
+      "FAD",
+      "UNCuyo / FAD"
     ],
     "residencias": [],
     "exhibiciones": [
@@ -32,14 +37,16 @@
     ],
     "formacion": [
       "UNCuyo",
-      "FAD"
+      "FAD",
+      "UNCuyo / FAD"
     ],
     "circulacion": [],
     "trayectoria": "emergente",
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Artista visual y comunicadora vinculada a la Facultad de Artes y Diseño de la Universidad Nacional de Cuyo (UNCuyo), con foco en proyectos de cartelería contrapublicitaria, medios de comunicación y diversidad."
   },
   {
     "id": "art-ariana-beilis",
@@ -55,22 +62,35 @@
       "pintura",
       "dibujo",
       "objeto",
-      "instalación"
+      "instalación",
+      "espacialidad"
     ],
-    "materiales": [],
+    "materiales": [
+      "óleo",
+      "lienzo",
+      "objeto"
+    ],
     "conceptos": [
       "vacío",
       "intimidad",
       "memoria",
-      "cotidianeidad"
+      "cotidianeidad",
+      "cuerpo",
+      "vida cotidiana"
     ],
     "instituciones": [
-      "Castagnino+macro"
+      "Castagnino+macro",
+      "Museo Castagnino+macro",
+      "Salón Nacional de Rosario",
+      "Biblioteca Pedagógica Eudoro Díaz"
     ],
     "residencias": [],
     "exhibiciones": [
       "Salón Nacional de Rosario",
-      "Desde Adentro"
+      "Desde Adentro",
+      "74.º Salón Nacional de Rosario",
+      "78.º Salón Nacional de Rosario",
+      "Desde Adentro 2020"
     ],
     "geografias": [
       "Rosario",
@@ -84,7 +104,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Artista visual de Rosario. Participó en el 74.º y 78.º Salón Nacional de Rosario (con obras como \"¿Cuánto vacío puede llenar un mueble?\" y \"Ducha\" de la serie \"Gris todo\") y en el proyecto \"Desde Adentro 2020\" de la Biblioteca Pedagógica Eudoro Díaz, explorando el vacío, la intimidad y la vida cotidiana."
   },
   {
     "id": "art-ayelen-mohaded",
@@ -104,23 +125,32 @@
     ],
     "materiales": [
       "textil",
-      "joyería"
+      "joyería",
+      "piel"
     ],
     "conceptos": [
       "cuerpo",
       "materialidad",
       "fragilidad",
       "sombra",
-      "efímero"
+      "efímero",
+      "persistente",
+      "melancolía",
+      "euforia",
+      "piel",
+      "superficie"
     ],
     "instituciones": [
       "UNC",
       "Universidad de Palermo",
       "Museo de las Mujeres",
-      "Museo Bonfiglioli"
+      "Museo Bonfiglioli",
+      "Studio Kura",
+      "Central Saint Martins"
     ],
     "residencias": [
-      "Studio Kura"
+      "Studio Kura",
+      "Studio Kura (Japón)"
     ],
     "exhibiciones": [
       "exposiciones",
@@ -129,21 +159,32 @@
     "geografias": [
       "Córdoba",
       "Japón",
-      "Londres"
+      "Londres",
+      "Villa María"
     ],
     "formacion": [
       "UP",
-      "UNC"
+      "UNC",
+      "Universidad de Palermo",
+      "Central Saint Martins"
     ],
     "circulacion": [
       "Argentina",
-      "internacional"
+      "internacional",
+      "Córdoba",
+      "Londres",
+      "Japón"
     ],
     "trayectoria": "consagrada",
     "capital_simbolico": "alto",
-    "galerias": [],
+    "galerias": [
+      "Galería Satélite",
+      "Galería Caelum"
+    ],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en 1985 en Argentina. Licenciada en Diseño Textil por la Universidad de Palermo y Especialista en Prácticas Artísticas Contemporáneas por la UNC. Trabaja con pintura, performance y joyería, vinculando estas disciplinas con el cuerpo, la fragilidad y la superficie material. Realizó residencia en Studio Kura (Japón) y ha expuesto en Córdoba, Villa María y Londres.",
+    "anio_nacimiento": 1985
   },
   {
     "id": "art-belen-ghiso",
@@ -160,14 +201,17 @@
     "instituciones": [],
     "residencias": [],
     "exhibiciones": [],
-    "geografias": [],
+    "geografias": [
+      "Argentina"
+    ],
     "formacion": [],
     "circulacion": [],
     "trayectoria": "emergente",
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Artista visual activa en la plataforma VAPOR. Perfil en proceso de relevamiento y documentación biográfica."
   },
   {
     "id": "art-chebo-roitter-pavez",
@@ -180,26 +224,42 @@
       "diseñador",
       "editor",
       "investigador",
-      "docente"
+      "docente",
+      "diseñador gráfico",
+      "animador",
+      "selector musical"
     ],
     "practicas": [
       "diseño",
       "edición",
       "animación",
-      "investigación"
+      "investigación",
+      "diseño gráfico",
+      "apropiación"
     ],
     "materiales": [
       "imagen",
       "texto",
       "archivo",
-      "documentos"
+      "documentos",
+      "documento"
     ],
     "conceptos": [
       "historia",
       "ficción",
       "memoria",
       "humor",
-      "narrativas"
+      "narrativas",
+      "archivo",
+      "apropiación",
+      "documento",
+      "texto",
+      "imagen",
+      "falsificación",
+      "apócrifo",
+      "patrimonio cultural",
+      "narrativas históricas",
+      "espacio público"
     ],
     "instituciones": [],
     "residencias": [],
@@ -207,7 +267,10 @@
       "proyectos editoriales",
       "investigación"
     ],
-    "geografias": [],
+    "geografias": [
+      "Córdoba",
+      "Buenos Aires"
+    ],
     "formacion": [
       "diseño",
       "artes"
@@ -219,7 +282,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Sebastián \"Chebo\" Roitter Pavez es artista, diseñador gráfico y editorial, editor, investigador, docente, animador y selector musical. Su trabajo revisa los huecos de las narrativas históricas dominantes manipulando imágenes y documentos de dominio público, tradiciones apócrifas y humor."
   },
   {
     "id": "art-constanza-chiappini",
@@ -234,11 +298,16 @@
     ],
     "practicas": [
       "pintura",
-      "gestión"
+      "gestión",
+      "gestión cultural",
+      "curaduría"
     ],
     "materiales": [
       "pintura",
-      "imagen"
+      "imagen",
+      "óleo",
+      "archivo",
+      "lienzo"
     ],
     "conceptos": [
       "memoria",
@@ -246,12 +315,19 @@
       "afectos",
       "identidad",
       "historia",
-      "cultura popular"
+      "cultura popular",
+      "pintura",
+      "imagen",
+      "historia reciente",
+      "fútbol",
+      "territorio"
     ],
     "instituciones": [
       "UNC",
       "FNA",
-      "Casa Nacional del Bicentenario"
+      "Casa Nacional del Bicentenario",
+      "Museo Jesuítico Nacional Estancia Jesús María",
+      "Fundación El Mirador"
     ],
     "residencias": [
       "Beca Creación FNA"
@@ -259,12 +335,14 @@
     "exhibiciones": [
       "BIENALSUR",
       "exposiciones",
-      "Pinball"
+      "Pinball",
+      "Casa Nacional del Bicentenario"
     ],
     "geografias": [
       "Trelew",
       "Córdoba",
-      "Buenos Aires"
+      "Buenos Aires",
+      "Chubut"
     ],
     "formacion": [
       "UNC"
@@ -274,14 +352,19 @@
     ],
     "trayectoria": "intermedia",
     "capital_simbolico": "alto",
-    "galerias": [],
+    "galerias": [
+      "Pinball Galería de Arte"
+    ],
     "curadores": [
       "Siu Lizaso"
     ],
     "coleccionistas": [
       "FNA",
-      "Fondo Nacional de las Artes (FNA)"
-    ]
+      "Fondo Nacional de las Artes (FNA)",
+      "Beca Creación FNA"
+    ],
+    "biografia": "Nació en Trelew, Chubut, en 1988. Licenciada en Pintura por la UNC (egresada en 2014). Desarrolló gran parte de su carrera en Córdoba y vive y trabaja en Buenos Aires. Seleccionada dos veces para la Beca Creación del FNA; participó en BIENALSUR, Casa del Bicentenario y fue directora de Pinball Galería de Arte.",
+    "anio_nacimiento": 1988
   },
   {
     "id": "art-ezequiel-lovrovich",
@@ -297,21 +380,33 @@
     "practicas": [
       "fotografía",
       "instalación",
-      "investigación"
+      "investigación",
+      "cianotipia",
+      "investigación artística",
+      "proceso"
     ],
     "materiales": [
       "cianotipia",
       "química",
       "luz solar",
       "agua",
-      "textil"
+      "textil",
+      "papel"
     ],
     "conceptos": [
       "naturaleza",
       "cuerpo",
       "huella",
       "sombra",
-      "semiótica"
+      "semiótica",
+      "cianotipia",
+      "fotografía",
+      "química",
+      "luz solar",
+      "agua",
+      "textil",
+      "investigación artística",
+      "proceso"
     ],
     "instituciones": [
       "UNC"
@@ -324,7 +419,9 @@
     ],
     "geografias": [
       "Córdoba",
-      "internacional"
+      "internacional",
+      "España",
+      "Noruega"
     ],
     "formacion": [
       "UNC"
@@ -342,8 +439,10 @@
       "Julia Rossetti / Látigx"
     ],
     "coleccionistas": [
-      "UNC (Universidad Nacional de Córdoba)"
-    ]
+      "UNC (Universidad Nacional de Córdoba)",
+      "Beca de investigación UNC"
+    ],
+    "biografia": "Artista e investigador en artes visuales de la UNC (becario 2025/26). Su producción se sitúa en la intersección entre arte, ciencia, química y naturaleza. Su procedimiento central es la cianotipia con soluciones químicas, luz solar y agua para registrar huellas, sombras y cuerpos sobre textiles y papel. Su trabajo circuló por Argentina, España y Noruega."
   },
   {
     "id": "art-facundo-diaz",
@@ -354,7 +453,8 @@
     "disciplina": "dibujo / pintura / poesía",
     "personas": [
       "artista",
-      "gestor"
+      "gestor",
+      "gestor cultural"
     ],
     "practicas": [
       "dibujo",
@@ -363,12 +463,16 @@
       "fotografía",
       "video",
       "performance",
-      "objeto"
+      "objeto",
+      "escritura"
     ],
     "materiales": [
       "pintura",
       "dibujo",
-      "fotografía"
+      "fotografía",
+      "papel",
+      "tinta",
+      "objeto"
     ],
     "conceptos": [
       "paisaje",
@@ -377,7 +481,10 @@
       "fuego",
       "sueños",
       "criptozoología",
-      "nomadismo"
+      "nomadismo",
+      "montaña",
+      "volcán",
+      "noche"
     ],
     "instituciones": [],
     "residencias": [],
@@ -392,13 +499,17 @@
       "artes visuales"
     ],
     "circulacion": [
-      "Argentina"
+      "Argentina",
+      "Mendoza",
+      "Circuitos independientes"
     ],
     "trayectoria": "emergente",
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en Mendoza en 1985. Artista y gestor cultural con una concepción nómade de la producción en formatos pequeños y transportables. Su práctica cruza dibujo, pintura, poesía, paisaje de montaña y vulcanología, sueños y criptozoología.",
+    "anio_nacimiento": 1985
   },
   {
     "id": "art-franco-fasoli-jaz",
@@ -414,12 +525,17 @@
       "pintura",
       "mural",
       "escultura",
-      "collage"
+      "collage",
+      "muralismo",
+      "graffiti",
+      "escenografía"
     ],
     "materiales": [
       "cerámica",
       "bronce",
-      "papel"
+      "papel",
+      "mural",
+      "óleo"
     ],
     "conceptos": [
       "identidad",
@@ -427,12 +543,19 @@
       "subculturas",
       "ritual",
       "historia",
-      "América Latina"
+      "América Latina",
+      "espacio público",
+      "arquitectura",
+      "historia argentina",
+      "escala",
+      "materialidad"
     ],
     "instituciones": [
       "Teatro Colón",
       "Fundación Konex",
-      "Museo Moderno"
+      "Museo Moderno",
+      "Teatro Colón / ISA",
+      "Museo de Arte Moderno (Museo Moderno)"
     ],
     "residencias": [],
     "exhibiciones": [
@@ -442,13 +565,19 @@
     "geografias": [
       "Buenos Aires",
       "Barcelona",
-      "internacional"
+      "internacional",
+      "América Latina",
+      "Europa"
     ],
     "formacion": [
-      "ISA Teatro Colón"
+      "ISA Teatro Colón",
+      "Teatro Colón / ISA"
     ],
     "circulacion": [
-      "internacional"
+      "internacional",
+      "Buenos Aires",
+      "Barcelona",
+      "Internacional"
     ],
     "trayectoria": "consagrada",
     "capital_simbolico": "alto",
@@ -456,8 +585,11 @@
     "curadores": [],
     "coleccionistas": [
       "Fundación Konex",
-      "Guillermo Mena"
-    ]
+      "Guillermo Mena",
+      "Museo Moderno (Adquisición patrimonial)"
+    ],
+    "biografia": "Nació en Buenos Aires en 1981; vive y trabaja entre Barcelona y Buenos Aires. Formado en cerámica y en el ISA del Teatro Colón. Pionero del graffiti y muralismo en el espacio público argentino a fines de los 90. Trabaja con pintura, collage, bronce, papel y escultura monumental, indagando en subculturas, identidades colectivas, rituales latinoamericanos y tensiones sociales.",
+    "anio_nacimiento": 1981
   },
   {
     "id": "art-guillermo-mena",
@@ -478,7 +610,8 @@
       "animación",
       "fotografía",
       "video",
-      "collage"
+      "collage",
+      "site-specific"
     ],
     "materiales": [
       "carbón",
@@ -490,7 +623,9 @@
       "desaparición",
       "memoria",
       "movimiento",
-      "paisaje"
+      "paisaje",
+      "espacio",
+      "acción corporal"
     ],
     "instituciones": [],
     "residencias": [
@@ -507,14 +642,24 @@
     "geografias": [
       "Córdoba",
       "Buenos Aires",
-      "internacional"
+      "internacional",
+      "Los Cóndores",
+      "Canadá",
+      "Islandia",
+      "Italia",
+      "España",
+      "Uruguay"
     ],
     "formacion": [
       "artes visuales",
-      "diseño gráfico"
+      "diseño gráfico",
+      "UNC"
     ],
     "circulacion": [
-      "internacional"
+      "internacional",
+      "Buenos Aires",
+      "Córdoba",
+      "Internacional"
     ],
     "trayectoria": "consagrada",
     "capital_simbolico": "medio",
@@ -524,7 +669,9 @@
     ],
     "coleccionistas": [
       "Franco Fasoli / JAZ"
-    ]
+    ],
+    "biografia": "Nació en Los Cóndores, Córdoba, en 1986. Técnico en Artes Visuales y diseñador gráfico, radicado en Buenos Aires. Su procedimiento central consiste en desgastar carbón contra muros para luego transferir sus huellas al papel, articulando acción espacial y registro conservable, además de animación, video e instalaciones site-specific. Ha realizado residencias en Canadá, Islandia, Italia, España y Uruguay.",
+    "anio_nacimiento": 1986
   },
   {
     "id": "art-juan-jesus-conde",
@@ -535,18 +682,23 @@
     "disciplina": "escultura / escritura",
     "personas": [
       "artista",
-      "docente"
+      "docente",
+      "escritor"
     ],
     "practicas": [
       "escultura",
       "escritura"
     ],
     "materiales": [
-      "metal"
+      "metal",
+      "objeto"
     ],
     "conceptos": [
       "territorio",
-      "paisaje"
+      "paisaje",
+      "escultura",
+      "metal",
+      "geografía"
     ],
     "instituciones": [
       "Museo Puerto de la Memoria"
@@ -567,7 +719,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Artista visual y docente de escultura en metal. En 2026 figura como docente en el Museo Puerto de la Memoria de Paraná, trabajando técnicas metálicas para producir piezas funcionales y expresivas, además de escribir sobre territorio, paisaje y geografía entrerriana."
   },
   {
     "id": "art-juan-tarraf",
@@ -580,31 +733,43 @@
       "artista"
     ],
     "practicas": [
-      "pintura"
+      "pintura",
+      "abstracción"
     ],
     "materiales": [
       "óleo",
-      "lienzo"
+      "lienzo",
+      "materia"
     ],
     "conceptos": [
       "abstracción",
       "materia",
       "intuición",
       "espiritualidad",
-      "zen"
+      "zen",
+      "informalismo",
+      "cuerpo",
+      "ritmo"
     ],
     "instituciones": [
       "UNA",
       "UNLP",
       "UTDT",
-      "Galería Crudo"
+      "Galería Crudo",
+      "Instituto Vocacional de Arte",
+      "Universidad Torcuato Di Tella (UTDT)",
+      "Universidad Nacional de La Plata (UNLP)",
+      "Fundación El Mirador"
     ],
     "residencias": [
-      "LAR"
+      "LAR",
+      "LAR (Local de Artes Recientes)",
+      "Taller Compartido"
     ],
     "exhibiciones": [
       "Neoinformalismo Zen",
-      "Artistas x Artistas"
+      "Artistas x Artistas",
+      "Neoinformalismo Zen (2026)"
     ],
     "geografias": [
       "Buenos Aires",
@@ -613,7 +778,8 @@
     "formacion": [
       "UNA",
       "IVA",
-      "clínicas"
+      "clínicas",
+      "Instituto Vocacional de Arte"
     ],
     "circulacion": [
       "Argentina"
@@ -626,7 +792,9 @@
     "curadores": [
       "Mateo Valbuena González"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en Buenos Aires en 1995. Licenciado en Artes Visuales (Pintura) por la UNA e Instituto Vocacional de Arte. Realizó clínicas con Carlos Bissolino y Ernesto Ballesteros. Participó en Taller Compartido (Galería Crudo), LAR y Neoinformalismo Zen (2026), trabajando una pintura abstracta al óleo ligada al informalismo, la intuición y la espiritualidad.",
+    "anio_nacimiento": 1995
   },
   {
     "id": "art-julia-rossetti-latigx",
@@ -647,12 +815,15 @@
       "instalación",
       "radio",
       "audiovisual",
-      "dibujo"
+      "dibujo",
+      "ilustración",
+      "bordado"
     ],
     "materiales": [
       "MIDI",
       "software",
-      "bordado"
+      "bordado",
+      "paisaje sonoro"
     ],
     "conceptos": [
       "paisaje",
@@ -661,14 +832,23 @@
       "memoria",
       "folklore",
       "territorio",
-      "ritual"
+      "ritual",
+      "paisaje sonoro",
+      "archivo",
+      "cultura guaraní",
+      "escucha"
     ],
     "instituciones": [
       "UNC",
       "InSonora"
     ],
     "residencias": [
-      "varias residencias"
+      "varias residencias",
+      "Curadora",
+      "Manta",
+      "Barda del Desierto",
+      "Tsonami",
+      "Casa Belgrado"
     ],
     "exhibiciones": [
       "Y Porã",
@@ -677,11 +857,16 @@
     "geografias": [
       "Corrientes",
       "América Latina",
-      "internacional"
+      "internacional",
+      "Córdoba",
+      "Chile",
+      "Europa",
+      "Asia"
     ],
     "formacion": [
       "artes visuales",
-      "diseño gráfico"
+      "diseño gráfico",
+      "UNC"
     ],
     "circulacion": [
       "América Latina",
@@ -694,7 +879,9 @@
     "curadores": [
       "Ezequiel Lovrovich"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nacida en Corrientes en 1986. Licenciada en Artes Visuales, diseñadora gráfica y especialista en arte sonoro. Bajo el nombre artístico Látigx crea música experimental, paisajes sonoros, arte MIDI, performance, radio e instalaciones. Su trabajo aborda la cosmogonía guaraní, folklore del Nordeste, territorio de frontera y rituales, circulando por América Latina, Europa y Asia.",
+    "anio_nacimiento": 1986
   },
   {
     "id": "art-leandro-fernandez",
@@ -711,17 +898,23 @@
       "fotografía",
       "pintura",
       "video",
-      "objeto"
+      "objeto",
+      "interdisciplinariedad"
     ],
     "materiales": [
       "objeto",
-      "fotografía"
+      "fotografía",
+      "video"
     ],
     "conceptos": [
       "naturaleza",
       "ciclos",
       "transformación",
-      "territorio"
+      "territorio",
+      "paisaje",
+      "cambio",
+      "retorno",
+      "intuición"
     ],
     "instituciones": [],
     "residencias": [],
@@ -731,10 +924,12 @@
     ],
     "geografias": [
       "San Luis",
-      "Córdoba"
+      "Córdoba",
+      "Concarán"
     ],
     "formacion": [
-      "artes visuales"
+      "artes visuales",
+      "Córdoba"
     ],
     "circulacion": [
       "Argentina"
@@ -743,7 +938,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Artista visual nacido en Concarán, San Luis, formado en Córdoba y radicado en San Luis. Su práctica cruza escultura, fotografía, objetos, pintura y videoarte a partir de su relación íntima con el entorno natural, la poesía y la filosofía, indagando en ciclos, transformación y retorno."
   },
   {
     "id": "art-luna-sudaca",
@@ -761,7 +957,8 @@
     ],
     "materiales": [
       "telas sintéticas",
-      "pintura"
+      "pintura",
+      "tela"
     ],
     "conceptos": [
       "noche",
@@ -769,14 +966,21 @@
       "intimidad",
       "periferia",
       "fantasía",
-      "clandestinidad"
+      "clandestinidad",
+      "territorio",
+      "conurbano",
+      "Liniers",
+      "imaginario barrial"
     ],
     "instituciones": [
-      "MUNAR"
+      "MUNAR",
+      "Instituto Vocacional de Arte Labardén",
+      "Escuela Manuel Belgrano"
     ],
     "residencias": [
       "programas de formación",
-      "residencia"
+      "residencia",
+      "MUNAR"
     ],
     "exhibiciones": [
       "exposiciones",
@@ -785,11 +989,14 @@
     "geografias": [
       "Buenos Aires",
       "Liniers",
-      "conurbano"
+      "conurbano",
+      "Conurbano"
     ],
     "formacion": [
       "IVA Labardén",
-      "Manuel Belgrano"
+      "Manuel Belgrano",
+      "Instituto Vocacional de Arte Labardén",
+      "Escuela Manuel Belgrano"
     ],
     "circulacion": [
       "Argentina",
@@ -801,7 +1008,9 @@
     "curadores": [
       "Soledad Manrique Goldsack"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en Buenos Aires en 1995/1996. Formada en el Instituto Vocacional de Arte Labardén y la Escuela de Bellas Artes Manuel Belgrano; desde 2022 vinculada a MUNAR. Su obra está fuertemente ligada a la noche del conurbano (particularmente Liniers), explorando sexualidad, intimidad, fantasía y clandestinidad mediante telas sintéticas y pintura.",
+    "anio_nacimiento": 1995
   },
   {
     "id": "art-maria-arrastoa",
@@ -811,19 +1020,34 @@
     "pais": "Argentina",
     "disciplina": "montaje / postproducción / VFX",
     "personas": [
-      "profesional audiovisual"
+      "profesional audiovisual",
+      "montajista",
+      "editora"
     ],
     "practicas": [
       "montaje",
       "postproducción",
       "VFX",
-      "motion graphics"
+      "motion graphics",
+      "edición audiovisual",
+      "color grading",
+      "diseño gráfico",
+      "cine",
+      "producción audiovisual"
     ],
     "materiales": [
       "imagen digital",
-      "video"
+      "video",
+      "software"
     ],
-    "conceptos": [],
+    "conceptos": [
+      "cine",
+      "documental",
+      "ficción",
+      "televisión",
+      "producción audiovisual",
+      "industria audiovisual"
+    ],
     "instituciones": [
       "AMMAC",
       "industria audiovisual"
@@ -849,7 +1073,9 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nacida en Buenos Aires en 1994, radicada en Barcelona. Profesional del montaje cinematográfico y la postproducción audiovisual desde 2014. Ha trabajado en cine y televisión en producciones reconocidas como El Ángel, La Odisea de los Giles, El Reino, El Fin del Amor, Clementina y La Calle de los Pianistas.",
+    "anio_nacimiento": 1994
   },
   {
     "id": "art-martin-sensi",
@@ -866,33 +1092,44 @@
     "practicas": [
       "grabado",
       "gráfica",
-      "instalación"
+      "instalación",
+      "arte impreso"
     ],
     "materiales": [
       "tinta",
       "impresión",
-      "objetos"
+      "objetos",
+      "papel",
+      "objeto"
     ],
     "conceptos": [
       "fragmento",
       "ruina",
       "ficción",
-      "extrañamiento"
+      "extrañamiento",
+      "objeto",
+      "paisaje cotidiano"
     ],
     "instituciones": [
       "UNLP",
-      "Centro de Arte UNLP"
+      "Centro de Arte UNLP",
+      "Centro Cultural Recoleta"
     ],
     "residencias": [],
     "exhibiciones": [
       "Tranza",
       "Ctrl P",
       "Presión",
-      "Tinta Fresca"
+      "Tinta Fresca",
+      "Tranza Encuentro Federal de Gráfica",
+      "Centro Cultural Recoleta",
+      "Festival Ctrl P",
+      "Presión Festival de Grabado"
     ],
     "geografias": [
       "Coronel Pringles",
-      "La Plata"
+      "La Plata",
+      "Buenos Aires"
     ],
     "formacion": [
       "UNLP"
@@ -904,7 +1141,9 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en Coronel Pringles en 1989. Licenciado en Grabado y Arte Impreso por la Facultad de Bellas Artes de la UNLP (La Plata). Organizador de \"Tranza Encuentro Federal de Gráfica\" y docente en procedimientos visuales. Construye instalaciones y escenarios ficcionales a partir de fragmentos, ruinas y objetos del entorno cotidiano.",
+    "anio_nacimiento": 1989
   },
   {
     "id": "art-mateo-valbuena-gonzalez",
@@ -917,31 +1156,40 @@
       "artista"
     ],
     "practicas": [
-      "pintura"
+      "pintura",
+      "abstracción"
     ],
     "materiales": [
       "óleo",
-      "lienzo"
+      "lienzo",
+      "materia"
     ],
     "conceptos": [
       "naturaleza",
       "abstracción",
       "intuición",
-      "materia"
+      "materia",
+      "informalismo",
+      "zen",
+      "paisaje"
     ],
     "instituciones": [
       "UTDT",
-      "Centro de Arte UNLP"
+      "Centro de Arte UNLP",
+      "Universidad Torcuato Di Tella (UTDT)"
     ],
     "residencias": [],
     "exhibiciones": [
-      "Neoinformalismo Zen"
+      "Neoinformalismo Zen",
+      "Neoinformalismo Zen (2026)"
     ],
     "geografias": [
       "Buenos Aires",
       "La Plata"
     ],
-    "formacion": [],
+    "formacion": [
+      "UTDT"
+    ],
     "circulacion": [
       "Argentina"
     ],
@@ -951,7 +1199,8 @@
     "curadores": [
       "Juan Tarraf"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Pintor que investiga la abstracción, el lenguaje mudo de la naturaleza y la intuición matérica sobre óleo y lienzo. Participó en la exposición Neoinformalismo Zen (2026) y en programas de la Universidad Torcuato Di Tella."
   },
   {
     "id": "art-mauricio-chiappini",
@@ -961,7 +1210,8 @@
     "pais": "Argentina",
     "disciplina": "fotografía / retrato",
     "personas": [
-      "fotógrafo"
+      "fotógrafo",
+      "docente"
     ],
     "practicas": [
       "fotografía",
@@ -971,7 +1221,14 @@
       "fotografía",
       "iluminación"
     ],
-    "conceptos": [],
+    "conceptos": [
+      "retrato",
+      "iluminación",
+      "encuadre",
+      "contexto",
+      "dirección de personas",
+      "imagen fotográfica"
+    ],
     "instituciones": [],
     "residencias": [],
     "exhibiciones": [],
@@ -988,7 +1245,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Fotógrafo y docente de fotografía de retrato radicado en Córdoba. Su actividad profesional y formativa se concentra en técnicas de iluminación, encuadre, contexto escénico y dirección de personas."
   },
   {
     "id": "art-milena-leczycki",
@@ -999,24 +1257,30 @@
     "disciplina": "dibujo / ilustración / publicaciones",
     "personas": [
       "artista",
-      "ilustradora"
+      "ilustradora",
+      "estudiante"
     ],
     "practicas": [
       "dibujo",
       "ilustración",
-      "publicaciones"
+      "publicaciones",
+      "fanzine"
     ],
     "materiales": [
       "papel",
       "impresión",
-      "calcos"
+      "calcos",
+      "postales",
+      "fanzine"
     ],
     "conceptos": [
       "infancia",
       "intimidad",
       "nostalgia",
       "cuerpo",
-      "fantasía"
+      "fantasía",
+      "monstruos",
+      "criaturas"
     ],
     "instituciones": [
       "Casa Nacional del Bicentenario"
@@ -1025,7 +1289,9 @@
     "exhibiciones": [
       "Milesbozos",
       "Cómo atrapar una estrella fugaz",
-      "Premio Prilidiano Pueyrredón"
+      "Premio Prilidiano Pueyrredón",
+      "Premio Prilidiano Pueyrredón 2025",
+      "Casa Nacional del Bicentenario"
     ],
     "geografias": [
       "Buenos Aires"
@@ -1040,7 +1306,8 @@
     "capital_simbolico": "medio",
     "galerias": [],
     "curadores": [],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Estudiante de artes visuales e ilustradora, creadora del proyecto editorial Milesbozos. Desarrolla dibujos, calcos, postales y fanzines que abordan el género fantástico, criaturas, infancia, pérdida, amistad e intimidad. Participante del Premio Prilidiano Pueyrredón 2025."
   },
   {
     "id": "art-mora-martinez-broder",
@@ -1054,12 +1321,18 @@
       "investigadora"
     ],
     "practicas": [
-      "artes visuales"
+      "artes visuales",
+      "investigación artística"
     ],
     "materiales": [],
     "conceptos": [
       "género",
-      "diversidad"
+      "diversidad",
+      "artes visuales",
+      "investigación",
+      "género y diversidad",
+      "LGBTIQ+",
+      "identidad"
     ],
     "instituciones": [
       "UNC"
@@ -1086,8 +1359,10 @@
       "Samantha Ferro"
     ],
     "coleccionistas": [
-      "UNC (Universidad Nacional de Córdoba)"
-    ]
+      "UNC (Universidad Nacional de Córdoba)",
+      "Beca de investigación UNC"
+    ],
+    "biografia": "Artista visual e investigadora vinculada a la Facultad de Artes de la UNC en Córdoba, participando en proyectos de investigación académica sobre arte contemporáneo, géneros, sexualidades y colectivos LGBTIQ+."
   },
   {
     "id": "art-samantha-ferro",
@@ -1102,29 +1377,35 @@
     "practicas": [
       "escultura",
       "instalación",
-      "fotografía"
+      "fotografía",
+      "textil"
     ],
     "materiales": [
       "textil",
       "tafeta",
       "hierro",
-      "imanes"
+      "imanes",
+      "tela"
     ],
     "conceptos": [
       "cuerpo",
       "identidad",
       "género",
       "vulnerabilidad",
-      "sujeción"
+      "sujeción",
+      "prácticas naturalizadas"
     ],
     "instituciones": [
       "UNC",
-      "UTDT"
+      "UTDT",
+      "FAUD"
     ],
     "residencias": [
       "R.A.R.O.",
       "Marco Arte Foco",
-      "Proyecto Yungas"
+      "Proyecto Yungas",
+      "Programa de Artistas UTDT",
+      "Encontro de Artistas Novos"
     ],
     "exhibiciones": [
       "Artistas x Artistas",
@@ -1138,7 +1419,8 @@
       "internacional"
     ],
     "formacion": [
-      "UNC"
+      "UNC",
+      "UTDT"
     ],
     "circulacion": [
       "Argentina",
@@ -1150,7 +1432,8 @@
     "curadores": [
       "Mora Martínez Broder"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Nació en Génova (Italia) y desarrolló su formación artística en Córdoba. Licenciada en Artes Visuales con orientación en Escultura por la UNC. Trabaja sobre el cuerpo como territorio de construcción de identidades y prácticas de sujeción, empleando tela, tafeta, hierro e imanes. Participó en el Programa de Artistas UTDT, Proyecto Yungas, R.A.R.O. y Marco Arte Foco."
   },
   {
     "id": "art-siu-lizaso",
@@ -1162,23 +1445,35 @@
     "personas": [
       "artista",
       "gestora",
-      "curadora"
+      "curadora",
+      "gestora cultural",
+      "productora"
     ],
     "practicas": [
       "pintura",
       "gestión",
-      "curaduría"
+      "curaduría",
+      "gestión cultural",
+      "producción",
+      "políticas culturales"
     ],
     "materiales": [],
     "conceptos": [
       "producción cultural",
-      "políticas culturales"
+      "políticas culturales",
+      "gestión cultural",
+      "curaduría",
+      "mercado de arte",
+      "espacio público",
+      "instituciones culturales"
     ],
     "instituciones": [
       "UNC",
       "Universidad Blas Pascal",
       "Secretaría de Cultura Córdoba",
-      "Mercado de Arte"
+      "Mercado de Arte",
+      "Mercado de Arte Contemporáneo",
+      "Capital Creativo"
     ],
     "residencias": [],
     "exhibiciones": [
@@ -1190,7 +1485,8 @@
     ],
     "formacion": [
       "UNC",
-      "UBP"
+      "UBP",
+      "Universidad Blas Pascal"
     ],
     "circulacion": [
       "Córdoba",
@@ -1199,13 +1495,15 @@
     "trayectoria": "emergente",
     "capital_simbolico": "alto",
     "galerias": [
-      "Mercado de Arte"
+      "Mercado de Arte",
+      "Mercado de Arte Contemporáneo"
     ],
     "curadores": [
       "Mercado de Arte Contemporáneo",
       "Constanza Chiappini"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Licenciada en Pintura por la UNC y especializada en Gestión Cultural por la Universidad Blas Pascal. Gestora cultural, curadora y productora artística; fue coordinadora de Artes Visuales de la Secretaría de Cultura de Córdoba, coordinadora de Mercado de Arte Contemporáneo y responsable de programas como La Sala Que Habito. Integra Capital Creativo."
   },
   {
     "id": "art-soledad-manrique-goldsack",
@@ -1224,18 +1522,28 @@
       "fotografía",
       "montaje",
       "iluminación",
-      "producción"
+      "producción",
+      "museografía",
+      "técnica de exposiciones"
     ],
     "materiales": [
       "luz",
       "fotografía",
       "espacio expositivo"
     ],
-    "conceptos": [],
+    "conceptos": [
+      "museografía",
+      "espacio",
+      "iluminación",
+      "exposiciones",
+      "montaje",
+      "instituciones"
+    ],
     "instituciones": [
       "Museo Moderno",
       "Instituto Di Tella",
-      "arteBA"
+      "arteBA",
+      "Museo de Arte Moderno (Museo Moderno)"
     ],
     "residencias": [],
     "exhibiciones": [
@@ -1259,7 +1567,8 @@
       "Museo de Arte Moderno (Museo Moderno)",
       "Luna Sudaca"
     ],
-    "coleccionistas": []
+    "coleccionistas": [],
+    "biografia": "Fotógrafa, iluminadora, montajista y técnica de exposiciones en Buenos Aires. Integra el equipo de producción del Museo de Arte Moderno de Buenos Aires y ha realizado tareas de montaje, iluminación y museografía para el Museo Moderno, Instituto Di Tella, arteBA y galerías privadas."
   },
   {
     "id": "inst-unc",

@@ -164,6 +164,19 @@
   line-height: 1.4;
 }
 
+.info-card-bio {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid #f43f5e;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
 @keyframes cardFadeIn {
   from {
     opacity: 0;
