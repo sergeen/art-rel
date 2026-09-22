@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import rawActores from './data/actores.json';
-import rawRelaciones from './data/relaciones.json';
 import {
   type ActorSemantic,
   type FilterState,
-  type RelacionSemantic,
+  type PhysicsConfig,
   ACTOR_TYPE_META,
+  DEFAULT_PHYSICS_CONFIG,
   createDefaultFilterState,
 } from './schema';
 import { GraphEngine } from './renderer';
@@ -17,7 +17,6 @@ import {
 import './App.css';
 
 const ACTORES = rawActores as unknown as ActorSemantic[];
-const RELACIONES = rawRelaciones as unknown as RelacionSemantic[];
 const ARTISTAS = ACTORES.filter((a) => a.tipo === 'artista');
 
 export default function App() {
@@ -26,6 +25,9 @@ export default function App() {
 
   const [filters, setFilters] = useState<FilterState>(() => createDefaultFilterState());
   const [selectedActor, setSelectedActor] = useState<ActorSemantic | null>(null);
+
+  // Calibración de fuerzas físicas del grafo
+  const [physics, setPhysics] = useState<PhysicsConfig>(DEFAULT_PHYSICS_CONFIG);
 
   // Filtros sociológicos: valores seleccionados por categoría (pills activas)
   // Por defecto todo está deseleccionado
@@ -70,13 +72,14 @@ export default function App() {
 
     const engine = new GraphEngine(containerRef.current, {
       backgroundColor: '#040508',
+      physics,
       callbacks: {
         onNodeClick: (actor) => setSelectedActor(actor),
         onBackgroundClick: () => setSelectedActor(null),
       },
     });
 
-    engine.setData(ACTORES, RELACIONES);
+    engine.setData(ACTORES);
     engine.setFilter(filters);
     engineRef.current = engine;
 
@@ -144,6 +147,19 @@ export default function App() {
     setFilters((prev) => ({ ...prev, searchQuery: query }));
   };
 
+  const handlePhysicsChange = <K extends keyof PhysicsConfig>(key: K, value: number) => {
+    setPhysics((prev) => {
+      const next = { ...prev, [key]: value };
+      engineRef.current?.setPhysics({ [key]: value });
+      return next;
+    });
+  };
+
+  const handleResetPhysics = () => {
+    setPhysics(DEFAULT_PHYSICS_CONFIG);
+    engineRef.current?.setPhysics(DEFAULT_PHYSICS_CONFIG);
+  };
+
   const resetCamera = () => {
     if (engineRef.current) {
       engineRef.current.zoomToFit();
@@ -154,6 +170,108 @@ export default function App() {
     <div className="app-container">
       {/* Capa 3: Lienzo del Grafo 3D */}
       <div ref={containerRef} className="graph-canvas" />
+
+      {/* Panel Superior Desplegable: Calibración Física del Grafo */}
+      <DockBar
+        position="top"
+        defaultCollapsed={true}
+        title="Física y Espaciado de la Red"
+        subtitle="Calibración de distancias mínimas, dispersión y gravedad central"
+        headerActions={
+          <button
+            type="button"
+            className="physics-reset-btn"
+            onClick={handleResetPhysics}
+            title="Restablecer valores predeterminados"
+          >
+            Restablecer
+          </button>
+        }
+        ariaLabel="Panel de calibración física del grafo"
+        className="physics-top-dock"
+      >
+        <div className="physics-controls-grid">
+          {/* Slider 1: Distancia Mínima Anticolisión */}
+          <div className="physics-control-item">
+            <div className="physics-control-header">
+              <span className="physics-control-label">Distancia mínima (Colisión)</span>
+              <span className="physics-control-value">{physics.minDistance} px</span>
+            </div>
+            <input
+              type="range"
+              min="5"
+              max="60"
+              step="1"
+              value={physics.minDistance}
+              onChange={(e) => handlePhysicsChange('minDistance', Number(e.target.value))}
+              className="physics-slider"
+            />
+            <span className="physics-control-hint">
+              Espacio libre garantizado entre nodos para evitar solapamientos.
+            </span>
+          </div>
+
+          {/* Slider 2: Cohesión Central (Gravedad) */}
+          <div className="physics-control-item">
+            <div className="physics-control-header">
+              <span className="physics-control-label">Cohesión central (Gravedad)</span>
+              <span className="physics-control-value">{physics.gravity.toFixed(3)}</span>
+            </div>
+            <input
+              type="range"
+              min="0.005"
+              max="0.100"
+              step="0.005"
+              value={physics.gravity}
+              onChange={(e) => handlePhysicsChange('gravity', Number(e.target.value))}
+              className="physics-slider"
+            />
+            <span className="physics-control-hint">
+              Mantiene a los nodos agrupados sin alejarse indefinidamente.
+            </span>
+          </div>
+
+          {/* Slider 3: Repulsión (Dispersión) */}
+          <div className="physics-control-item">
+            <div className="physics-control-header">
+              <span className="physics-control-label">Repulsión mutua</span>
+              <span className="physics-control-value">{physics.repulsion}</span>
+            </div>
+            <input
+              type="range"
+              min="10"
+              max="250"
+              step="5"
+              value={physics.repulsion}
+              onChange={(e) => handlePhysicsChange('repulsion', Number(e.target.value))}
+              className="physics-slider"
+            />
+            <span className="physics-control-hint">
+              Fuerza de separación entre nodos para abrir la constelación.
+            </span>
+          </div>
+
+          {/* Slider 4: Distancia de Vínculos con Criterios */}
+          <div className="physics-control-item">
+            <div className="physics-control-header">
+              <span className="physics-control-label">Distancia de criterios</span>
+              <span className="physics-control-value">{physics.linkDistance} px</span>
+            </div>
+            <input
+              type="range"
+              min="20"
+              max="140"
+              step="5"
+              value={physics.linkDistance}
+              onChange={(e) => handlePhysicsChange('linkDistance', Number(e.target.value))}
+              className="physics-slider"
+            />
+            <span className="physics-control-hint">
+              Distancia de atracción hacia los nodos de criterio verdes.
+            </span>
+          </div>
+        </div>
+      </DockBar>
 
       {/* Barra Lateral Reutilizable (en posición izquierda) */}
       <DockBar
@@ -211,11 +329,26 @@ export default function App() {
         </div>
       </DockBar>
 
-      {/* Tarjeta de Información de Actor Seleccionado (Flotante) */}
+      {/* Tarjeta de Información de Actor o Criterio Seleccionado (Flotante) */}
       {selectedActor && (
         <div className="info-card-floating">
           <div className="info-card-header-bar">
-            <span className="info-card-badge">Artista Seleccionado</span>
+            <span
+              className="info-card-badge"
+              style={
+                selectedActor.tipo === 'criterio'
+                  ? {
+                      background: 'rgba(34, 197, 94, 0.15)',
+                      color: '#4ade80',
+                      borderColor: 'rgba(34, 197, 94, 0.3)',
+                    }
+                  : undefined
+              }
+            >
+              {selectedActor.tipo === 'criterio'
+                ? 'Criterio de Lectura'
+                : 'Artista Seleccionado'}
+            </span>
             <button
               type="button"
               className="info-card-close"
@@ -227,95 +360,115 @@ export default function App() {
           </div>
           <div
             className="info-card-title"
-            style={{ color: ACTOR_TYPE_META[selectedActor.tipo]?.color || '#f8fafc' }}
+            style={{
+              color:
+                selectedActor.tipo === 'criterio'
+                  ? '#4ade80'
+                  : ACTOR_TYPE_META[selectedActor.tipo]?.color || '#f8fafc',
+            }}
           >
             {selectedActor.nombre}
           </div>
           <div className="info-card-body">
-            {selectedActor.biografia && (
-              <div className="info-card-bio">
-                {selectedActor.biografia}
-              </div>
-            )}
-            {selectedActor.anio_nacimiento && (
-              <div>
-                <strong>Nacimiento:</strong> {selectedActor.anio_nacimiento}
-              </div>
-            )}
-            {selectedActor.disciplina && (
-              <div>
-                <strong>Disciplina:</strong> {selectedActor.disciplina}
-              </div>
-            )}
-            {selectedActor.materiales && selectedActor.materiales.length > 0 && (
-              <div>
-                <strong>Trabaja con:</strong> {selectedActor.materiales.join(', ')}
-              </div>
-            )}
-            {selectedActor.practicas && selectedActor.practicas.length > 0 && (
-              <div>
-                <strong>Produce:</strong> {selectedActor.practicas.join(', ')}
-              </div>
-            )}
-            {selectedActor.conceptos && selectedActor.conceptos.length > 0 && (
-              <div>
-                <strong>Indaga en:</strong> {selectedActor.conceptos.join(', ')}
-              </div>
-            )}
-            {selectedActor.galerias && selectedActor.galerias.length > 0 && (
-              <div>
-                <strong>Expone en galerías:</strong> {selectedActor.galerias.join(', ')}
-              </div>
-            )}
-            {selectedActor.instituciones && selectedActor.instituciones.length > 0 && (
-              <div>
-                <strong>Vinculado a instituciones:</strong> {selectedActor.instituciones.join(', ')}
-              </div>
-            )}
-            {selectedActor.curadores && selectedActor.curadores.length > 0 && (
-              <div>
-                <strong>Articulado con curadores y críticos:</strong> {selectedActor.curadores.join(', ')}
-              </div>
-            )}
-            {selectedActor.coleccionistas && selectedActor.coleccionistas.length > 0 && (
-              <div>
-                <strong>Apoyado por fondos y colecciones:</strong> {selectedActor.coleccionistas.join(', ')}
-              </div>
-            )}
-            {selectedActor.residencias && selectedActor.residencias.length > 0 && (
-              <div>
-                <strong>Participó en residencias:</strong> {selectedActor.residencias.join(', ')}
-              </div>
-            )}
-            {selectedActor.exhibiciones && selectedActor.exhibiciones.length > 0 && (
-              <div>
-                <strong>Exhibió en:</strong> {selectedActor.exhibiciones.join(', ')}
-              </div>
-            )}
-            {selectedActor.geografias && selectedActor.geografias.length > 0 && (
-              <div>
-                <strong>Radicado en:</strong> {selectedActor.geografias.join(', ')}
-              </div>
-            )}
-            {selectedActor.formacion && selectedActor.formacion.length > 0 && (
-              <div>
-                <strong>Se formó en:</strong> {selectedActor.formacion.join(', ')}
-              </div>
-            )}
-            {selectedActor.circulacion && selectedActor.circulacion.length > 0 && (
-              <div>
-                <strong>Circula en:</strong> {selectedActor.circulacion.join(', ')}
-              </div>
-            )}
-            {selectedActor.personas && selectedActor.personas.length > 0 && (
-              <div>
-                <strong>Se desempeña como:</strong> {selectedActor.personas.join(', ')}
-              </div>
-            )}
-            {(selectedActor.ciudad || selectedActor.pais) && (
-              <div style={{ marginTop: '6px', color: '#94a3b8', fontSize: '11px' }}>
-                📍 {[selectedActor.ciudad, selectedActor.pais].filter(Boolean).join(', ')}
-              </div>
+            {selectedActor.tipo === 'criterio' ? (
+              <>
+                <div>
+                  <strong>Criterio:</strong> {selectedActor.categoriaNombre || selectedActor.categoriaId}
+                </div>
+                {selectedActor.conectadosCount !== undefined && (
+                  <div style={{ marginTop: '4px' }}>
+                    <strong>Artistas vinculados:</strong> {selectedActor.conectadosCount}
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {selectedActor.biografia && (
+                  <div className="info-card-bio">
+                    {selectedActor.biografia}
+                  </div>
+                )}
+                {selectedActor.anio_nacimiento && (
+                  <div>
+                    <strong>Nacimiento:</strong> {selectedActor.anio_nacimiento}
+                  </div>
+                )}
+                {selectedActor.disciplina && (
+                  <div>
+                    <strong>Disciplina:</strong> {selectedActor.disciplina}
+                  </div>
+                )}
+                {selectedActor.materiales && selectedActor.materiales.length > 0 && (
+                  <div>
+                    <strong>Trabaja con:</strong> {selectedActor.materiales.join(', ')}
+                  </div>
+                )}
+                {selectedActor.practicas && selectedActor.practicas.length > 0 && (
+                  <div>
+                    <strong>Produce:</strong> {selectedActor.practicas.join(', ')}
+                  </div>
+                )}
+                {selectedActor.conceptos && selectedActor.conceptos.length > 0 && (
+                  <div>
+                    <strong>Indaga en:</strong> {selectedActor.conceptos.join(', ')}
+                  </div>
+                )}
+                {selectedActor.galerias && selectedActor.galerias.length > 0 && (
+                  <div>
+                    <strong>Expone en galerías:</strong> {selectedActor.galerias.join(', ')}
+                  </div>
+                )}
+                {selectedActor.instituciones && selectedActor.instituciones.length > 0 && (
+                  <div>
+                    <strong>Vinculado a instituciones:</strong> {selectedActor.instituciones.join(', ')}
+                  </div>
+                )}
+                {selectedActor.curadores && selectedActor.curadores.length > 0 && (
+                  <div>
+                    <strong>Articulado con curadores y críticos:</strong> {selectedActor.curadores.join(', ')}
+                  </div>
+                )}
+                {selectedActor.coleccionistas && selectedActor.coleccionistas.length > 0 && (
+                  <div>
+                    <strong>Apoyado por fondos y colecciones:</strong> {selectedActor.coleccionistas.join(', ')}
+                  </div>
+                )}
+                {selectedActor.residencias && selectedActor.residencias.length > 0 && (
+                  <div>
+                    <strong>Participó en residencias:</strong> {selectedActor.residencias.join(', ')}
+                  </div>
+                )}
+                {selectedActor.exhibiciones && selectedActor.exhibiciones.length > 0 && (
+                  <div>
+                    <strong>Exhibió en:</strong> {selectedActor.exhibiciones.join(', ')}
+                  </div>
+                )}
+                {selectedActor.geografias && selectedActor.geografias.length > 0 && (
+                  <div>
+                    <strong>Radicado en:</strong> {selectedActor.geografias.join(', ')}
+                  </div>
+                )}
+                {selectedActor.formacion && selectedActor.formacion.length > 0 && (
+                  <div>
+                    <strong>Se formó en:</strong> {selectedActor.formacion.join(', ')}
+                  </div>
+                )}
+                {selectedActor.circulacion && selectedActor.circulacion.length > 0 && (
+                  <div>
+                    <strong>Circula en:</strong> {selectedActor.circulacion.join(', ')}
+                  </div>
+                )}
+                {selectedActor.personas && selectedActor.personas.length > 0 && (
+                  <div>
+                    <strong>Se desempeña como:</strong> {selectedActor.personas.join(', ')}
+                  </div>
+                )}
+                {(selectedActor.ciudad || selectedActor.pais) && (
+                  <div style={{ marginTop: '6px', color: '#94a3b8', fontSize: '11px' }}>
+                    📍 {[selectedActor.ciudad, selectedActor.pais].filter(Boolean).join(', ')}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

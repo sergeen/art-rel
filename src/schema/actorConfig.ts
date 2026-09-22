@@ -38,12 +38,22 @@ export const ACTOR_TYPE_META: Record<
     baseVal: 15,
     description: 'Inversionistas, fondos patrimoniales y mecenas',
   },
+  criterio: {
+    label: 'Criterio de Lectura',
+    color: '#22c55e', // Verde distinguido para cualquier criterio
+    baseVal: 16,
+    description: 'Criterio sociológico de agrupación',
+  },
 };
 
 /**
  * Regla de color para un actor: basada en su tipo sociológico.
+ * Cualquier criterio se muestra en verde (#22c55e).
  */
 export function getActorColor(actor: ActorSemantic): string {
+  if (actor.tipo === 'criterio') {
+    return '#22c55e';
+  }
   const meta = ACTOR_TYPE_META[actor.tipo];
   return meta ? meta.color : '#94a3b8';
 }
@@ -53,6 +63,10 @@ export function getActorColor(actor: ActorSemantic): string {
  * Modulado según la trayectoria y tipo de institución.
  */
 export function getActorVal(actor: ActorSemantic): number {
+  if (actor.tipo === 'criterio') {
+    return 16;
+  }
+
   const meta = ACTOR_TYPE_META[actor.tipo];
   let val = meta ? meta.baseVal : 10;
 
@@ -68,9 +82,22 @@ export function getActorVal(actor: ActorSemantic): number {
 }
 
 /**
- * Regla de generación de tooltip/etiqueta HTML para el actor.
+ * Regla de generación de tooltip/etiqueta HTML para el actor o criterio.
  */
 export function getActorLabel(actor: ActorSemantic): string {
+  if (actor.tipo === 'criterio') {
+    const catLabel = actor.categoriaNombre || 'Criterio de Lectura';
+    return `
+      <div style="background: rgba(15, 23, 42, 0.95); padding: 10px 14px; border-radius: 8px; font-family: system-ui, sans-serif; font-size: 12px; border: 1px solid rgba(34, 197, 94, 0.4); box-shadow: 0 8px 24px rgba(0,0,0,0.6); max-width: 240px;">
+        <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #4ade80; font-weight: 700; margin-bottom: 3px;">
+          ${catLabel}
+        </div>
+        <strong style="color: #f8fafc; font-size: 14px; display: block; margin-bottom: 4px;">${actor.nombre}</strong>
+        ${actor.conectadosCount !== undefined ? `<div style="color: #cbd5e1; font-size: 11px;">${actor.conectadosCount} artistas vinculados</div>` : ''}
+      </div>
+    `;
+  }
+
   const color = getActorColor(actor);
   const typeMeta = ACTOR_TYPE_META[actor.tipo];
   const typeLabel = typeMeta ? typeMeta.label : actor.tipo;

@@ -95,19 +95,35 @@ export const LINK_TYPE_META: Record<
     particles: 1,
     speed: 0.003,
   },
+  criterio_vinculo: {
+    label: 'Vínculo por Criterio',
+    color: 'rgba(34, 197, 94, 0.45)', // Verde sutil acorde al nodo de criterio
+    width: 1.2,
+    particles: 0,
+    speed: 0.003,
+  },
 };
 
 export function getLinkColor(relacion: RelacionSemantic): string {
+  if (relacion.tipo === 'criterio_vinculo') {
+    return 'rgba(34, 197, 94, 0.45)';
+  }
   const meta = LINK_TYPE_META[relacion.tipo];
   return meta ? meta.color : 'rgba(255, 255, 255, 0.2)';
 }
 
 export function getLinkWidth(relacion: RelacionSemantic): number {
+  if (relacion.tipo === 'criterio_vinculo') {
+    return 1.2;
+  }
   const meta = LINK_TYPE_META[relacion.tipo];
   return meta ? meta.width : 1;
 }
 
 export function getLinkParticles(relacion: RelacionSemantic): number {
+  if (relacion.tipo === 'criterio_vinculo') {
+    return 0;
+  }
   const meta = LINK_TYPE_META[relacion.tipo];
   return meta ? meta.particles : 1;
 }
@@ -118,6 +134,16 @@ export function getLinkParticleSpeed(relacion: RelacionSemantic): number {
 }
 
 export function getLinkLabel(relacion: RelacionSemantic): string {
+  if (relacion.tipo === 'criterio_vinculo') {
+    const label = relacion.criterioLabel || 'Criterio';
+    const val = relacion.criterioValor || '';
+    return `
+      <div style="background: rgba(15, 23, 42, 0.9); padding: 6px 10px; border-radius: 6px; font-family: system-ui, sans-serif; font-size: 11px; border: 1px solid rgba(34, 197, 94, 0.3); color: #f1f5f9;">
+        <strong style="color: #4ade80;">${label}:</strong> ${val}
+      </div>
+    `;
+  }
+
   const meta = LINK_TYPE_META[relacion.tipo];
   const typeLabel = meta ? meta.label : relacion.tipo;
   const yearText = relacion.anio_inicio ? ` (${relacion.anio_inicio})` : '';

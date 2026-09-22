@@ -1,4 +1,4 @@
-export type ActorTipo = 'artista' | 'galeria' | 'institucion' | 'curador' | 'coleccionista';
+export type ActorTipo = 'artista' | 'galeria' | 'institucion' | 'curador' | 'coleccionista' | 'criterio';
 
 export interface ActorSemantic {
   id: string;
@@ -24,6 +24,20 @@ export interface ActorSemantic {
 
   biografia?: string;
   anio_nacimiento?: number;
+
+  // Propiedades para nodos dinámicos de criterio
+  categoriaId?: string;
+  categoriaNombre?: string;
+  criterioValor?: string;
+  conectadosCount?: number;
+
+  // Coordenadas espaciales de la simulación 3D
+  x?: number;
+  y?: number;
+  z?: number;
+  vx?: number;
+  vy?: number;
+  vz?: number;
 
   // Categorías sociológicas de criterios de lectura
   personas?: string[];
@@ -56,7 +70,8 @@ export type RelacionTipo =
   | 'donacion_mecenazgo'
   | 'beca_patrocinio'
   | 'residencia_taller'
-  | 'prestamo_institucional';
+  | 'prestamo_institucional'
+  | 'criterio_vinculo';
 
 export interface RelacionSemantic {
   source: string;
@@ -65,6 +80,9 @@ export interface RelacionSemantic {
   formalidad?: string;
   anio_inicio?: number;
   descripcion?: string;
+  categoriaId?: string;
+  criterioValor?: string;
+  criterioLabel?: string;
   [key: string]: unknown;
 }
 
@@ -93,4 +111,19 @@ export interface FilterState {
   };
   activeCategoriesOnly?: Set<string>;
 }
+
+export interface PhysicsConfig {
+  minDistance: number;   // Distancia mínima anticolisión entre nodos (px)
+  repulsion: number;     // Fuerza de repulsión electrostática (ManyBody)
+  gravity: number;       // Cohesión central / gravedad radial (evita dispersión infinita)
+  linkDistance: number;  // Distancia ideal de los enlaces hacia nodos de criterio
+}
+
+export const DEFAULT_PHYSICS_CONFIG: PhysicsConfig = {
+  minDistance: 20,
+  repulsion: 90,
+  gravity: 0.035,
+  linkDistance: 45,
+};
+
 
