@@ -1,0 +1,138 @@
+[
+  {
+    "source": "art-1",
+    "target": "gal-1",
+    "tipo": "representacion_comercial",
+    "formalidad": "contrato_exclusividad",
+    "anio_inicio": 1978,
+    "descripcion": "Representación de obra histórica y catálogo"
+  },
+  {
+    "source": "art-2",
+    "target": "gal-1",
+    "tipo": "representacion_comercial",
+    "formalidad": "representacion_regular",
+    "anio_inicio": 1995,
+    "descripcion": "Gestión de obra seriada y escultura"
+  },
+  {
+    "source": "art-3",
+    "target": "gal-2",
+    "tipo": "representacion_comercial",
+    "formalidad": "representacion_internacional",
+    "anio_inicio": 2010,
+    "descripcion": "Presencia en circuitos de ferias globales (Art Basel, Frieze)"
+  },
+  {
+    "source": "art-4",
+    "target": "gal-2",
+    "tipo": "representacion_comercial",
+    "formalidad": "mega_galeria_exclusiva",
+    "anio_inicio": 1998,
+    "descripcion": "Representación global y publicaciones monográficas"
+  },
+  {
+    "source": "art-5",
+    "target": "inst-3",
+    "tipo": "residencia_taller",
+    "formalidad": "beca_autogestionada",
+    "anio_inicio": 2023,
+    "descripcion": "Proyecto de investigación en laboratorio de bioarte"
+  },
+  {
+    "source": "art-1",
+    "target": "inst-1",
+    "tipo": "adquisicion_patrimonial",
+    "formalidad": "compra_patrimonio_publico",
+    "anio_inicio": 1984,
+    "descripcion": "Incorporación a colección permanente estatal"
+  },
+  {
+    "source": "art-2",
+    "target": "inst-2",
+    "tipo": "consagracion_bienal",
+    "formalidad": "premio_oficial",
+    "anio_inicio": 2007,
+    "descripcion": "León de Oro por trayectoria artística"
+  },
+  {
+    "source": "art-3",
+    "target": "inst-1",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "exposicion_mayor",
+    "anio_inicio": 2015,
+    "descripcion": "Gran muestra antológica de happenings e instalaciones"
+  },
+  {
+    "source": "art-4",
+    "target": "inst-1",
+    "tipo": "retrospectiva_individual",
+    "formalidad": "exposicion_itinerante",
+    "anio_inicio": 2005,
+    "descripcion": "Exhibición retrospectiva en museo de primera línea"
+  },
+  {
+    "source": "cur-1",
+    "target": "inst-2",
+    "tipo": "curaduria_general",
+    "formalidad": "designacion_comite",
+    "anio_inicio": 2004,
+    "descripcion": "Curaduría de pabellón y eje conceptual"
+  },
+  {
+    "source": "cur-1",
+    "target": "art-2",
+    "tipo": "critica_y_teoria",
+    "formalidad": "investigacion_academica",
+    "anio_inicio": 2001,
+    "descripcion": "Monografía teórica y legitimación historiográfica"
+  },
+  {
+    "source": "cur-2",
+    "target": "inst-1",
+    "tipo": "direccion_curatorial",
+    "formalidad": "cargo_permanente",
+    "anio_inicio": 1990,
+    "descripcion": "Dirección del departamento de arte latinoamericano"
+  },
+  {
+    "source": "cur-2",
+    "target": "art-1",
+    "tipo": "recuperacion_archivistica",
+    "formalidad": "investigacion_patrimonial",
+    "anio_inicio": 1999,
+    "descripcion": "Puesta en valor de archivos de obra y registro performático"
+  },
+  {
+    "source": "col-1",
+    "target": "gal-1",
+    "tipo": "adquisicion_mercado",
+    "formalidad": "transaccion_primaria",
+    "anio_inicio": 2002,
+    "descripcion": "Compra continuada de piezas para colección corporativa/privada"
+  },
+  {
+    "source": "col-1",
+    "target": "inst-1",
+    "tipo": "donacion_mecenazgo",
+    "formalidad": "comodato_donacion",
+    "anio_inicio": 2012,
+    "descripcion": "Donación de conjunto de piezas clave al fondo público"
+  },
+  {
+    "source": "col-2",
+    "target": "art-5",
+    "tipo": "beca_patrocinio",
+    "formalidad": "premio_estimulo",
+    "anio_inicio": 2024,
+    "descripcion": "Financiamiento de producción y materiales"
+  },
+  {
+    "source": "gal-1",
+    "target": "inst-1",
+    "tipo": "prestamo_institucional",
+    "formalidad": "acuerdo_temporal",
+    "anio_inicio": 2018,
+    "descripcion": "Préstamo de obras para exhibiciones temporales de museo"
+  }
+]

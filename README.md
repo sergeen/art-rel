@@ -1,6 +1,12 @@
 # Art-Rel
 
-Estudio sociológico de las relaciones y legitimación en el mundo del arte mediante visualización tridimensional con [3d-force-graph](https://github.com/vasturiano/3d-force-graph).
+Estudio sociológico de las relaciones en el mundo del arte mediante visualización tridimensional con [3d-force-graph](https://github.com/vasturiano/3d-force-graph).
+
+## Arquitectura (Data - Transform - Visual)
+
+- **Capa 1 (`src/data/`)**: Ontología sociológica en JSON puro (`actores.json`, `relaciones.json`). Sin propiedades visuales.
+- **Capa 2 (`src/schema/`)**: Reglas declarativas que mapean atributos semánticos a visuales (`actorConfig.ts`, `linkConfig.ts`, `filterRules.ts`).
+- **Capa 3 (`src/renderer/`)**: Motor agnóstico (`graphEngine.ts`) que ejecuta `3d-force-graph` siguiendo estrictamente el schema.
 
 ## Puesta a punto
 
@@ -8,7 +14,7 @@ Estudio sociológico de las relaciones y legitimación en el mundo del arte medi
 # Instalar dependencias
 npm install
 
-# Iniciar servidor de desarrollo
+# Servidor de desarrollo local
 npm run dev
 
 # Compilar para producción

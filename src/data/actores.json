@@ -1,0 +1,126 @@
+[
+  {
+    "id": "art-1",
+    "nombre": "Ana Mendieta",
+    "tipo": "artista",
+    "disciplina": "Performance / Arte Conceptual / Body Art",
+    "pais": "Cuba / EE.UU.",
+    "trayectoria": "historica",
+    "capital_simbolico": "alto",
+    "circuito_principal": "institucional"
+  },
+  {
+    "id": "art-2",
+    "nombre": "León Ferrari",
+    "tipo": "artista",
+    "disciplina": "Collage / Escultura / Crítica Institucional",
+    "pais": "Argentina",
+    "trayectoria": "historica",
+    "capital_simbolico": "alto",
+    "circuito_principal": "bienal"
+  },
+  {
+    "id": "art-3",
+    "nombre": "Marta Minujín",
+    "tipo": "artista",
+    "disciplina": "Pop Art / Happenings / Instalación",
+    "pais": "Argentina",
+    "trayectoria": "consagrada",
+    "capital_simbolico": "alto",
+    "circuito_principal": "mixto"
+  },
+  {
+    "id": "art-4",
+    "nombre": "Gabriel Orozco",
+    "tipo": "artista",
+    "disciplina": "Escultura / Fotografía Contemporánea",
+    "pais": "México",
+    "trayectoria": "consagrada",
+    "capital_simbolico": "alto",
+    "circuito_principal": "mercado_global"
+  },
+  {
+    "id": "art-5",
+    "nombre": "Camila O'Gorman (Emergente)",
+    "tipo": "artista",
+    "disciplina": "Bio-arte / Nuevos Medios",
+    "pais": "Argentina",
+    "trayectoria": "emergente",
+    "capital_simbolico": "medio",
+    "circuito_principal": "independiente"
+  },
+  {
+    "id": "gal-1",
+    "nombre": "Galería Sur Global",
+    "tipo": "galeria",
+    "modelo": "comercial_primario",
+    "alcance": "regional",
+    "ciudad": "Buenos Aires",
+    "antiguedad_anios": 18
+  },
+  {
+    "id": "gal-2",
+    "nombre": "White Cube International",
+    "tipo": "galeria",
+    "modelo": "mega_galeria",
+    "alcance": "global",
+    "ciudad": "Londres / Nueva York",
+    "antiguedad_anios": 32
+  },
+  {
+    "id": "inst-1",
+    "nombre": "Museo de Arte Moderno (MAM)",
+    "tipo": "institucion",
+    "subtipo": "museo_publico",
+    "rol_campo": "consagracion_historica",
+    "ciudad": "Buenos Aires"
+  },
+  {
+    "id": "inst-2",
+    "nombre": "Bienal Internacional de Venecia",
+    "tipo": "institucion",
+    "subtipo": "bienal",
+    "rol_campo": "legitimacion_global",
+    "ciudad": "Venecia"
+  },
+  {
+    "id": "inst-3",
+    "nombre": "Espacio Autogestionado Radar",
+    "tipo": "institucion",
+    "subtipo": "espacio_independiente",
+    "rol_campo": "experimentacion_emergencia",
+    "ciudad": "Córdoba"
+  },
+  {
+    "id": "cur-1",
+    "nombre": "Gerardo Mosquera",
+    "tipo": "curador",
+    "perfil": "teorico_independiente",
+    "campo_especialidad": "Arte Latinoamericano y Descentralización",
+    "reconocimiento": "internacional"
+  },
+  {
+    "id": "cur-2",
+    "nombre": "Mari Carmen Ramírez",
+    "tipo": "curador",
+    "perfil": "curador_institucional",
+    "campo_especialidad": "Coleccionismo y Archivos de Vanguardia",
+    "reconocimiento": "internacional"
+  },
+  {
+    "id": "col-1",
+    "nombre": "Colección Privada Phelps",
+    "tipo": "coleccionista",
+    "tipo_fondo": "fundacion_familiar",
+    "foco_adquisicion": "Abstracción Geométrica y Conceptualismo",
+    "capacidad_inversion": "muy_alta"
+  },
+  {
+    "id": "col-2",
+    "nombre": "Fideicomiso de Arte Joven Bemberg",
+    "tipo": "coleccionista",
+    "tipo_fondo": "fideicomiso_mecenazgo",
+    "foco_adquisicion": "Producción Emergente y Becas de Taller",
+    "capacidad_inversion": "media"
+  }
+]
